@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Property Details | NaijaHomes</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="hh-page-body">
+
+  <!-- Global Header Banner -->
+  <header class="hh-global-banner">
+    <a href="../index.html" class="hh-brand-logo">
+      <div class="hh-logo-icon" style="background: #008751; color: #ffffff;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px;">NAIJA<span style="color: #008751;">HOMES</span></span>
+      </div>
+    </a>
+
+    <!-- Mobile Hamburger Menu Button -->
+    <button type="button" class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+    </button>
+
+    <!-- Clean Production Navigation Links -->
+    <nav class="hh-main-nav" aria-label="Main Navigation">
+      <a href="../index.html" class="hh-nav-link">Home</a>
+      <a href="explore.html?purpose=sale" class="hh-nav-link active">Buy</a>
+      <a href="explore.html?purpose=rent" class="hh-nav-link">Rent</a>
+      <a href="explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
+      <a href="explore.html?purpose=land" class="hh-nav-link">Land</a>
+      <a href="map.html" class="hh-nav-link">Google Maps</a>
+      <a href="messages.html" class="hh-nav-link">Inspection Desk</a>
+      <a href="saved.html" class="hh-nav-link">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hh-nav-actions" style="gap: 12px;">
+      <div class="nh-currency-group">
+        <button type="button" class="nh-currency-btn active" id="btnNgn">₦ NGN</button>
+        <button type="button" class="nh-currency-btn" id="btnUsd">$ USD</button>
+      </div>
+
+      <button type="button" class="nh-btn-post" id="btnOpenSell">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Post a Property
+      </button>
+
+      <div class="nh-auth-container" id="nhAuthContainer"></div>
+    </div>
+  </header>
+
+  <!-- Full-Width Responsive Container -->
+  <main class="hh-device-shell" role="region" aria-label="Property Detail View">
+    <div class="hh-page-content-wrapper" style="max-width: 1200px;">
+
+      <!-- Breadcrumbs & Verified Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+        <div style="font-size: 0.85rem; color: #64748b;">
+          <a href="index.html" style="color: #008751; font-weight: 700; text-decoration: none;">NaijaHomes</a> &bull;
+          <a href="explore.html" id="breadcrumbPurpose" style="color: #64748b; text-decoration: none;">Properties</a> &bull;
+          <span id="breadcrumbLocation" style="color: #0f172a; font-weight: 700;">Lekki Phase 1, Lagos</span>
+        </div>
+
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="nh-doc-badge gov-consent" id="detailDocBadge">✓ Governor's Consent Charted</span>
+          <span style="background: #ecfdf5; color: #008751; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">
+            100% Free Physical Inspection
+          </span>
+          <button type="button" id="btnSaveDetail" class="hh-btn-fav" title="Save Listing" style="width: 32px; height: 32px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Detail Grid (2-Column Layout) -->
+      <div class="hh-detail-grid">
+        
+        <!-- Left Column: Gallery & Property Overview -->
+        <div>
+          <!-- Hero Main Image -->
+          <div class="hh-detail-hero-box" style="border-radius: 20px; overflow: hidden; height: 440px; margin-bottom: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.06); position: relative;">
+            <img id="detailMainImg" src="" alt="Property" style="width: 100%; height: 100%; object-fit: cover;">
+            <span style="position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); color: #ffffff; padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;" id="photoCountBadge">
+              📷 High-Resolution Verified Photos
+            </span>
+            <span style="position: absolute; top: 16px; right: 16px; background: #008751; color: #ffffff; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;" id="purposeBadge">
+              FOR SALE
+            </span>
+          </div>
+
+          <!-- Thumbnails Row -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px;" id="detailThumbsRow">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- Title & Location Bar -->
+          <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 24px; margin-bottom: 24px;">
+            <h1 id="detailTitle" style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin: 0 0 8px; line-height: 1.3;">
+              Property Title
+            </h1>
+            <p id="detailLocation" style="color: #64748b; font-size: 0.95rem; margin: 0; display: flex; align-items: center; gap: 6px;">
+              <span>📍</span> <span>Location</span>
+            </p>
+          </div>
+
+          <!-- Property Description -->
+          <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 28px; margin-bottom: 24px;">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 12px;">Property Description</h3>
+            <p id="detailDesc" style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin: 0 0 16px;">
+              Description
+            </p>
+          </div>
+
+          <!-- Key Amenities Grid -->
+          <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 28px; margin-bottom: 24px;">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 16px;">Key Features &amp; Infrastructure</h3>
+            
+            <div id="detailFeaturesList" class="hh-features-list-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <!-- Interactive Mortgage / Payment Milestone Calculator -->
+          <div style="background: #ffffff; border-radius: 20px; border: 1px solid #e2e8f0; padding: 28px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <span style="font-size: 1.4rem;">🧮</span>
+              <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0;">Naija Mortgage &amp; Payment Calculator</h3>
+            </div>
+            <p style="color: #64748b; font-size: 0.88rem; margin: 0 0 20px;">
+              Estimate your monthly payment or structured milestone payment plan in Naira.
+            </p>
+
+            <div class="hh-calc-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px;">
+              <div>
+                <label style="font-size: 0.78rem; font-weight: 800; color: #475569; display: block; margin-bottom: 6px;">
+                  Initial Down Payment (<span id="calcDepositPercent">30</span>%)
+                </label>
+                <input type="range" id="sliderDeposit" min="10" max="60" value="30" step="5" style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 4px;">
+                  <span>10%</span>
+                  <span id="calcDepositVal">₦105,000,000</span>
+                  <span>60%</span>
+                </div>
+              </div>
+
+              <div>
+                <label style="font-size: 0.78rem; font-weight: 800; color: #475569; display: block; margin-bottom: 6px;">
+                  Payment Tenor (<span id="calcYearsVal">5</span> Years)
+                </label>
+                <input type="range" id="sliderYears" min="1" max="15" value="5" step="1" style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 4px;">
+                  <span>1 Year</span>
+                  <span>15 Years</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 700; color: #166534;">Estimated Monthly Outlay</div>
+                <div style="font-size: 0.75rem; color: #15803d;">Assuming 15% annual mortgage or developer financing</div>
+              </div>
+              <div id="calcMonthlyResult" style="font-size: 1.45rem; font-weight: 900; color: #008751;">
+                ₦5,827,000 / mo
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Price, Booking, Agent & Google Maps -->
+        <div>
+          
+          <!-- Price Card -->
+          <div class="hh-price-card" style="background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 24px; position: sticky; top: 90px;">
+            <div style="font-size: 0.8rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 4px;">Price &amp; Terms</div>
+            
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px;">
+              <span id="detailPrice" data-price-ngn="350000000" style="font-size: 2.2rem; font-weight: 800; color: #008751; letter-spacing: -0.5px;">
+                ₦350,000,000
+              </span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: #64748b; margin: 0 0 20px;">
+              Verified Title Document available for immediate legal search at State Lands Bureau.
+            </p>
+
+            <!-- Specs Grid -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; text-align: center; margin-bottom: 24px;">
+              <div>
+                <div id="specBeds" style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">5</div>
+                <div style="font-size: 0.72rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Bedrooms</div>
+              </div>
+              <div>
+                <div id="specBaths" style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">6</div>
+                <div style="font-size: 0.72rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Bathrooms</div>
+              </div>
+              <div>
+                <div id="specLand" style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">600</div>
+                <div style="font-size: 0.72rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Land SQM</div>
+              </div>
+            </div>
+
+            <!-- Booking & Contact Actions -->
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- WhatsApp Button -->
+              <button type="button" id="btnDetailWhatsApp" class="nh-btn-whatsapp" style="justify-content: center; padding: 14px; font-size: 0.95rem; border-radius: 12px;">
+                <span>💬 Chat on WhatsApp with Agent</span>
+              </button>
+
+              <!-- Schedule Inspection Button -->
+              <button type="button" id="btnDetailInsp" style="background: #008751; color: #ffffff; border: none; padding: 14px; border-radius: 12px; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: background 0.2s;">
+                <span>📅 Schedule Free Physical Inspection</span>
+              </button>
+
+              <!-- Direct Message Inspection Desk -->
+              <a href="messages.html" id="btnDetailMessage" style="text-align: center; background: #f0fdf4; color: #008751; border: 1px solid #bbf7d0; font-weight: 800; font-size: 0.88rem; padding: 12px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                ✉️ Direct Message Inspection Desk
+              </a>
+
+              <!-- Google Maps Directions Link -->
+              <a href="map.html" id="btnGoogleMapDir" style="text-align: center; background: #e8f0fe; color: #1a73e8; font-weight: 800; font-size: 0.88rem; padding: 12px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                View on Google Maps &bull; Live Traffic
+              </a>
+
+              <a id="btnDetailCall" href="#" style="text-align: center; background: #f1f5f9; color: #0f172a; font-weight: 800; font-size: 0.88rem; padding: 12px; border-radius: 12px; text-decoration: none; display: none;">
+                📞 Call Contact
+              </a>
+            </div>
+
+            <!-- Listing Contact Profile Card -->
+            <div style="background: #f8fafc; border-radius: 16px; border: 1px solid #e2e8f0; padding: 18px; margin-top: 24px; display: flex; align-items: center; gap: 14px;">
+              <div id="detailAgentAvatar" style="width: 58px; height: 58px; border-radius: 50%; background: #008751; color: #fff; font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; justify-content: center;">👤</div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 0.7rem; color: #008751; font-weight: 800; text-transform: uppercase;">Listing Contact</div>
+                <h4 id="detailAgentName" style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 2px 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Property Owner</h4>
+                <p id="detailAgentCompany" style="font-size: 0.78rem; color: #64748b; margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Direct Listing</p>
+                <a href="messages.html" id="detailAgentMsgLink" style="font-size: 0.75rem; color: #008751; font-weight: 700; text-decoration: none;">Send Inquiry &rarr;</a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL: SCHEDULE INSPECTION -->
+  <div class="nh-modal-overlay" id="nhInspectionModal">
+    <div class="nh-modal-card" style="max-width: 500px;">
+      <button type="button" class="nh-modal-close" id="closeInspModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">📅</span>
+        <h2 class="nh-modal-title">Book Free Physical Inspection</h2>
+      </div>
+      <p class="nh-modal-desc">
+        Regarding: <strong id="inspPropertyTitle" style="color: #008751;">Selected Nigerian Property</strong>.
+        Our licensed realtor will meet you at the site. Zero inspection fee.
+      </p>
+
+      <form id="nhInspectionForm">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="nh-form-group">
+            <label class="nh-form-label">Your Full Name *</label>
+            <input type="text" id="inspName" class="nh-form-input" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">WhatsApp / Phone Number *</label>
+            <input type="tel" id="inspPhone" class="nh-form-input" placeholder="Enter your phone or WhatsApp number" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Preferred Date *</label>
+            <input type="date" id="inspDate" class="nh-form-input" required>
+          </div>
+
+          <button type="submit" class="nh-form-submit">Confirm Physical Inspection &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: POST A PROPERTY -->
+  <div class="nh-modal-overlay" id="nhSellModal">
+    <div class="nh-modal-card">
+      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">🏡</span>
+        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+      </div>
+      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
+
+      <form id="nhSellForm">
+        <div class="nh-form-grid">
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Property Title *</label>
+            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Purpose *</label>
+            <select id="sellPurpose" class="nh-form-select" required>
+              <option value="sale">For Sale</option>
+              <option value="rent">For Rent (Annual)</option>
+              <option value="shortlet">Short Let (Daily)</option>
+              <option value="land">Land / Plot</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Property Type *</label>
+            <select id="sellType" class="nh-form-select" required>
+              <option value="duplex">Detached Duplex</option>
+              <option value="terrace">Terraced Duplex</option>
+              <option value="penthouse">Penthouse</option>
+              <option value="apartment">Serviced Flat / Apartment</option>
+              <option value="land">Residential Land</option>
+              <option value="commercial">Commercial Property</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">State *</label>
+            <select id="sellState" class="nh-form-select" required>
+              <option value="Lagos">Lagos State</option>
+              <option value="Abuja">Abuja FCT</option>
+              <option value="Rivers">Rivers (Port Harcourt)</option>
+              <option value="Oyo">Oyo (Ibadan)</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Location / Neighborhood *</label>
+            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Price in Naira (₦) *</label>
+            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Title Document *</label>
+            <select id="sellTitleDoc" class="nh-form-select" required>
+              <option value="Governor's Consent">Governor's Consent</option>
+              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
+              <option value="Deed of Assignment">Deed of Assignment</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bedrooms</label>
+            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bathrooms</label>
+            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
+          </div>
+
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Photo Image URL</label>
+            <input type="url" id="sellImageUrl" class="nh-form-input" placeholder="Enter photo image URL">
+          </div>
+
+          <div class="nh-form-group full">
+            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+  <script src="../js/homehaven.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Fetch Property by ID
+      const urlParams = new URLSearchParams(window.location.search);
+      const propId = urlParams.get("id");
+      const allProps = getAllNaijaProperties();
+      const prop = allProps.find(p => p.id === propId) || allProps[0];
+
+      if (!prop) {
+        const shell = document.querySelector(".hh-device-shell");
+        if (shell) {
+          shell.innerHTML = `
+            <div style="padding: 64px 24px; text-align: center; max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+              <div style="font-size: 3.5rem; margin-bottom: 12px;">🏡</div>
+              <h2 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Property Not Found</h2>
+              <p style="color: #64748b; font-size: 0.95rem; margin: 0 0 24px;">No property details are available. Browse active listings or post your property.</p>
+              <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <a href="explore.html" style="background: #008751; color: #ffffff; padding: 12px 24px; border-radius: 12px; font-weight: 800; text-decoration: none;">Browse Properties &rarr;</a>
+                <button type="button" class="nh-btn-post" onclick="document.getElementById('nhSellModal').style.display='flex';">+ Post a Property</button>
+              </div>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      // Update Page Title
+      document.getElementById("pageTitle").textContent = `${prop.title} | NaijaHomes`;
+
+      // Update Breadcrumbs
+      const bPurpose = document.getElementById("breadcrumbPurpose");
+      const bLocation = document.getElementById("breadcrumbLocation");
+      if (bPurpose) {
+        bPurpose.textContent = prop.purpose === "sale" ? "Houses for Sale" : (prop.purpose === "rent" ? "Rentals" : (prop.purpose === "shortlet" ? "Shortlets" : "Land"));
+        bPurpose.href = `explore.html?purpose=${prop.purpose}`;
+      }
+      if (bLocation) bLocation.textContent = prop.location;
+
+      // Update Badges
+      const docBadge = document.getElementById("detailDocBadge");
+      if (docBadge) {
+        docBadge.textContent = `✓ ${prop.titleDoc}`;
+        docBadge.className = `nh-doc-badge ${prop.titleDocType || 'gov-consent'}`;
+      }
+
+      const pBadge = document.getElementById("purposeBadge");
+      if (pBadge) pBadge.textContent = prop.purpose.toUpperCase();
+
+      // Update Photos
+      const mainImg = document.getElementById("detailMainImg");
+      if (mainImg) {
+        mainImg.src = prop.image;
+        mainImg.alt = prop.title;
+      }
+
+      const thumbsRow = document.getElementById("detailThumbsRow");
+      if (thumbsRow) {
+        thumbsRow.innerHTML = "";
+        const gallery = prop.gallery && prop.gallery.length > 0 ? prop.gallery : [prop.image];
+        gallery.forEach((imgUrl, i) => {
+          const thumb = document.createElement("img");
+          thumb.src = imgUrl;
+          thumb.style.cssText = `width: 100%; height: 85px; object-fit: cover; border-radius: 10px; cursor: pointer; border: ${i === 0 ? '2px solid #008751' : '1px solid #cbd5e1'};`;
+          thumb.addEventListener("click", () => {
+            mainImg.src = imgUrl;
+            thumbsRow.querySelectorAll("img").forEach(im => im.style.border = "1px solid #cbd5e1");
+            thumb.style.border = "2px solid #008751";
+          });
+          thumbsRow.appendChild(thumb);
+        });
+      }
+
+      // Title & Location
+      document.getElementById("detailTitle").textContent = prop.title;
+      document.getElementById("detailLocation").innerHTML = `<span>📍</span> <span>${prop.location} &bull; ${prop.landmark || prop.state}</span>`;
+      document.getElementById("detailDesc").textContent = prop.description;
+
+      // Amenities List
+      const featList = document.getElementById("detailFeaturesList");
+      if (featList && prop.features) {
+        featList.innerHTML = "";
+        prop.features.forEach(f => {
+          const div = document.createElement("div");
+          div.style.cssText = "display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #334155;";
+          div.innerHTML = `<span style="color: #008751; font-weight: 800;">✓</span> ${f}`;
+          featList.appendChild(div);
+        });
+      }
+
+      // Specs
+      document.getElementById("specBeds").textContent = prop.bedrooms || "N/A";
+      document.getElementById("specBaths").textContent = prop.bathrooms || "N/A";
+      document.getElementById("specLand").textContent = prop.landSize || "N/A";
+
+      // Price
+      const priceEl = document.getElementById("detailPrice");
+      if (priceEl) {
+        priceEl.setAttribute("data-price-ngn", prop.priceNgn);
+        priceEl.setAttribute("data-price-period", prop.pricePeriod || "");
+        if (typeof window.formatPrice === "function") {
+          priceEl.textContent = window.formatPrice(prop.priceNgn, prop.pricePeriod);
+        } else {
+          priceEl.textContent = prop.priceFormattedNgn;
+        }
+      }
+
+      // Agent / Contact details
+      const agentName = prop.agent && prop.agent.name ? prop.agent.name : "Property Owner";
+      const agentCompany = prop.agent && prop.agent.company ? prop.agent.company : "Direct Listing";
+      const agentPhone = prop.agent && prop.agent.phone ? prop.agent.phone : "";
+      const agentWa = prop.agent && (prop.agent.whatsapp || prop.agent.phone) ? (prop.agent.whatsapp || prop.agent.phone) : "";
+
+      const nameEl = document.getElementById("detailAgentName");
+      if (nameEl) nameEl.textContent = agentName;
+
+      const compEl = document.getElementById("detailAgentCompany");
+      if (compEl) compEl.textContent = agentCompany;
+
+      const avatarEl = document.getElementById("detailAgentAvatar");
+      if (avatarEl) {
+        if (prop.agent && prop.agent.avatar) {
+          avatarEl.innerHTML = `<img src="${prop.agent.avatar}" alt="${agentName}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+        } else {
+          avatarEl.textContent = (agentName || "P").charAt(0).toUpperCase();
+        }
+      }
+
+      const callBtn = document.getElementById("btnDetailCall");
+      if (callBtn) {
+        if (agentPhone) {
+          callBtn.href = `tel:${agentPhone}`;
+          callBtn.textContent = `📞 Call Contact (${agentPhone})`;
+          callBtn.style.display = "block";
+        } else {
+          callBtn.style.display = "none";
+        }
+      }
+
+      const waBtn = document.getElementById("btnDetailWhatsApp");
+      if (waBtn) {
+        if (agentWa) {
+          waBtn.onclick = () => chatWhatsApp(agentWa, prop.title);
+          waBtn.style.display = "flex";
+        } else {
+          waBtn.style.display = "none";
+        }
+      }
+
+      const msgBtn = document.getElementById("btnDetailMessage");
+      if (msgBtn) {
+        msgBtn.href = `messages.html?id=${prop.id}`;
+      }
+
+      const gmapBtn = document.getElementById("btnGoogleMapDir");
+      if (gmapBtn) {
+        gmapBtn.href = `map.html?id=${prop.id}`;
+      }
+
+      // Inspection Button
+      const inspBtn = document.getElementById("btnDetailInsp");
+      if (inspBtn) {
+        inspBtn.onclick = () => openInspectionModal(prop.title);
+      }
+
+      // Save Button
+      const saveBtn = document.getElementById("btnSaveDetail");
+      const savedProps = JSON.parse(localStorage.getItem("nh_saved_properties") || "[]");
+      if (saveBtn) {
+        if (savedProps.includes(prop.id)) saveBtn.classList.add("active");
+        saveBtn.onclick = () => toggleSaveProperty(prop.id, saveBtn);
+      }
+
+      // Mortgage Calculator
+      const sliderDeposit = document.getElementById("sliderDeposit");
+      const sliderYears = document.getElementById("sliderYears");
+      const calcDepositPercent = document.getElementById("calcDepositPercent");
+      const calcDepositVal = document.getElementById("calcDepositVal");
+      const calcYearsVal = document.getElementById("calcYearsVal");
+      const calcMonthlyResult = document.getElementById("calcMonthlyResult");
+
+      function updateMortgage() {
+        const depositPct = parseInt(sliderDeposit.value, 10);
+        const years = parseInt(sliderYears.value, 10);
+        const depositAmount = (prop.priceNgn * depositPct) / 100;
+        const loanAmount = prop.priceNgn - depositAmount;
+
+        calcDepositPercent.textContent = depositPct;
+        calcDepositVal.textContent = "₦" + Math.round(depositAmount).toLocaleString();
+        calcYearsVal.textContent = years;
+
+        const monthlyRate = 0.15 / 12; // 15% interest
+        const numPayments = years * 12;
+        let monthly = loanAmount / numPayments;
+        if (monthlyRate > 0) {
+          monthly = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+        }
+
+        if (calcMonthlyResult) {
+          calcMonthlyResult.textContent = "₦" + Math.round(monthly).toLocaleString() + " / mo";
+        }
+      }
+
+      if (sliderDeposit && sliderYears) {
+        sliderDeposit.addEventListener("input", updateMortgage);
+        sliderYears.addEventListener("input", updateMortgage);
+        updateMortgage();
+      }
+    });
+  </script>
+  <!-- Bottom 5-Tab Navigation Bar (Mobile Native App Style) -->
+  <nav class="hh-bottom-tabbar" aria-label="Mobile Bottom Navigation">
+    <a href="index.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="hh-tab-item active">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <span>Search</span>
+    </a>
+    <a href="saved.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </div>
+      <span>Saved</span>
+    </a>
+    <a href="messages.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </div>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+</body>
+</html>

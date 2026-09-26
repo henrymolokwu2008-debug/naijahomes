@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaijaHomes | Buy, Rent &amp; Sell Real Estate in Nigeria</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="hh-page-body">
+
+  <!-- Production Global Header Banner -->
+  <header class="hh-global-banner">
+    <a href="../index.html" class="hh-brand-logo">
+      <div class="hh-logo-icon" style="background: #008751; color: #ffffff;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px;">NAIJA<span style="color: #008751;">HOMES</span></span>
+      </div>
+    </a>
+
+    <!-- Mobile Hamburger Menu Button -->
+    <button type="button" class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+    </button>
+
+    <!-- Clean Production Navigation Links -->
+    <nav class="hh-main-nav" aria-label="Main Navigation">
+      <a href="index.html" class="hh-nav-link active">Home</a>
+      <a href="explore.html?purpose=sale" class="hh-nav-link">Buy</a>
+      <a href="explore.html?purpose=rent" class="hh-nav-link">Rent</a>
+      <a href="explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
+      <a href="explore.html?purpose=land" class="hh-nav-link">Land</a>
+      <a href="map.html" class="hh-nav-link">Google Maps</a>
+      <a href="messages.html" class="hh-nav-link">Inspection Desk</a>
+      <a href="saved.html" class="hh-nav-link">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
+    </nav>
+
+    <!-- Header Actions: Currency Switcher & Post Property CTA -->
+    <div class="hh-nav-actions" style="gap: 12px;">
+      <!-- Currency Switcher -->
+      <div class="nh-currency-group">
+        <button type="button" class="nh-currency-btn active" id="btnNgn">₦ NGN</button>
+        <button type="button" class="nh-currency-btn" id="btnUsd">$ USD</button>
+      </div>
+
+      <!-- Post Property / Sell CTA -->
+      <button type="button" class="nh-btn-post" id="btnOpenSell">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Post a Property
+      </button>
+
+      <div class="nh-auth-container" id="nhAuthContainer"></div>
+    </div>
+  </header>
+
+  <!-- Full-Width Responsive Container -->
+  <main class="hh-device-shell" role="region" aria-label="NaijaHomes Real Estate Portal">
+
+    <!-- 1. HERO SECTION WITH TABBED SEARCH -->
+    <section class="hh-portal-hero" style="background: linear-gradient(180deg, #091a11 0%, #11281c 100%); padding: 56px 24px 72px; border-radius: 28px; margin: 16px 0 32px; border: 1px solid rgba(0, 135, 81, 0.25); position: relative; overflow: hidden;">
+      <div class="hh-hero-glow" style="position: absolute; right: 0; top: 0; width: 320px; height: 320px; max-width: 100%; background: radial-gradient(circle, rgba(0, 135, 81, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+
+      <div style="max-width: 960px; margin: 0 auto; text-align: center; position: relative; z-index: 2;">
+        <div class="hh-hero-badge" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 135, 81, 0.2); border: 1px solid rgba(0, 135, 81, 0.4); padding: 6px 14px; border-radius: 20px; color: #a7f3d0; font-size: 0.8rem; font-weight: 700; margin-bottom: 18px; max-width: 100%; box-sizing: border-box; text-align: left; flex-wrap: wrap;">
+          <span>🇳🇬</span>
+          <span style="white-space: normal; line-height: 1.4;">Nigeria's #1 Verified Property Marketplace • C of O &amp; Gov't Consent Verified</span>
+        </div>
+
+        <h1 style="font-size: 2.8rem; font-weight: 800; color: #ffffff; line-height: 1.15; margin: 0 0 14px; letter-spacing: -1px; word-break: break-word;">
+          Find Verified Properties to <span style="color: #10b981;">Buy, Rent &amp; Sell</span> in Nigeria
+        </h1>
+        <p style="color: #cbd5e1; font-size: 1.1rem; max-width: 720px; margin: 0 auto 36px; line-height: 1.5;">
+          Discover verified homes, serviced luxury duplexes, waterfront penthouses, and titled lands in Lagos, Abuja, and Port Harcourt.
+        </p>
+
+        <!-- Search Tab Box -->
+        <div style="background: #ffffff; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); padding: 8px 12px 16px; max-width: 860px; width: 100%; box-sizing: border-box; margin: 0 auto; text-align: left;">
+          
+          <!-- Category Tabs -->
+          <div style="display: flex; gap: 6px; padding: 6px 8px 12px; border-bottom: 1px solid #e2e8f0; overflow-x: auto;" id="heroTabs">
+            <button type="button" class="hh-tab-btn active" data-purpose="all" style="padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; border: none; background: #008751; color: #ffffff; cursor: pointer;">All Listings</button>
+            <button type="button" class="hh-tab-btn" data-purpose="sale" style="padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; border: none; background: #f1f5f9; color: #475569; cursor: pointer;">For Sale</button>
+            <button type="button" class="hh-tab-btn" data-purpose="rent" style="padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; border: none; background: #f1f5f9; color: #475569; cursor: pointer;">For Rent</button>
+            <button type="button" class="hh-tab-btn" data-purpose="shortlet" style="padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; border: none; background: #f1f5f9; color: #475569; cursor: pointer;">Short Let</button>
+            <button type="button" class="hh-tab-btn" data-purpose="land" style="padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; border: none; background: #f1f5f9; color: #475569; cursor: pointer;">Land</button>
+          </div>
+
+          <!-- Search Inputs Row -->
+          <div class="hh-hero-search-grid">
+            <div>
+              <label style="font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px;">Location / Corridor</label>
+              <select id="heroLocationSelect" class="nh-form-select" style="background: #ffffff; border-color: #cbd5e1; font-weight: 600;">
+                <option value="all">All Locations (Lagos &amp; Abuja)</option>
+                <option value="Lekki">Lekki Phase 1, Lagos</option>
+                <option value="Ikoyi">Old Ikoyi &amp; Waterfront, Lagos</option>
+                <option value="Banana Island">Banana Island, Lagos</option>
+                <option value="Victoria Island">Victoria Island, Lagos</option>
+                <option value="Ikeja">Ikeja GRA, Lagos Mainland</option>
+                <option value="Maitama">Maitama, Abuja FCT</option>
+                <option value="Guzape">Guzape Hills, Abuja FCT</option>
+                <option value="Ibeju-Lekki">Ibeju-Lekki / Epe Corridor</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px;">Property Type</label>
+              <select id="heroTypeSelect" class="nh-form-select" style="background: #ffffff; border-color: #cbd5e1; font-weight: 600;">
+                <option value="all">All Types</option>
+                <option value="duplex">Detached Duplex</option>
+                <option value="terrace">Terraced Duplex</option>
+                <option value="penthouse">Waterfront Penthouse</option>
+                <option value="apartment">Serviced Apartment</option>
+                <option value="land">Residential Land</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px;">Max Budget</label>
+              <select id="heroBudgetSelect" class="nh-form-select" style="background: #ffffff; border-color: #cbd5e1; font-weight: 600;">
+                <option value="all">Any Price</option>
+                <option value="50000000">Under ₦50M</option>
+                <option value="200000000">Under ₦200M</option>
+                <option value="400000000">Under ₦400M</option>
+                <option value="900000000">Under ₦900M</option>
+                <option value="2000000000">₦1B - ₦2B</option>
+              </select>
+            </div>
+
+            <div style="align-self: flex-end;">
+              <button type="button" id="heroSearchBtn" style="background: #008751; color: #ffffff; font-weight: 800; font-size: 0.9rem; padding: 12px 24px; border-radius: 12px; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(0, 135, 81, 0.3);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                Search
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. QUICK EXPLORER BY NIGERIAN CORRIDORS -->
+    <section style="margin-bottom: 48px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; flex-wrap: wrap; gap: 8px;">
+        <div>
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin: 0 0 4px; letter-spacing: -0.5px;">Prime Nigerian Corridors</h2>
+          <p style="color: #64748b; font-size: 0.9rem; margin: 0;">Explore high-demand residential and commercial property markets</p>
+        </div>
+        <a href="explore.html" style="color: #008751; font-weight: 700; font-size: 0.85rem; text-decoration: none;">View All Corridors &rarr;</a>
+      </div>
+
+      <div class="hh-corridors-grid">
+        <div class="hh-corridor-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 18px; text-align: center; cursor: pointer; transition: transform 0.2s;" onclick="filterByLocation('Lekki');">
+          <div class="hh-corridor-icon" style="font-size: 2rem; margin-bottom: 6px;">🏖️</div>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0 0 2px;">Lekki Phase 1</h3>
+            <p style="font-size: 0.78rem; color: #64748b; margin: 0;">Luxury Duplexes &amp; Shortlets</p>
+          </div>
+        </div>
+
+        <div class="hh-corridor-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 18px; text-align: center; cursor: pointer; transition: transform 0.2s;" onclick="filterByLocation('Ikoyi');">
+          <div class="hh-corridor-icon" style="font-size: 2rem; margin-bottom: 6px;">🛥️</div>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0 0 2px;">Old Ikoyi</h3>
+            <p style="font-size: 0.78rem; color: #64748b; margin: 0;">Waterfront Penthouses</p>
+          </div>
+        </div>
+
+        <div class="hh-corridor-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 18px; text-align: center; cursor: pointer; transition: transform 0.2s;" onclick="filterByLocation('Banana Island');">
+          <div class="hh-corridor-icon" style="font-size: 2rem; margin-bottom: 6px;">👑</div>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0 0 2px;">Banana Island</h3>
+            <p style="font-size: 0.78rem; color: #64748b; margin: 0;">Ambassadorial Villas</p>
+          </div>
+        </div>
+
+        <div class="hh-corridor-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 18px; text-align: center; cursor: pointer; transition: transform 0.2s;" onclick="filterByLocation('Maitama');">
+          <div class="hh-corridor-icon" style="font-size: 2rem; margin-bottom: 6px;">🏛️</div>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0 0 2px;">Maitama, Abuja</h3>
+            <p style="font-size: 0.78rem; color: #64748b; margin: 0;">Diplomatic Enclave</p>
+          </div>
+        </div>
+
+        <div class="hh-corridor-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 18px; text-align: center; cursor: pointer; transition: transform 0.2s;" onclick="filterByLocation('Guzape');">
+          <div class="hh-corridor-icon" style="font-size: 2rem; margin-bottom: 6px;">⛰️</div>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0 0 2px;">Guzape Hills</h3>
+            <p style="font-size: 0.78rem; color: #64748b; margin: 0;">Scenic Terraces &amp; Plots</p>
+          </div>
+        </div>
+
+        <div class="hh-corridor-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 18px; text-align: center; cursor: pointer; transition: transform 0.2s;" onclick="filterByLocation('Ibeju-Lekki');">
+          <div class="hh-corridor-icon" style="font-size: 2rem; margin-bottom: 6px;">📈</div>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0 0 2px;">Epe &amp; Ibeju</h3>
+            <p style="font-size: 0.78rem; color: #64748b; margin: 0;">100% Dry Titled Land</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. VERIFIED NIGERIAN LISTINGS GRID -->
+    <section id="listings" style="margin-bottom: 56px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h2 style="font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 0 0 4px; letter-spacing: -0.5px;">Verified Properties in Nigeria</h2>
+          <p style="color: #64748b; font-size: 0.9rem; margin: 0;">All listings backed by verified title documents and 100% free physical inspections.</p>
+        </div>
+
+        <!-- Filter Chips Row -->
+        <div style="display: flex; gap: 8px; overflow-x: auto;" id="gridFilterChips">
+          <button type="button" class="hh-tab-btn active" data-grid-filter="all" style="padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid #cbd5e1; background: #008751; color: #ffffff; cursor: pointer;">All</button>
+          <button type="button" class="hh-tab-btn" data-grid-filter="sale" style="padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; cursor: pointer;">For Sale</button>
+          <button type="button" class="hh-tab-btn" data-grid-filter="rent" style="padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; cursor: pointer;">For Rent</button>
+          <button type="button" class="hh-tab-btn" data-grid-filter="shortlet" style="padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; cursor: pointer;">Short Let</button>
+          <button type="button" class="hh-tab-btn" data-grid-filter="land" style="padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; cursor: pointer;">Land</button>
+        </div>
+      </div>
+
+      <!-- Live Dynamic Grid Container -->
+      <div id="naijaPropertyGrid" class="hh-properties-grid">
+        <!-- Javascript renders properties here -->
+      </div>
+    </section>
+
+    <!-- 4. "SELL WITH US / POST A PROPERTY" BANNER -->
+    <section class="hh-sell-banner" style="background: linear-gradient(135deg, #054f30 0%, #008751 100%); border-radius: 24px; padding: 48px 36px; margin-bottom: 56px; color: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; box-shadow: 0 16px 36px rgba(0, 135, 81, 0.25);">
+      <div style="max-width: 620px;">
+        <span style="background: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;">Property Owners &amp; Verified Realtors</span>
+        <h2 style="font-size: 2.2rem; font-weight: 800; margin: 12px 0 8px; letter-spacing: -0.5px;">Sell or Rent Your Property Fast</h2>
+        <p style="color: #e2e8f0; font-size: 1rem; line-height: 1.5; margin: 0;">
+          Connect with ready buyers, diaspora investors, and verified tenants across Nigeria and abroad. List your property directly on NaijaHomes.
+        </p>
+      </div>
+
+      <div>
+        <button type="button" class="nh-btn-post" style="padding: 14px 28px; font-size: 1rem; background: #ffffff; color: #008751 !important; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);" onclick="document.getElementById('nhSellModal').style.display='flex';">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Post Your Property Now (Free)
+        </button>
+      </div>
+    </section>
+
+
+
+    <!-- 6. ANTI-FRAUD & TITLE VERIFICATION SECTION -->
+    <section class="hh-features-section" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 48px 36px; margin-bottom: 56px; box-sizing: border-box;">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto 36px;">
+        <span style="color: #008751; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Guaranteed Peace of Mind</span>
+        <h2 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin: 8px 0 8px;">Why Nigerian Homeowners &amp; Diaspora Trust Us</h2>
+        <p style="color: #64748b; font-size: 0.95rem; margin: 0;">We solve the most critical challenges in Nigerian property transactions: fraud prevention and title authenticity.</p>
+      </div>
+
+      <div class="hh-features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: #ecfdf5; color: #008751; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 14px;">📜</div>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">Charted Land Titles</h3>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5;">Every listing is verified with Lagos Lands Bureau (Alausa) or AGIS Abuja to guarantee free and clean ownership without family disputes.</p>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: #ecfdf5; color: #008751; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 14px;">🚗</div>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">100% Free Physical Inspections</h3>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5;">Schedule property viewings with our verified local coordinators at zero inspection fee. Video walkthroughs available for Diaspora buyers.</p>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: #ecfdf5; color: #008751; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 14px;">💬</div>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">Instant WhatsApp Realtor Chat</h3>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5;">Connect directly with certified partner agents on WhatsApp with verified phone numbers, license details, and fast replies.</p>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: #ecfdf5; color: #008751; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 14px;">🛡️</div>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">No "Omo-Onile" Hassles</h3>
+          <p style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5;">All residential parcels and homes are within legally excised, fully gated communities with instant allocation upon purchase.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL 1: POST A PROPERTY / SELL -->
+  <div class="nh-modal-overlay" id="nhSellModal">
+    <div class="nh-modal-card">
+      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">🏡</span>
+        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+      </div>
+      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
+
+      <form id="nhSellForm">
+        <div class="nh-form-grid">
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Property Title *</label>
+            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Purpose *</label>
+            <select id="sellPurpose" class="nh-form-select" required>
+              <option value="sale">For Sale</option>
+              <option value="rent">For Rent (Annual)</option>
+              <option value="shortlet">Short Let (Daily)</option>
+              <option value="land">Land / Plot</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Property Type *</label>
+            <select id="sellType" class="nh-form-select" required>
+              <option value="duplex">Detached Duplex</option>
+              <option value="terrace">Terraced Duplex</option>
+              <option value="penthouse">Penthouse</option>
+              <option value="apartment">Serviced Flat / Apartment</option>
+              <option value="land">Residential Land</option>
+              <option value="commercial">Commercial Property</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">State *</label>
+            <select id="sellState" class="nh-form-select" required>
+              <option value="Lagos">Lagos State</option>
+              <option value="Abuja">Abuja FCT</option>
+              <option value="Rivers">Rivers (Port Harcourt)</option>
+              <option value="Oyo">Oyo (Ibadan)</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Location / Neighborhood *</label>
+            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Price in Naira (₦) *</label>
+            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Title Document *</label>
+            <select id="sellTitleDoc" class="nh-form-select" required>
+              <option value="Governor's Consent">Governor's Consent</option>
+              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
+              <option value="Deed of Assignment">Deed of Assignment</option>
+              <option value="Registered Tenancy">Registered Tenancy (Rental)</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bedrooms</label>
+            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bathrooms</label>
+            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
+          </div>
+
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Photo Image URL</label>
+            <input type="url" id="sellImageUrl" class="nh-form-input" placeholder="Enter photo image URL">
+          </div>
+
+          <div class="nh-form-group full">
+            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: SCHEDULE PHYSICAL INSPECTION -->
+  <div class="nh-modal-overlay" id="nhInspectionModal">
+    <div class="nh-modal-card" style="max-width: 500px;">
+      <button type="button" class="nh-modal-close" id="closeInspModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">📅</span>
+        <h2 class="nh-modal-title">Book Free Physical Inspection</h2>
+      </div>
+      <p class="nh-modal-desc">
+        Regarding: <strong id="inspPropertyTitle" style="color: #008751;">Selected Nigerian Property</strong>.
+        Our licensed realtor will meet you at the site. Zero inspection fee.
+      </p>
+
+      <form id="nhInspectionForm">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="nh-form-group">
+            <label class="nh-form-label">Your Full Name *</label>
+            <input type="text" id="inspName" class="nh-form-input" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">WhatsApp / Phone Number *</label>
+            <input type="tel" id="inspPhone" class="nh-form-input" placeholder="Enter your phone or WhatsApp number" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Preferred Date *</label>
+            <input type="date" id="inspDate" class="nh-form-input" required>
+          </div>
+
+          <button type="submit" class="nh-form-submit">Confirm Physical Inspection &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background: #09130e; border-top: 1px solid #192a20; padding: 56px 24px 36px; color: #94a3b8; font-size: 0.85rem;">
+    <div class="hh-footer-grid">
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+          <div style="background: #008751; color: #ffffff; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800;">NH</div>
+          <span style="color: #ffffff; font-weight: 800; font-size: 1.1rem;">NAIJA<span style="color: #008751;">HOMES</span></span>
+        </div>
+        <p style="line-height: 1.6; margin: 0 0 16px; max-width: 320px;">
+          Nigeria's trusted real estate marketplace for verified home buyers, tenants, and developers across Lagos, Abuja, and Port Harcourt.
+        </p>
+        <p style="color: #64748b; font-size: 0.8rem;">
+          &copy; 2026 NaijaHomes Proptech Nigeria Ltd. All Rights Reserved.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color: #ffffff; font-size: 0.95rem; font-weight: 700; margin: 0 0 14px;">Browse Listings</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+          <li><a href="explore.html?purpose=sale" style="color: #94a3b8; text-decoration: none;">Houses for Sale in Lekki</a></li>
+          <li><a href="explore.html?purpose=rent" style="color: #94a3b8; text-decoration: none;">Flats for Rent in VI</a></li>
+          <li><a href="explore.html?purpose=sale" style="color: #94a3b8; text-decoration: none;">Maitama Abuja Mansions</a></li>
+          <li><a href="explore.html?purpose=shortlet" style="color: #94a3b8; text-decoration: none;">Lekki Luxury Shortlets</a></li>
+          <li><a href="explore.html?purpose=land" style="color: #94a3b8; text-decoration: none;">Titled Land in Epe</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: #ffffff; font-size: 0.95rem; font-weight: 700; margin: 0 0 14px;">Title Verification</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+          <li><a href="#" style="color: #94a3b8; text-decoration: none;">Governor's Consent Guide</a></li>
+          <li><a href="#" style="color: #94a3b8; text-decoration: none;">Certificate of Occupancy (C of O)</a></li>
+          <li><a href="#" style="color: #94a3b8; text-decoration: none;">Lagos Lands Bureau Charting</a></li>
+          <li><a href="#" style="color: #94a3b8; text-decoration: none;">AGIS Abuja Verification</a></li>
+          <li><a href="#" style="color: #94a3b8; text-decoration: none;">Excision &amp; Gazette Checks</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: #ffffff; font-size: 0.95rem; font-weight: 700; margin: 0 0 14px;">Support &amp; Offices</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+          <li><span>📍 Admiralty Way, Lekki Phase 1, Lagos</span></li>
+          <li><span>📍 Mississippi Street, Maitama, Abuja</span></li>
+          <li><span>✉️ support@naijahomes.ng</span></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+  <script src="../js/homehaven.js"></script>
+  <script>
+    // Page-specific renderer for the Nigerian Property Grid
+    function renderNaijaGrid(filterPurpose = "all", filterLoc = "all", filterType = "all", maxPrice = Infinity) {
+      const grid = document.getElementById("naijaPropertyGrid");
+      if (!grid) return;
+
+      const properties = getAllNaijaProperties();
+      grid.innerHTML = "";
+
+      const filtered = properties.filter(p => {
+        const matchesPurpose = filterPurpose === "all" || p.purpose === filterPurpose;
+        const matchesLoc = filterLoc === "all" || p.location.toLowerCase().includes(filterLoc.toLowerCase()) || p.state.toLowerCase().includes(filterLoc.toLowerCase());
+        const matchesType = filterType === "all" || p.type.toLowerCase().includes(filterType.toLowerCase());
+        const matchesPrice = p.priceNgn <= maxPrice;
+        return matchesPurpose && matchesLoc && matchesType && matchesPrice;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; background: #ffffff; border-radius: 18px; padding: 48px 24px; text-align: center; border: 1px solid #e2e8f0;">
+            <div style="font-size: 3rem; margin-bottom: 12px;">🏡</div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">No Properties Found</h3>
+            <p style="color: #64748b; font-size: 0.9rem; margin: 0 0 16px;">Try adjusting your filter criteria or post a new listing.</p>
+            <button type="button" class="nh-btn-post" onclick="document.getElementById('nhSellModal').style.display='flex';">+ Post a Property</button>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(p => {
+        const card = document.createElement("div");
+        card.style.cssText = `
+          background: #ffffff;
+          border-radius: 20px;
+          border: 1px solid #e2e8f0;
+          overflow: hidden;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.2s, box-shadow 0.2s;
+        `;
+
+        const purposeLabel = p.purpose === "sale" ? "FOR SALE" : (p.purpose === "rent" ? "FOR RENT" : (p.purpose === "shortlet" ? "SHORT LET" : "LAND"));
+        const docBadgeClass = p.titleDocType === "c-of-o" ? "c-of-o" : (p.titleDocType === "gazette" ? "gazette" : "gov-consent");
+
+        card.innerHTML = `
+          <div style="position: relative; height: 230px; overflow: hidden;">
+            <img src="${p.image}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover;">
+            
+            <div style="position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; flex-wrap: wrap;">
+              <span style="background: rgba(15, 23, 42, 0.85); color: #ffffff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">
+                ${purposeLabel}
+              </span>
+              <span class="nh-doc-badge ${docBadgeClass}">
+                ✓ ${p.titleDoc}
+              </span>
+            </div>
+
+            <button type="button" class="hh-btn-fav" title="Save Listing" onclick="toggleSaveProperty('${p.id}', this);" style="position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+          </div>
+
+          <div style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 6px;">
+              <span data-price-ngn="${p.priceNgn}" data-price-period="${p.pricePeriod}" style="font-size: 1.35rem; font-weight: 800; color: #008751;">
+                ${p.priceFormattedNgn}
+              </span>
+            </div>
+
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px; line-height: 1.4;">
+              <a href="property-detail.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.title}</a>
+            </h3>
+
+            <p style="font-size: 0.82rem; color: #64748b; margin: 0 0 14px; display: flex; align-items: center; gap: 4px;">
+              <span>📍</span> <span>${p.location}</span>
+            </p>
+
+            <!-- Specs Grid -->
+            <div style="display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 16px;">
+              ${p.bedrooms > 0 ? `<span>🛏️ ${p.bedrooms} Beds</span>` : ""}
+              ${p.bathrooms > 0 ? `<span>🚿 ${p.bathrooms} Baths</span>` : ""}
+              ${p.hasBq ? `<span>🏠 En-suite BQ</span>` : ""}
+              <span>📐 ${p.landSize}</span>
+            </div>
+
+            <div style="margin-top: auto; display: flex; gap: 8px;">
+              <a href="property-detail.html?id=${p.id}" style="flex: 1; text-align: center; background: #f1f5f9; color: #0f172a; font-weight: 800; font-size: 0.82rem; padding: 10px 12px; border-radius: 10px; text-decoration: none; transition: background 0.2s;">
+                View Details
+              </a>
+
+              <button type="button" class="nh-btn-whatsapp" onclick="chatWhatsApp('${p.agent.whatsapp}', '${p.title.replace(/'/g, "\\'")}');" title="Chat on WhatsApp">
+                <span>💬 WhatsApp</span>
+              </button>
+
+              <button type="button" style="background: #008751; color: #ffffff; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 800; font-size: 0.8rem; cursor: pointer;" onclick="openInspectionModal('${p.title.replace(/'/g, "\\'")}');" title="Schedule Free Inspection">
+                <span>📅 Inspect</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      // Update currency UI on freshly rendered cards
+      if (typeof updateCurrencyUI === "function") {
+        updateCurrencyUI();
+      }
+    }
+
+    // Filter by corridor helper
+    function filterByLocation(loc) {
+      const locSelect = document.getElementById("heroLocationSelect");
+      if (locSelect) locSelect.value = loc;
+      renderNaijaGrid("all", loc);
+      const listingsEl = document.getElementById("listings");
+      if (listingsEl) listingsEl.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Hero search handler
+    document.addEventListener("DOMContentLoaded", () => {
+      renderNaijaGrid();
+
+      const searchBtn = document.getElementById("heroSearchBtn");
+      if (searchBtn) {
+        searchBtn.addEventListener("click", () => {
+          const activeTab = document.querySelector("#heroTabs .hh-tab-btn.active");
+          const purpose = activeTab ? activeTab.getAttribute("data-purpose") : "all";
+          const loc = document.getElementById("heroLocationSelect").value;
+          const type = document.getElementById("heroTypeSelect").value;
+          const budget = document.getElementById("heroBudgetSelect").value;
+          const maxPrice = budget === "all" ? Infinity : parseFloat(budget);
+
+          renderNaijaGrid(purpose, loc, type, maxPrice);
+          document.getElementById("listings").scrollIntoView({ behavior: "smooth" });
+        });
+      }
+
+      // Hero Tab buttons
+      const heroTabs = document.querySelectorAll("#heroTabs .hh-tab-btn");
+      heroTabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          heroTabs.forEach(t => {
+            t.classList.remove("active");
+            t.style.background = "#f1f5f9";
+            t.style.color = "#475569";
+          });
+          tab.classList.add("active");
+          tab.style.background = "#008751";
+          tab.style.color = "#ffffff";
+        });
+      });
+
+      // Grid filter chips
+      const chips = document.querySelectorAll("#gridFilterChips .hh-tab-btn");
+      chips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          chips.forEach(c => {
+            c.classList.remove("active");
+            c.style.background = "#ffffff";
+            c.style.color = "#334155";
+          });
+          chip.classList.add("active");
+          chip.style.background = "#008751";
+          chip.style.color = "#ffffff";
+
+          const purpose = chip.getAttribute("data-grid-filter");
+          renderNaijaGrid(purpose);
+        });
+      });
+    });
+  </script>
+  <!-- Bottom 5-Tab Navigation Bar (Mobile Native App Style) -->
+  <nav class="hh-bottom-tabbar" aria-label="Mobile Bottom Navigation">
+    <a href="index.html" class="hh-tab-item active">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <span>Search</span>
+    </a>
+    <a href="saved.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </div>
+      <span>Saved</span>
+    </a>
+    <a href="messages.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </div>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="hh-tab-item">
+      <div class="hh-tab-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+</body>
+</html>

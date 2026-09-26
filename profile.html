@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile | NaijaHomes</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="hh-page-body">
+
+  <!-- Global Header Banner -->
+  <header class="hh-global-banner">
+    <a href="index.html" class="hh-brand-logo">
+      <div class="hh-logo-icon" style="background: #008751; color: #ffffff;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px;">NAIJA<span style="color: #008751;">HOMES</span></span>
+      </div>
+    </a>
+
+    <button class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+    </button>
+
+    <!-- Clean Production Navigation Links -->
+    <nav class="nh-header-nav" aria-label="Main Navigation">
+      <a href="index.html" class="nh-nav-link">Home</a>
+      <a href="explore.html" class="nh-nav-link">Explore</a>
+      <a href="map.html" class="nh-nav-link">Google Maps</a>
+      <a href="messages.html" class="nh-nav-link">Messages</a>
+      <a href="saved.html" class="nh-nav-link">Saved</a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hh-nav-actions" style="gap: 12px;">
+      <div class="nh-currency-group">
+        <button type="button" class="nh-currency-btn active" id="btnNgn">₦ NGN</button>
+        <button type="button" class="nh-currency-btn" id="btnUsd">$ USD</button>
+      </div>
+
+      <button type="button" class="nh-btn-post" id="btnOpenSell">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Post a Property
+      </button>
+
+      <div class="nh-auth-container" id="nhAuthContainer"></div>
+    </div>
+  </header>
+
+  <!-- Full-Width Responsive Container with Left-Side Menu Column -->
+  <main class="hh-device-shell" role="region" aria-label="User Profile View" style="max-width: 1400px; margin: 20px auto 40px; padding: 0 16px;">
+    
+    <div class="home-dash-wrapper">
+
+      <!-- LEFT-SIDE MENU COLUMN -->
+      <aside class="home-dash-sidebar" aria-label="Profile Menu Column">
+        <div class="home-dash-sidebar-header">
+          <div class="dash-brand">
+            <span class="dash-brand-icon">🏠</span>
+            <div class="dash-brand-meta">
+              <span class="dash-brand-name">NAIJA<span>HOMES</span></span>
+              <span class="dash-brand-sub">ACCOUNT &amp; PROFILE</span>
+            </div>
+          </div>
+        </div>
+
+        <nav class="home-dash-nav">
+          <ul class="home-dash-nav-list">
+            <li>
+              <a href="profile.html" class="home-dash-nav-item active">
+                <span class="dash-nav-icon">👤</span>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="#myListingsSection" class="home-dash-nav-item">
+                <span class="dash-nav-icon">📑</span>
+                <span>My Listings</span>
+              </a>
+            </li>
+            <li>
+              <button type="button" class="home-dash-nav-item" onclick="document.getElementById('btnOpenSell').click();">
+                <span class="dash-nav-icon">➕</span>
+                <span>Post Property</span>
+              </button>
+            </li>
+            <li>
+              <a href="messages.html" class="home-dash-nav-item">
+                <span class="dash-nav-icon">💬</span>
+                <span>Messages</span>
+              </a>
+            </li>
+            <li>
+              <a href="saved.html" class="home-dash-nav-item">
+                <span class="dash-nav-icon">❤️</span>
+                <span>Saved Properties</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="home-dash-sidebar-footer">
+          <a href="index.html" class="home-dash-nav-item" style="color: #ef4444;">
+            <span class="dash-nav-icon">🚪</span>
+            <span>Return to Site</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- RIGHT-SIDE MAIN CONTENT -->
+      <section class="home-dash-main">
+        <div id="profileMainArea">
+          <!-- Dynamic Profile Rendered via JavaScript -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL: SCHEDULE INSPECTION -->
+  <div class="nh-modal-overlay" id="nhInspectionModal">
+    <div class="nh-modal-card" style="max-width: 500px;">
+      <button type="button" class="nh-modal-close" id="closeInspModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">📅</span>
+        <h2 class="nh-modal-title">Book Free Physical Inspection</h2>
+      </div>
+      <p class="nh-modal-desc">
+        Regarding: <strong id="inspPropertyTitle" style="color: #008751;">Selected Nigerian Property</strong>.
+        Our licensed realtor will meet you at the site. Zero inspection fee.
+      </p>
+
+      <form id="nhInspectionForm">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="nh-form-group">
+            <label class="nh-form-label">Your Full Name *</label>
+            <input type="text" id="inspName" class="nh-form-input" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">WhatsApp / Phone Number *</label>
+            <input type="tel" id="inspPhone" class="nh-form-input" placeholder="Enter your phone or WhatsApp number" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Preferred Date *</label>
+            <input type="date" id="inspDate" class="nh-form-input" required>
+          </div>
+
+          <button type="submit" class="nh-form-submit">Confirm Physical Inspection &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: POST A PROPERTY -->
+  <div class="nh-modal-overlay" id="nhSellModal">
+    <div class="nh-modal-card">
+      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">🏡</span>
+        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+      </div>
+      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
+
+      <form id="nhSellForm">
+        <div class="nh-form-grid">
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Property Title *</label>
+            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Purpose *</label>
+            <select id="sellPurpose" class="nh-form-select" required>
+              <option value="sale">For Sale</option>
+              <option value="rent">For Rent (Annual)</option>
+              <option value="shortlet">Short Let (Daily)</option>
+              <option value="land">Land / Plot</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Property Type *</label>
+            <select id="sellType" class="nh-form-select" required>
+              <option value="duplex">Detached Duplex</option>
+              <option value="terrace">Terraced Duplex</option>
+              <option value="penthouse">Penthouse</option>
+              <option value="apartment">Serviced Flat / Apartment</option>
+              <option value="land">Residential Land</option>
+              <option value="commercial">Commercial Property</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">State *</label>
+            <select id="sellState" class="nh-form-select" required>
+              <option value="Lagos">Lagos State</option>
+              <option value="Abuja">Abuja FCT</option>
+              <option value="Rivers">Rivers (Port Harcourt)</option>
+              <option value="Oyo">Oyo (Ibadan)</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Location / Neighborhood *</label>
+            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Price in Naira (₦) *</label>
+            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Title Document *</label>
+            <select id="sellTitleDoc" class="nh-form-select" required>
+              <option value="Governor's Consent">Governor's Consent</option>
+              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
+              <option value="Deed of Assignment">Deed of Assignment</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bedrooms</label>
+            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bathrooms</label>
+            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
+          </div>
+
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Photo Image URL</label>
+            <input type="url" id="sellImageUrl" class="nh-form-input" placeholder="https://example.com/property-image.jpg">
+          </div>
+
+          <div class="nh-form-group full">
+            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT PROFILE -->
+  <div class="nh-modal-overlay" id="nhEditProfileModal" style="display: none;">
+    <div class="nh-edit-profile-modal-card">
+      <button type="button" class="nh-modal-close" id="closeEditProfileModal" style="position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b;" aria-label="Close modal">&times;</button>
+      
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">✏️</span>
+        <h2 class="nh-modal-title">Edit Profile Information</h2>
+      </div>
+      <p class="nh-modal-desc">Update your personal details, contact numbers, and public bio across NaijaHomes.</p>
+
+      <div id="nhEditProfileAlert" style="display: none; padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; margin-bottom: 14px; line-height: 1.4;"></div>
+
+      <form id="nhEditProfileForm">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          
+          <div class="nh-auth-grid-2">
+            <div class="nh-form-group">
+              <label class="nh-form-label" for="editFullName">Full Name *</label>
+              <input type="text" id="editFullName" class="nh-form-input" required>
+            </div>
+            <div class="nh-form-group">
+              <label class="nh-form-label" for="editUsername">Username *</label>
+              <input type="text" id="editUsername" class="nh-form-input" required>
+            </div>
+          </div>
+
+          <div class="nh-auth-grid-2">
+            <div class="nh-form-group">
+              <label class="nh-form-label" for="editPhone">Phone Number *</label>
+              <input type="tel" id="editPhone" class="nh-form-input" required>
+            </div>
+            <div class="nh-form-group">
+              <label class="nh-form-label" for="editCity">City *</label>
+              <input type="text" id="editCity" class="nh-form-input" required>
+            </div>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label" for="editState">State *</label>
+            <select id="editState" class="nh-form-select" required>
+              <option value="Lagos State">Lagos State</option>
+              <option value="Abuja FCT">Abuja FCT</option>
+              <option value="Rivers State">Rivers State (Port Harcourt)</option>
+              <option value="Oyo State">Oyo State (Ibadan)</option>
+              <option value="Ogun State">Ogun State (Abeokuta)</option>
+              <option value="Enugu State">Enugu State</option>
+              <option value="Delta State">Delta State (Warri/Asaba)</option>
+              <option value="Edo State">Edo State (Benin City)</option>
+              <option value="Anambra State">Anambra State</option>
+              <option value="Kano State">Kano State</option>
+              <option value="Kaduna State">Kaduna State</option>
+              <option value="Akwa Ibom State">Akwa Ibom State</option>
+              <option value="Imo State">Imo State</option>
+              <option value="Kwara State">Kwara State</option>
+              <option value="Plateau State">Plateau State</option>
+              <option value="Other State">Other Nigerian State</option>
+            </select>
+          </div>
+
+          <!-- Edit Profile Picture -->
+          <div class="nh-form-group">
+            <div class="nh-avatar-uploader-box">
+              <img id="editPhotoPreview" class="nh-avatar-preview-img" src="" alt="Profile Photo Preview">
+              <div style="flex: 1; min-width: 0;">
+                <label class="nh-form-label" for="editPhotoFile" style="margin-bottom: 2px;">Update Profile Photo</label>
+                <input type="file" id="editPhotoFile" accept="image/*" class="nh-form-input" style="padding: 4px 8px; font-size: 0.8rem;">
+                <button type="button" id="btnRemoveEditPhoto" style="background: none; border: none; color: #ef4444; font-size: 0.75rem; cursor: pointer; font-weight: 700; margin-top: 4px; padding: 0;">✕ Remove Photo</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conditional Agent/Owner fields -->
+          <div id="editAgentFieldsContainer" style="display: none;" class="nh-conditional-fields-card">
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 12px;">
+              <span style="font-size: 1.1rem;">💼</span>
+              <span style="font-size: 0.82rem; font-weight: 800; color: #008751; text-transform: uppercase; letter-spacing: 0.5px;">Agent &amp; Property Owner Details</span>
+            </div>
+
+            <div class="nh-auth-grid-2">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="editAgencyName">Agency / Business Name</label>
+                <input type="text" id="editAgencyName" class="nh-form-input" placeholder="e.g. Landmark Properties Ltd">
+              </div>
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="editExperience">Years of Experience</label>
+                <input type="number" id="editExperience" class="nh-form-input" placeholder="e.g. 5" min="0" max="60">
+              </div>
+            </div>
+
+            <div class="nh-form-group" style="margin-top: 10px;">
+              <label class="nh-form-label" for="editWhatsapp">WhatsApp Business Number</label>
+              <input type="tel" id="editWhatsapp" class="nh-form-input" placeholder="e.g. +234 802 345 6789">
+            </div>
+
+            <div class="nh-form-group" style="margin-top: 10px;">
+              <label class="nh-form-label" for="editBio">Professional Bio</label>
+              <textarea id="editBio" class="nh-form-input" rows="3" style="resize: vertical; font-family: inherit;" placeholder="Overview of your corridor expertise and property focus..."></textarea>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 8px;">
+            <button type="submit" class="nh-form-submit" style="flex: 1;">Save Profile Changes &rarr;</button>
+            <button type="button" id="btnCancelEditProfile" style="padding: 12px 18px; border-radius: 12px; background: #e2e8f0; border: none; font-weight: 700; color: #334155; cursor: pointer;">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Persistent Mobile Bottom Tab Bar -->
+  <nav class="hh-bottom-tabbar" aria-label="Mobile Navigation">
+    <a href="index.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search</span>
+    </a>
+    <a href="saved.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>Saved</span>
+    </a>
+    <a href="messages.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="hh-tab-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ai-assistant.js"></script>
+  <script src="js/homehaven.js"></script>
+  <script>
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    const DEFAULT_PROP_IMAGE = "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect fill='%23f1f5f9' width='600' height='400'/%3E%3Ctext fill='%2394a3b8' font-family='sans-serif' font-size='22' font-weight='bold' x='50%25' y='50%25' text-anchor='middle'%3EProperty Image%3C/text%3E%3C/svg%3E";
+    let editPhotoDataUrl = null;
+    let isProfileLoading = false;
+
+    function setProfileLoading(isLoading) {
+      isProfileLoading = isLoading;
+      const container = document.getElementById("profileMainArea");
+      if (!container) return;
+
+      if (isLoading) {
+        container.innerHTML = `
+          <div id="nhProfileLoadingCard" style="background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; padding: clamp(40px, 8vw, 72px) 24px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-bottom: 24px;">
+            <div class="nh-loading-spinner"></div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">Loading Your Dashboard...</h2>
+            <p style="color: #64748b; font-size: 0.88rem; margin: 0;">Retrieving verified profile details and property portfolio</p>
+          </div>
+        `;
+      }
+    }
+    window.setProfileLoading = setProfileLoading;
+
+    async function loadUserProfile() {
+      const container = document.getElementById("profileMainArea");
+      if (!container) return;
+
+      setProfileLoading(true);
+
+      try {
+        // 1. Asynchronously fetch user profile via API/session
+        let user = null;
+        if (typeof window.fetchUserProfile === "function") {
+          user = await window.fetchUserProfile();
+        } else if (typeof fetchUserProfile === "function") {
+          user = await fetchUserProfile();
+        } else if (typeof window.getCurrentUser === "function") {
+          user = window.getCurrentUser();
+        } else if (typeof getCurrentUser === "function") {
+          user = getCurrentUser();
+        }
+
+        // 2. Fetch properties and saved portfolio
+        const allProps = typeof window.getAllNaijaProperties === "function" 
+          ? window.getAllNaijaProperties() 
+          : (typeof getAllNaijaProperties === "function" ? getAllNaijaProperties() : []);
+        let savedProps = [];
+        try {
+          savedProps = JSON.parse(localStorage.getItem("nh_saved_properties") || "[]");
+        } catch (e) {
+          savedProps = [];
+        }
+
+        // 3. Clear loading and render dashboard
+        setProfileLoading(false);
+        renderLoadedDashboard(user, allProps, savedProps);
+
+      } catch (err) {
+        console.error("NaijaHomes Profile Load Error:", err);
+
+        const isRlsError = err.message && (err.message.includes("RLS") || err.message.includes("42501") || err.message.toLowerCase().includes("permission denied") || err.message.toLowerCase().includes("access denied"));
+        const errorTitle = isRlsError ? "Security Policy Access Denied (RLS)" : "Unable to Load Profile";
+        const errorHelp = isRlsError
+          ? "Your database request was blocked by Supabase Row Level Security (RLS). Please ensure you are logged in and requesting your own authenticated profile."
+          : (err.message || "An unexpected error occurred while loading your profile dashboard.");
+
+        container.innerHTML = `
+          <div style="background: #ffffff; border-radius: 24px; border: 1px solid #fecaca; padding: clamp(32px, 6vw, 48px) 24px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-bottom: 24px;">
+            <div style="font-size: 2.8rem; margin-bottom: 12px;">⚠️</div>
+            <h2 style="font-size: 1.3rem; font-weight: 800; color: #991b1b; margin: 0 0 8px;">${escapeHtml(errorTitle)}</h2>
+            <p style="color: #475569; font-size: 0.92rem; max-width: 520px; margin: 0 auto 20px; line-height: 1.5;">
+              ${escapeHtml(errorHelp)}
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" class="nh-btn-post" onclick="loadUserProfile();">↻ Try Again</button>
+              <button type="button" class="nh-btn-login" onclick="openAuthModal('login');">Sign In Again</button>
+            </div>
+          </div>
+        `;
+      } finally {
+        setProfileLoading(false);
+      }
+    }
+    window.loadUserProfile = loadUserProfile;
+    window.renderProfilePage = loadUserProfile;
+
+    function renderLoadedDashboard(user, allProps, savedProps) {
+      const container = document.getElementById("profileMainArea");
+      if (!container) return;
+
+      try {
+        if (user) {
+          // Find listings created by this user
+          const userListings = allProps.filter(p => 
+            p && (
+              p.postedBy === user.id ||
+              p.postedBy === user.email ||
+              (p.agent && p.agent.name && user.name && p.agent.name.toLowerCase() === user.name.toLowerCase())
+            )
+          );
+
+          let listingsHtml = '';
+          if (userListings.length === 0) {
+            listingsHtml = `
+              <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 16px; padding: 40px 20px; text-align: center;">
+                <div style="font-size: 2.4rem; margin-bottom: 8px;">📑</div>
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 0 0 6px;">No properties listed yet</h3>
+                <p style="color: #64748b; font-size: 0.88rem; margin: 0 0 16px;">You haven't posted any property listings yet. Publish your house, land, or shortlet to reach verified buyers.</p>
+                <button type="button" class="nh-btn-post" onclick="document.getElementById('btnOpenSell').click();">+ Post a Property Now</button>
+              </div>
+            `;
+          } else {
+            listingsHtml = `<div class="hh-properties-grid">` + userListings.map(prop => `
+              <div style="background: #ffffff; border-radius: 18px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+                <div style="position: relative; height: 180px;">
+                  <a href="property-detail.html?id=${prop.id}" style="display: block; width: 100%; height: 100%;">
+                    <img src="${prop.image || DEFAULT_PROP_IMAGE}" alt="${escapeHtml(prop.title)}" style="width: 100%; height: 100%; object-fit: cover;">
+                  </a>
+                  <span style="position: absolute; top: 10px; left: 10px; background: rgba(15,23,42,0.85); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 4px 8px; border-radius: 6px;">${(prop.purpose || 'SALE').toUpperCase()}</span>
+                  <span class="nh-doc-badge ${prop.titleDocType || 'gov-consent'}" style="position: absolute; bottom: 10px; left: 10px;">✓ ${escapeHtml(prop.titleDoc || "Verified")}</span>
+                </div>
+                <div style="padding: 16px; flex: 1; display: flex; flex-direction: column;">
+                  <div style="font-size: 1.25rem; font-weight: 800; color: #008751; margin-bottom: 4px;" data-price-ngn="${prop.priceNgn}">${typeof window.formatPrice === 'function' ? window.formatPrice(prop.priceNgn, prop.pricePeriod) : '₦' + Number(prop.priceNgn).toLocaleString()}</div>
+                  <h3 style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin: 0 0 4px; line-height: 1.35;">
+                    <a href="property-detail.html?id=${prop.id}" style="color: inherit; text-decoration: none;">${escapeHtml(prop.title)}</a>
+                  </h3>
+                  <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 12px;">📍 ${escapeHtml(prop.location || 'Nigeria')}</p>
+                  <div style="margin-top: auto; display: flex; gap: 6px;">
+                    <a href="property-detail.html?id=${prop.id}" style="flex: 1; text-align: center; background: #f1f5f9; color: #0f172a; font-weight: 800; font-size: 0.78rem; padding: 8px 10px; border-radius: 8px; text-decoration: none;">View Listing</a>
+                  </div>
+                </div>
+              </div>
+            `).join('') + `</div>`;
+          }
+
+          const isAgentOrOwner = user.accountType === "Agent" || user.accountType === "Property Owner";
+
+          let roleBadge = '';
+          if (user.accountType === "Agent") {
+            roleBadge = `<span style="background: #fef3c7; color: #92400e; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; border: 1px solid #fde68a;">⭐ Real Estate Agent</span>`;
+          } else if (user.accountType === "Property Owner") {
+            roleBadge = `<span style="background: #ecfdf5; color: #065f46; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; border: 1px solid #a7f3d0;">🏡 Property Owner</span>`;
+          } else if (user.accountType === "Tenant") {
+            roleBadge = `<span style="background: #faf5ff; color: #6b21a8; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; border: 1px solid #e9d5ff;">🔑 Tenant</span>`;
+          } else {
+            roleBadge = `<span style="background: #eff6ff; color: #1e40af; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; border: 1px solid #bfdbfe;">💼 Property Buyer</span>`;
+          }
+
+          const avatarHtml = user.photo
+            ? `<div style="width: clamp(72px, 16vw, 96px); height: clamp(72px, 16vw, 96px); border-radius: 50%; overflow: hidden; border: 3px solid #10b981; box-shadow: 0 4px 14px rgba(0,135,81,0.25); flex-shrink: 0;"><img src="${user.photo}" alt="${escapeHtml(user.name)}" style="width: 100%; height: 100%; object-fit: cover;"></div>`
+            : `<div style="width: clamp(72px, 16vw, 96px); height: clamp(72px, 16vw, 96px); border-radius: 50%; background: linear-gradient(135deg, #054f30, #008751); color: #ffffff; font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 800; display: flex; align-items: center; justify-content: center; border: 3px solid #10b981; box-shadow: 0 4px 14px rgba(0,135,81,0.25); flex-shrink: 0;">${(user.name || 'U').charAt(0).toUpperCase()}</div>`;
+
+          const whatsappNumberClean = (user.whatsappNumber || user.phone || '').replace(/[^0-9]/g, '');
+          const whatsappBtnHtml = whatsappNumberClean
+            ? `<a href="https://wa.me/${whatsappNumberClean}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #ffffff; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; box-shadow: 0 2px 6px rgba(37,211,102,0.25);">💬 WhatsApp Direct</a>`
+            : '';
+
+          container.innerHTML = `
+            <!-- Profile User Card -->
+            <div style="background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; padding: clamp(18px, 4vw, 36px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 24px;">
+              <div style="display: flex; align-items: flex-start; gap: 24px; margin-bottom: 24px; flex-wrap: wrap;">
+                ${avatarHtml}
+                
+                <div style="flex: 1; min-width: 0;">
+                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap;">
+                    <h1 style="font-size: 1.7rem; font-weight: 800; color: #0f172a; margin: 0; letter-spacing: -0.5px;">${escapeHtml(user.name)}</h1>
+                    ${roleBadge}
+                    <span style="background: #ecfdf5; color: #008751; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 6px;">Active Account</span>
+                  </div>
+                  
+                  <div style="font-size: 0.9rem; color: #475569; margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                    <span style="font-weight: 700; color: #008751;">@${escapeHtml(user.username || 'user')}</span>
+                    <span>&bull;</span>
+                    <span>✉️ ${escapeHtml(user.email)}</span>
+                    <span>&bull;</span>
+                    <span>📞 ${escapeHtml(user.phone || 'No phone set')}</span>
+                    <span>&bull;</span>
+                    <span>📍 ${escapeHtml(user.city ? user.city + ', ' : '')}${escapeHtml(user.state || 'Nigeria')}</span>
+                  </div>
+
+                  ${isAgentOrOwner ? `
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 8px;">
+                    ${user.agencyName ? `<span style="background: #f1f5f9; color: #1e293b; font-size: 0.82rem; font-weight: 700; padding: 4px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">🏢 Agency: <strong>${escapeHtml(user.agencyName)}</strong></span>` : ''}
+                    ${user.yearsExperience ? `<span style="background: #f1f5f9; color: #1e293b; font-size: 0.82rem; font-weight: 700; padding: 4px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">⏳ Experience: <strong>${escapeHtml(user.yearsExperience)} Years</strong></span>` : ''}
+                    ${whatsappBtnHtml}
+                  </div>
+                  ` : ''}
+
+                  ${user.bio ? `
+                  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 16px; margin-top: 14px;">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #008751; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">About / Bio</div>
+                    <p style="color: #334155; font-size: 0.9rem; line-height: 1.5; margin: 0;">${escapeHtml(user.bio)}</p>
+                  </div>
+                  ` : ''}
+                </div>
+
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <button type="button" id="btnOpenEditProfile" style="background: #008751; color: #ffffff; border: none; border-radius: 12px; font-weight: 700; font-size: 0.85rem; padding: 9px 18px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(0,135,81,0.2);">
+                    ✏️ Edit Profile
+                  </button>
+                  <button type="button" class="nh-btn-logout-mini" style="font-size: 0.85rem; padding: 8px 16px; border: 1px solid #e2e8f0; border-radius: 12px;" onclick="logoutUser();">
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Stats -->
+              <div style="border-top: 1px solid #f1f5f9; padding-top: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; text-align: center; background: #f8fafc; border-radius: 14px; padding: 16px; border: 1px solid #e2e8f0;">
+                  <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #008751;">${userListings.length}</div>
+                    <div style="font-size: 0.75rem; color: #64748b; font-weight: 700;">My Listings</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #008751;">${savedProps.length}</div>
+                    <div style="font-size: 0.75rem; color: #64748b; font-weight: 700;">Saved Homes</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #008751;">Active</div>
+                    <div style="font-size: 0.75rem; color: #64748b; font-weight: 700;">Account Status</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- My Listed Properties Section -->
+            <div id="myListingsSection" style="margin-bottom: 36px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; flex-wrap: wrap; gap: 8px;">
+                <div>
+                  <h2 style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin: 0 0 4px;">My Listed Properties</h2>
+                  <p style="color: #64748b; font-size: 0.88rem; margin: 0;">Properties you have published on NaijaHomes.</p>
+                </div>
+                <button type="button" class="nh-btn-post" onclick="document.getElementById('btnOpenSell').click();">+ Post New Property</button>
+              </div>
+              ${listingsHtml}
+            </div>
+
+            <!-- Client Reviews & Feedback Section -->
+            <div style="background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-bottom: 32px;">
+              <h2 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0 0 4px;">Client Reviews &amp; Inquiries</h2>
+              <p style="color: #64748b; font-size: 0.88rem; margin: 0 0 20px;">Direct feedback from prospective buyers and tenants.</p>
+              <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 14px; padding: 28px 20px; text-align: center; color: #64748b; font-size: 0.9rem;">
+                No reviews yet. Verified reviews will appear here as clients interact with your listings.
+              </div>
+            </div>
+          `;
+
+          // Attach Edit Profile Modal trigger
+          const btnOpenEdit = document.getElementById("btnOpenEditProfile");
+          if (btnOpenEdit) {
+            btnOpenEdit.addEventListener("click", () => {
+              openEditProfileModal(user);
+            });
+          }
+
+        } else {
+          // Guest state
+          container.innerHTML = `
+            <div style="background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; padding: clamp(24px, 5vw, 48px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; margin-bottom: 24px;">
+              <div style="width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 50%; background: #ecfdf5; color: #008751; font-size: 2.2rem; display: flex; align-items: center; justify-content: center;">
+                👤
+              </div>
+              <h1 style="font-size: 1.7rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Sign in to your Profile</h1>
+              <p style="color: #64748b; font-size: 0.95rem; max-width: 500px; margin: 0 auto 24px;">
+                Log in to manage your listed properties, track buyer inquiries, and update your personal portfolio.
+              </p>
+              <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="nh-btn-login" style="padding: 12px 28px; font-size: 0.95rem;" onclick="openAuthModal('login')">Log In</button>
+                <button type="button" class="nh-btn-signup" style="padding: 12px 28px; font-size: 0.95rem;" onclick="openAuthModal('signup')">Sign Up Free</button>
+              </div>
+            </div>
+
+            <div id="myListingsSection" style="background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-bottom: 32px; text-align: center;">
+              <h2 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0 0 4px;">My Listed Properties</h2>
+              <p style="color: #64748b; font-size: 0.88rem; margin: 0 0 16px;">Please log in to view and manage your posted properties.</p>
+              <button type="button" class="nh-btn-login" onclick="openAuthModal('login')">Log In to View Listings</button>
+            </div>
+          `;
+        }
+      } catch (renderErr) {
+        console.error("Dashboard Render Error:", renderErr);
+        container.innerHTML = `
+          <div style="background: #ffffff; border-radius: 24px; border: 1px solid #fecaca; padding: clamp(32px, 6vw, 48px) 24px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-bottom: 24px;">
+            <div style="font-size: 2.8rem; margin-bottom: 12px;">⚠️</div>
+            <h2 style="font-size: 1.3rem; font-weight: 800; color: #991b1b; margin: 0 0 8px;">Dashboard Error</h2>
+            <p style="color: #475569; font-size: 0.92rem; max-width: 520px; margin: 0 auto 20px; line-height: 1.5;">
+              ${escapeHtml(renderErr.message || "An unexpected error occurred while rendering your dashboard.")}
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" class="nh-btn-post" onclick="loadUserProfile();">↻ Try Again</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function openEditProfileModal(user) {
+      const modal = document.getElementById("nhEditProfileModal");
+      if (!modal || !user) return;
+
+      const editFullName = document.getElementById("editFullName");
+      const editUsername = document.getElementById("editUsername");
+      const editPhone = document.getElementById("editPhone");
+      const editCity = document.getElementById("editCity");
+      const editState = document.getElementById("editState");
+      const editPhotoPreview = document.getElementById("editPhotoPreview");
+      const editPhotoFile = document.getElementById("editPhotoFile");
+      const btnRemoveEditPhoto = document.getElementById("btnRemoveEditPhoto");
+      const editAgentFieldsContainer = document.getElementById("editAgentFieldsContainer");
+      const editAgencyName = document.getElementById("editAgencyName");
+      const editExperience = document.getElementById("editExperience");
+      const editWhatsapp = document.getElementById("editWhatsapp");
+      const editBio = document.getElementById("editBio");
+      const alertBox = document.getElementById("nhEditProfileAlert");
+
+      if (alertBox) alertBox.style.display = "none";
+
+      editFullName.value = user.name || "";
+      editUsername.value = user.username || "";
+      editPhone.value = user.phone || "";
+      editCity.value = user.city || "";
+      if (editState && user.state) editState.value = user.state;
+      if (editPhotoFile) editPhotoFile.value = "";
+
+      editPhotoDataUrl = user.photo || "";
+      const defaultAvatarSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2e8f0'/><circle cx='50' cy='40' r='18' fill='%2394a3b8'/><path d='M22 84 C26 62 40 60 50 60 C60 60 74 62 78 84 Z' fill='%2394a3b8'/></svg>";
+
+      if (editPhotoPreview) {
+        editPhotoPreview.src = editPhotoDataUrl || defaultAvatarSvg;
+      }
+      if (btnRemoveEditPhoto) {
+        btnRemoveEditPhoto.style.display = editPhotoDataUrl ? "inline-block" : "none";
+      }
+
+      const isAgentOrOwner = user.accountType === "Agent" || user.accountType === "Property Owner";
+      if (editAgentFieldsContainer) {
+        editAgentFieldsContainer.style.display = isAgentOrOwner ? "block" : "none";
+        if (isAgentOrOwner) {
+          if (editAgencyName) editAgencyName.value = user.agencyName || "";
+          if (editExperience) editExperience.value = user.yearsExperience || "";
+          if (editWhatsapp) editWhatsapp.value = user.whatsappNumber || "";
+          if (editBio) editBio.value = user.bio || "";
+        }
+      }
+
+      modal.style.display = "flex";
+    }
+
+    function initEditProfileModal() {
+      const modal = document.getElementById("nhEditProfileModal");
+      const closeBtn = document.getElementById("closeEditProfileModal");
+      const cancelBtn = document.getElementById("btnCancelEditProfile");
+      const form = document.getElementById("nhEditProfileForm");
+      const editPhotoFile = document.getElementById("editPhotoFile");
+      const editPhotoPreview = document.getElementById("editPhotoPreview");
+      const btnRemoveEditPhoto = document.getElementById("btnRemoveEditPhoto");
+      const alertBox = document.getElementById("nhEditProfileAlert");
+
+      const defaultAvatarSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2e8f0'/><circle cx='50' cy='40' r='18' fill='%2394a3b8'/><path d='M22 84 C26 62 40 60 50 60 C60 60 74 62 78 84 Z' fill='%2394a3b8'/></svg>";
+
+      function showEditAlert(msg, isSuccess = false) {
+        if (!alertBox) return;
+        alertBox.style.display = "block";
+        alertBox.style.background = isSuccess ? "#ecfdf5" : "#fef2f2";
+        alertBox.style.color = isSuccess ? "#065f46" : "#991b1b";
+        alertBox.style.border = `1px solid ${isSuccess ? '#a7f3d0' : '#fecaca'}`;
+        alertBox.textContent = msg;
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          if (modal) modal.style.display = "none";
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+          if (modal) modal.style.display = "none";
+        });
+      }
+
+      if (modal) {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      }
+
+      if (editPhotoFile && editPhotoPreview) {
+        editPhotoFile.addEventListener("change", (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+              showEditAlert("Image size is too large (maximum 2MB).");
+              editPhotoFile.value = "";
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+              editPhotoDataUrl = evt.target.result;
+              editPhotoPreview.src = editPhotoDataUrl;
+              if (btnRemoveEditPhoto) btnRemoveEditPhoto.style.display = "inline-block";
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      if (btnRemoveEditPhoto && editPhotoPreview && editPhotoFile) {
+        btnRemoveEditPhoto.addEventListener("click", () => {
+          editPhotoDataUrl = "";
+          editPhotoFile.value = "";
+          editPhotoPreview.src = defaultAvatarSvg;
+          btnRemoveEditPhoto.style.display = "none";
+        });
+      }
+
+      if (form) {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (alertBox) alertBox.style.display = "none";
+
+          const editFullName = document.getElementById("editFullName").value;
+          const editUsername = document.getElementById("editUsername").value;
+          const editPhone = document.getElementById("editPhone").value;
+          const editCity = document.getElementById("editCity").value;
+          const editState = document.getElementById("editState").value;
+          const editAgencyName = document.getElementById("editAgencyName") ? document.getElementById("editAgencyName").value : "";
+          const editExperience = document.getElementById("editExperience") ? document.getElementById("editExperience").value : "";
+          const editWhatsapp = document.getElementById("editWhatsapp") ? document.getElementById("editWhatsapp").value : "";
+          const editBio = document.getElementById("editBio") ? document.getElementById("editBio").value : "";
+
+          const updates = {
+            name: editFullName,
+            username: editUsername,
+            phone: editPhone,
+            city: editCity,
+            state: editState,
+            photo: editPhotoDataUrl,
+            agencyName: editAgencyName,
+            yearsExperience: editExperience,
+            whatsappNumber: editWhatsapp,
+            bio: editBio
+          };
+
+          const updateFn = typeof window.updateUserProfile === "function" ? window.updateUserProfile : (typeof updateUserProfile === "function" ? updateUserProfile : null);
+          const result = updateFn ? (await updateFn(updates)) : { success: false, message: "Profile update function unavailable." };
+          if (result.success) {
+            if (modal) modal.style.display = "none";
+            if (typeof window.showNaijaToast === "function") {
+              window.showNaijaToast("Profile updated successfully!", "✅");
+            } else if (typeof showNaijaToast === "function") {
+              showNaijaToast("Profile updated successfully!", "✅");
+            }
+            loadUserProfile();
+          } else {
+            showEditAlert(result.message);
+          }
+        });
+      }
+    }
+
+    function initProfilePage() {
+      initEditProfileModal();
+      loadUserProfile();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initProfilePage);
+    } else {
+      initProfilePage();
+    }
+  </script>
+</body>
+</html>

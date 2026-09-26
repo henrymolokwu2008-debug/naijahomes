@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Properties | NaijaHomes</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="hh-page-body">
+
+  <!-- Production Global Header Banner -->
+  <header class="hh-global-banner">
+    <a href="index.html" class="hh-brand-logo">
+      <div class="hh-logo-icon" style="background: #008751; color: #ffffff;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px;">NAIJA<span style="color: #008751;">HOMES</span></span>
+      </div>
+    </a>
+
+    <button class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+    </button>
+
+    <!-- Clean Production Navigation Links -->
+    <nav class="hh-main-nav" aria-label="Main Navigation">
+      <a href="index.html" class="hh-nav-link">Home</a>
+      <a href="explore.html?purpose=sale" class="hh-nav-link">Buy</a>
+      <a href="explore.html?purpose=rent" class="hh-nav-link">Rent</a>
+      <a href="explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
+      <a href="explore.html?purpose=land" class="hh-nav-link">Land</a>
+      <a href="map.html" class="hh-nav-link">Google Maps</a>
+      <a href="messages.html" class="hh-nav-link">Inspection Desk</a>
+      <a href="saved.html" class="hh-nav-link active">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hh-nav-actions" style="gap: 12px;">
+      <div class="nh-currency-group">
+        <button type="button" class="nh-currency-btn active" id="btnNgn">₦ NGN</button>
+        <button type="button" class="nh-currency-btn" id="btnUsd">$ USD</button>
+      </div>
+
+      <button type="button" class="nh-btn-post" id="btnOpenSell">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Post a Property
+      </button>
+
+      <div class="nh-auth-container" id="nhAuthContainer"></div>
+    </div>
+  </header>
+
+  <!-- Full-Width Responsive Container -->
+  <main class="hh-device-shell" role="region" aria-label="Saved Properties">
+    <div class="hh-page-content-wrapper">
+
+      <!-- Top Title and Portfolio Summary -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin: 0 0 6px; letter-spacing: -0.5px;">
+            Saved Properties &bull; Nigerian Investment Portfolio
+          </h1>
+          <p style="color: #64748b; font-size: 0.95rem; margin: 0;">
+            Review, compare, and book private physical inspections for your shortlisted Nigerian homes, apartments, and land.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a href="explore.html" style="background: #e2e8f0; color: #0f172a; text-decoration: none; padding: 10px 16px; border-radius: 12px; font-weight: 700; font-size: 0.85rem;">
+            + Explore More
+          </a>
+          <button type="button" id="btnClearSaved" style="background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; padding: 10px 16px; border-radius: 12px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">
+            Clear Portfolio
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Portfolio Metrics Banner -->
+      <div id="portfolioMetrics" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 20px 24px; margin-bottom: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.03); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <!-- Metrics rendered via JS -->
+      </div>
+
+      <!-- Saved Listings Grid -->
+      <div id="savedGrid" class="hh-properties-grid">
+        <!-- Populated via Javascript -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL: SCHEDULE INSPECTION -->
+  <div class="nh-modal-overlay" id="nhInspectionModal">
+    <div class="nh-modal-card" style="max-width: 500px;">
+      <button type="button" class="nh-modal-close" id="closeInspModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">📅</span>
+        <h2 class="nh-modal-title">Book Free Physical Inspection</h2>
+      </div>
+      <p class="nh-modal-desc">
+        Regarding: <strong id="inspPropertyTitle" style="color: #008751;">Selected Nigerian Property</strong>.
+        Our licensed realtor will meet you at the site. Zero inspection fee.
+      </p>
+
+      <form id="nhInspectionForm">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="nh-form-group">
+            <label class="nh-form-label">Your Full Name *</label>
+            <input type="text" id="inspName" class="nh-form-input" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">WhatsApp / Phone Number *</label>
+            <input type="tel" id="inspPhone" class="nh-form-input" placeholder="Enter your phone or WhatsApp number" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Preferred Date *</label>
+            <input type="date" id="inspDate" class="nh-form-input" required>
+          </div>
+
+          <button type="submit" class="nh-form-submit">Confirm Physical Inspection &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: POST A PROPERTY -->
+  <div class="nh-modal-overlay" id="nhSellModal">
+    <div class="nh-modal-card">
+      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">🏡</span>
+        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+      </div>
+      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
+
+      <form id="nhSellForm">
+        <div class="nh-form-grid">
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Property Title *</label>
+            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Purpose *</label>
+            <select id="sellPurpose" class="nh-form-select" required>
+              <option value="sale">For Sale</option>
+              <option value="rent">For Rent (Annual)</option>
+              <option value="shortlet">Short Let (Daily)</option>
+              <option value="land">Land / Plot</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Property Type *</label>
+            <select id="sellType" class="nh-form-select" required>
+              <option value="duplex">Detached Duplex</option>
+              <option value="terrace">Terraced Duplex</option>
+              <option value="penthouse">Penthouse</option>
+              <option value="apartment">Serviced Flat / Apartment</option>
+              <option value="land">Residential Land</option>
+              <option value="commercial">Commercial Property</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">State *</label>
+            <select id="sellState" class="nh-form-select" required>
+              <option value="Lagos">Lagos State</option>
+              <option value="Abuja">Abuja FCT</option>
+              <option value="Rivers">Rivers (Port Harcourt)</option>
+              <option value="Oyo">Oyo (Ibadan)</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Location / Neighborhood *</label>
+            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Price in Naira (₦) *</label>
+            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Title Document *</label>
+            <select id="sellTitleDoc" class="nh-form-select" required>
+              <option value="Governor's Consent">Governor's Consent</option>
+              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
+              <option value="Deed of Assignment">Deed of Assignment</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bedrooms</label>
+            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bathrooms</label>
+            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
+          </div>
+
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Photo Image URL</label>
+            <input type="url" id="sellImageUrl" class="nh-form-input" placeholder="Enter photo image URL">
+          </div>
+
+          <div class="nh-form-group full">
+            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/ai-assistant.js"></script>
+  <script src="js/homehaven.js"></script>
+  <script>
+    function renderSavedListings() {
+      const grid = document.getElementById("savedGrid");
+      const metricsContainer = document.getElementById("portfolioMetrics");
+      if (!grid) return;
+
+      const savedIds = JSON.parse(localStorage.getItem("nh_saved_properties") || "[]");
+      const allProps = getAllNaijaProperties();
+      const savedProps = allProps.filter(p => savedIds.includes(p.id));
+
+      grid.innerHTML = "";
+
+      if (savedProps.length === 0) {
+        if (metricsContainer) metricsContainer.style.display = "none";
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; padding: 64px 24px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.03);">
+            <div style="font-size: 3.5rem; margin-bottom: 16px;">❤️</div>
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Your Saved Portfolio is Empty</h3>
+            <p style="color: #64748b; font-size: 1rem; margin: 0 0 24px; max-width: 480px; margin-left: auto; margin-right: auto;">
+              Bookmark Nigerian properties, duplexes, serviced flats, penthouses, or lands to compare prices and plan inspections.
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <a href="explore.html" style="background: #008751; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px;">
+                <span>Browse Properties</span> &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Calculate Metrics
+      if (metricsContainer) {
+        metricsContainer.style.display = "grid";
+        const totalValNgn = savedProps.reduce((acc, p) => acc + (p.priceNgn || 0), 0);
+        const avgValNgn = Math.round(totalValNgn / savedProps.length);
+        const saleCount = savedProps.filter(p => p.purpose === "sale").length;
+        const rentCount = savedProps.filter(p => p.purpose === "rent" || p.purpose === "shortlet").length;
+
+        metricsContainer.innerHTML = `
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 4px;">Shortlisted Properties</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #0f172a;">${savedProps.length} <span style="font-size: 0.9rem; font-weight: 600; color: #008751;">(${saleCount} For Sale, ${rentCount} Rental)</span></div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 4px;">Total Portfolio Valuation</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #008751;" data-price-ngn="${totalValNgn}">
+              ₦${(totalValNgn).toLocaleString("en-NG")}
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 4px;">Average Unit Price</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #0f172a;" data-price-ngn="${avgValNgn}">
+              ₦${(avgValNgn).toLocaleString("en-NG")}
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 4px;">Physical Inspection Status</div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+              <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #16a34a;"></span>
+              <span style="font-weight: 800; color: #16a34a; font-size: 0.92rem;">Ready for Walkthrough</span>
+            </div>
+          </div>
+        `;
+      }
+
+      savedProps.forEach(p => {
+        const card = document.createElement("div");
+        card.style.cssText = `
+          background: #ffffff;
+          border-radius: 20px;
+          border: 1px solid #e2e8f0;
+          overflow: hidden;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.2s, box-shadow 0.2s;
+        `;
+
+        const purposeLabel = p.purpose === "sale" ? "FOR SALE" : (p.purpose === "rent" ? "FOR RENT" : (p.purpose === "shortlet" ? "SHORT LET" : "LAND"));
+        const docBadgeClass = p.titleDocType === "c-of-o" ? "c-of-o" : (p.titleDocType === "gazette" ? "gazette" : "gov-consent");
+
+        card.innerHTML = `
+          <div style="position: relative; height: 230px; overflow: hidden;">
+            <a href="property-detail.html?id=${p.id}" style="display: block; width: 100%; height: 100%;">
+              <img src="${p.image}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover;">
+            </a>
+            
+            <div style="position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; flex-wrap: wrap;">
+              <span style="background: rgba(15, 23, 42, 0.85); color: #ffffff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;">
+                ${purposeLabel}
+              </span>
+              <span class="nh-doc-badge ${docBadgeClass}">
+                ✓ ${p.titleDoc}
+              </span>
+            </div>
+
+            <button type="button" title="Remove from Portfolio" onclick="toggleSaveProperty('${p.id}', null); renderSavedListings(); updateSavedCounter();" style="position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: #ffffff; border: 1px solid #fecdd3; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #dc2626; font-size: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+              &times;
+            </button>
+          </div>
+
+          <div style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
+            <div style="margin-bottom: 6px;">
+              <span data-price-ngn="${p.priceNgn}" data-price-period="${p.pricePeriod}" style="font-size: 1.4rem; font-weight: 800; color: #008751;">
+                ${p.priceFormattedNgn}
+              </span>
+            </div>
+
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px; line-height: 1.4;">
+              <a href="property-detail.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.title}</a>
+            </h3>
+
+            <p style="font-size: 0.82rem; color: #64748b; margin: 0 0 12px; display: flex; align-items: center; gap: 4px;">
+              <span>📍</span> <span>${p.location}</span>
+            </p>
+
+            <div style="display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 16px;">
+              ${p.bedrooms > 0 ? `<span>🛏️ ${p.bedrooms} Beds</span>` : ""}
+              ${p.bathrooms > 0 ? `<span>🚿 ${p.bathrooms} Baths</span>` : ""}
+              ${p.hasBq ? `<span>🏠 BQ</span>` : ""}
+              <span>📐 ${p.landSize}</span>
+            </div>
+
+            <div style="margin-top: auto; display: flex; gap: 8px;">
+              <a href="property-detail.html?id=${p.id}" style="flex: 1; text-align: center; background: #f1f5f9; color: #0f172a; font-weight: 800; font-size: 0.82rem; padding: 10px 12px; border-radius: 10px; text-decoration: none;">
+                View Details
+              </a>
+
+              <button type="button" class="nh-btn-whatsapp" onclick="chatWhatsApp('${p.agent.whatsapp}', '${p.title.replace(/'/g, "\\'")}');" title="Chat on WhatsApp">
+                <span>💬 WhatsApp</span>
+              </button>
+
+              <button type="button" style="background: #008751; color: #ffffff; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 800; font-size: 0.8rem; cursor: pointer;" onclick="openInspectionModal('${p.title.replace(/'/g, "\\'")}');" title="Book Free Physical Inspection">
+                <span>📅 Inspect</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      if (typeof updateCurrencyUI === "function") {
+        updateCurrencyUI();
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderSavedListings();
+
+      const clearBtn = document.getElementById("btnClearSaved");
+      if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+          if (confirm("Are you sure you want to clear your saved Nigerian real estate portfolio?")) {
+            localStorage.setItem("nh_saved_properties", "[]");
+            renderSavedListings();
+            if (typeof updateSavedCounter === "function") {
+              updateSavedCounter();
+            }
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Persistent Mobile Bottom Tab Bar -->
+  <nav class="hh-bottom-tabbar" aria-label="Mobile Navigation">
+    <a href="index.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search</span>
+    </a>
+    <a href="saved.html" class="hh-tab-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>Saved</span>
+    </a>
+    <a href="messages.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Maps Real Estate Explorer &amp; Live Traffic | NaijaHomes</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="../css/leaflet.css">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="hh-page-body" style="background: #e5e3df; margin: 0; padding: 0; overflow-x: hidden;">
+
+  <!-- Production Global Header Banner -->
+  <header class="hh-global-banner">
+    <a href="../index.html" class="hh-brand-logo">
+      <div class="hh-logo-icon" style="background: #008751; color: #ffffff;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px;">NAIJA<span style="color: #008751;">HOMES</span></span>
+      </div>
+    </a>
+
+    <button class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+    </button>
+
+    <!-- Clean Navigation Links -->
+    <nav class="hh-main-nav" aria-label="Main Navigation">
+      <a href="../index.html" class="hh-nav-link">Home</a>
+      <a href="explore.html?purpose=sale" class="hh-nav-link">Buy</a>
+      <a href="explore.html?purpose=rent" class="hh-nav-link">Rent</a>
+      <a href="explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
+      <a href="explore.html?purpose=land" class="hh-nav-link">Land</a>
+      <a href="map.html" class="hh-nav-link active">Google Maps</a>
+      <a href="messages.html" class="hh-nav-link">Inspection Desk</a>
+      <a href="saved.html" class="hh-nav-link">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hh-nav-actions" style="gap: 12px;">
+      <div class="nh-currency-group">
+        <button type="button" class="nh-currency-btn active" id="btnNgn">₦ NGN</button>
+        <button type="button" class="nh-currency-btn" id="btnUsd">$ USD</button>
+      </div>
+
+      <button type="button" class="nh-btn-post" id="btnOpenSell">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Post a Property
+      </button>
+
+      <div class="nh-auth-container" id="nhAuthContainer"></div>
+    </div>
+  </header>
+
+  <!-- Full-Bleed Google Maps Edge-to-Edge Container (google.com/maps) -->
+  <main class="gmap-fullscreen-container">
+
+    <!-- Active Google Turn-by-Turn Navigation HUD (Slides down on Start) -->
+    <div class="gmap-turn-hud" id="gmapNavHudDesk" style="display: none; position: absolute; top: 0; left: 0; right: 0; z-index: 1200;">
+      <div class="gmap-turn-arrow">↱</div>
+      <div style="flex: 1;">
+        <div class="gmap-turn-dist" id="hudDistDesk">In 250 m</div>
+        <div class="gmap-turn-street" id="hudStreetDesk">Turn right onto Admiralty Way, Lekki Phase 1</div>
+      </div>
+      <div style="margin-left: 20px; display: flex; align-items: center; gap: 12px; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 16px;">
+        <div style="font-size: 1.4rem; font-weight: 800;" id="hudEtaBigDesk">9 min</div>
+        <div style="font-size: 0.85rem; opacity: 0.9;" id="hudEtaSubDesk">1.8 mi • ETA 10:15 AM</div>
+      </div>
+      <button type="button" class="gmap-turn-exit-btn" id="btnExitNavDesk">✕ Exit</button>
+    </div>
+
+    <!-- Authentic Google Maps Left Docked Drawer / Side Panel -->
+    <aside class="gmap-side-panel" id="gmapSidePanel">
+
+      <!-- Google Maps Floating Search Bar with Autocomplete -->
+      <div class="gmap-floating-search-card" id="gmapFloatingSearchCard">
+        <div class="gmap-search-card-inner">
+          <button type="button" class="gmap-search-btn-icon" title="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+          <input type="text" id="hhGmapSearchInput" placeholder="Search Google Maps or Nigerian estates..." autocomplete="off">
+          <button type="button" class="gmap-search-btn-icon" style="color: #4285f4;" title="Voice Search">
+            🎙️
+          </button>
+          <button type="button" class="gmap-search-btn-icon" style="color: #1a73e8;" onclick="if(window.activeProperty) window.nhOpenDirections(window.activeProperty.id);" title="Directions">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22.43 10.59l-9.01-9.01c-.75-.75-2.07-.75-2.83 0l-9 9c-.78.78-.78 2.05 0 2.83l9 9c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l9.01-9.01c.79-.78.79-2.05.01-2.81zM13 14.5V12h-4v3H7v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="nh-search-dropdown" id="hhGmapSearchDropdown"></div>
+      </div>
+
+      <!-- VIEW 1: All Matching Nigerian Properties List -->
+      <div class="gmap-panel-view" id="gmapViewPlaces">
+        <div class="gmap-places-count-bar">
+          <span id="gmapPlacesCount" style="font-weight: 700; color: #202124;">Loading verified estates...</span>
+          <span class="nh-doc-badge c-of-o" style="font-size: 0.7rem; padding: 2px 7px;">✓ Verified Title</span>
+        </div>
+        <div class="gmap-places-list" id="gmapPlacesList">
+          <!-- Dynamically populated via map-engine.js -->
+        </div>
+      </div>
+
+      <!-- VIEW 2: Single Place Details Card -->
+      <div class="gmap-panel-view hidden" id="gmapViewDetails">
+        <div class="gmap-details-view">
+          <div class="gmap-details-hero">
+            <img id="gmapPlaceHeroImg" src="" alt="Estate Preview">
+            <div class="gmap-details-back-bar">
+              <button type="button" class="gmap-btn-back-circle" id="btnBackFromDetails" title="Back to results">
+                ←
+              </button>
+            </div>
+            <span class="gmap-details-purpose-pill" id="gmapPlacePurposePill">FOR SALE</span>
+          </div>
+
+          <div class="gmap-details-content">
+            <h2 class="gmap-details-title" id="gmapPlaceTitle">Loading...</h2>
+            
+            <div class="gmap-details-meta">
+              <span class="nh-doc-badge c-of-o" id="gmapPlaceDocBadge" style="font-size: 0.72rem; padding: 2px 7px;">✓ C of O</span>
+            </div>
+
+            <div class="gmap-details-price" id="gmapPlacePrice">₦0</div>
+
+            <!-- Google Circular Action Buttons -->
+            <div class="gmap-circle-actions">
+              <button type="button" class="gmap-circle-action-item directions" id="btnActionDirections">
+                <div class="gmap-circle-icon">🚗</div>
+                <span>Directions</span>
+              </button>
+              <a href="#" target="_blank" class="gmap-circle-action-item whatsapp" id="gmapPlaceAgentLink">
+                <div class="gmap-circle-icon">💬</div>
+                <span>WhatsApp</span>
+              </a>
+              <button type="button" class="gmap-circle-action-item" id="btnActionInspect">
+                <div class="gmap-circle-icon">📅</div>
+                <span>Inspect</span>
+              </button>
+              <button type="button" class="gmap-circle-action-item" id="btnActionSave">
+                <div class="gmap-circle-icon">💾</div>
+                <span>Save</span>
+              </button>
+              <button type="button" class="gmap-circle-action-item" id="btnActionShare">
+                <div class="gmap-circle-icon">🔗</div>
+                <span>Share</span>
+              </button>
+            </div>
+
+            <!-- Key Nigerian Property Details -->
+            <div class="gmap-info-section">
+              <div class="gmap-info-row">
+                <div class="gmap-info-icon">📍</div>
+                <div>
+                  <div style="font-weight: 700; color: #202124;">Address</div>
+                  <div id="gmapPlaceAddress" style="color: #5f6368; font-size: 0.82rem; margin-top: 2px;">Lagos, Nigeria</div>
+                </div>
+              </div>
+
+              <div class="gmap-info-row">
+                <div class="gmap-info-icon">📐</div>
+                <div>
+                  <div style="font-weight: 700; color: #202124;">Specifications &amp; Features</div>
+                  <div class="gmap-specs-pills" id="gmapPlaceSpecsPills">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="gmap-info-row">
+                <div class="gmap-info-icon">👤</div>
+                <div>
+                  <div style="font-weight: 700; color: #202124;">Listing Contact</div>
+                  <div style="color: #5f6368; font-size: 0.82rem; margin-top: 2px;">
+                    <strong id="gmapPlaceAgentName" style="color: #202124;">Property Owner</strong> &bull; <span id="gmapPlaceAgentPhone">Available on inquiry</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding-top: 12px; border-top: 1px solid #f1f3f4;">
+              <a href="#" id="gmapPlaceFullDetailLink" style="display: block; text-align: center; background: #f8f9fa; border: 1px solid #dadce0; color: #1a73e8; font-weight: 700; padding: 10px; border-radius: 12px; text-decoration: none; font-size: 0.88rem;">
+                Open Full Property Listing Page &rarr;
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: Google Directions View -->
+      <div class="gmap-panel-view hidden" id="gmapViewDirections">
+        <div class="gmap-dir-header">
+          <button type="button" class="gmap-btn-back-circle" id="btnBackFromDirections" title="Back to place">
+            ←
+          </button>
+          <h3 class="gmap-dir-title">Directions</h3>
+        </div>
+
+        <!-- Transport Modes -->
+        <div class="gmap-transport-tabs">
+          <button type="button" class="gmap-mode-tab active" data-mode="drive" title="Driving">🚗</button>
+          <button type="button" class="gmap-mode-tab" data-mode="transit" title="BRT Transit">🚌</button>
+          <button type="button" class="gmap-mode-tab" data-mode="walk" title="Walking">🚶</button>
+          <button type="button" class="gmap-mode-tab" data-mode="bike" title="Cycling">🚴</button>
+          <button type="button" class="gmap-mode-tab" data-mode="ride" title="Uber / Bolt">🚕</button>
+        </div>
+
+        <!-- Waypoints Box -->
+        <div class="gmap-waypoints-container">
+          <div class="gmap-waypoint-dots-line"></div>
+          
+          <div class="gmap-waypoint-row">
+            <div class="gmap-waypoint-dot-blue" title="Your Location"></div>
+            <input type="text" class="gmap-waypoint-input" id="gmapDirOriginInput" value="Your Location (Lekki-Ikoyi Link)" readonly>
+            <button type="button" class="gmap-swap-btn" id="btnSwapWaypointsDesk" title="Reverse directions">
+              ⇅
+            </button>
+          </div>
+
+          <div class="gmap-waypoint-row">
+            <div class="gmap-waypoint-dot-red" title="Destination">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+              </svg>
+            </div>
+            <input type="text" class="gmap-waypoint-input" id="gmapDirDestInput" value="Selected Nigerian Property" readonly>
+          </div>
+        </div>
+
+        <!-- Recommended Fastest Route Card -->
+        <div class="gmap-route-card selected" style="margin: 12px 16px; border: 1px solid #dadce0; border-radius: 14px;">
+          <div class="gmap-route-header">
+            <span class="gmap-route-time-green" id="gmapDirRouteTime">9 min</span>
+            <span class="gmap-route-dist" id="gmapDirRouteDist">1.8 mi • 2.9 km</span>
+          </div>
+          <div class="gmap-route-traffic-note">
+            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #188038;"></span>
+            Fastest route now &bull; Typical traffic
+          </div>
+          <div class="gmap-route-corridor" id="gmapDirRouteCorridor">
+            via Lekki-Ikoyi Link Bridge &amp; Admiralty Way
+          </div>
+
+          <div style="margin-top: 14px; display: flex; gap: 10px;">
+            <button type="button" class="gmap-start-btn" id="btnStartNavDesk" style="flex: 1; justify-content: center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
+              </svg>
+              Start
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- Side Panel Collapse / Expand Chevron Tab -->
+    <div class="gmap-panel-toggle-tab" id="gmapPanelToggleTab" title="Collapse Side Panel">
+      ◀
+    </div>
+
+    <!-- Floating Corridor Quick Filter Chips -->
+    <div class="gmap-floating-chips">
+      <button type="button" class="gmap-floating-chip active" data-corridor="all">🌍 All Nigeria</button>
+      <button type="button" class="gmap-floating-chip" data-corridor="lekki">🌴 Lekki Phase 1</button>
+      <button type="button" class="gmap-floating-chip" data-corridor="ikoyi">⛵ Old Ikoyi</button>
+      <button type="button" class="gmap-floating-chip" data-corridor="banana">💎 Banana Island</button>
+      <button type="button" class="gmap-floating-chip" data-corridor="vi">🏙️ Victoria Island</button>
+      <button type="button" class="gmap-floating-chip" data-corridor="ikeja">🛫 Ikeja GRA</button>
+      <button type="button" class="gmap-floating-chip" data-corridor="abuja">🏛️ Abuja (Maitama &amp; Guzape)</button>
+      <button type="button" class="gmap-floating-chip" data-corridor="ibeju">🌊 Ibeju-Lekki &amp; Epe</button>
+      <button type="button" class="gmap-floating-chip" data-purpose="sale">🏷️ For Sale</button>
+      <button type="button" class="gmap-floating-chip" data-purpose="rent">🔑 For Rent</button>
+      <button type="button" class="gmap-floating-chip" data-purpose="shortlet">✨ Shortlet</button>
+      <button type="button" class="gmap-floating-chip" data-purpose="land">📐 Land</button>
+    </div>
+
+    <!-- Google Maps Bottom-Left Layers Switcher (Square Thumbnail) -->
+    <div class="gmap-layers-card" id="gmapLayersWidget" title="Toggle Google Satellite / Streets">
+      <div class="gmap-layers-thumb" id="gmapLayersThumb" style="background-image: url('https://mt1.google.com/vt/lyrs=y&x=1&y=1&z=1');"></div>
+      <span class="gmap-layers-label" id="gmapLayersLabel">Satellite</span>
+    </div>
+
+    <!-- Official Multicolor Google Watermark -->
+    <div class="gmap-official-watermark">
+      <span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span>
+    </div>
+
+    <!-- Google Maps Bottom-Right Controls Dock -->
+    <div class="gmap-controls-dock">
+      <!-- Locate Me (Crosshairs) -->
+      <button type="button" class="gmap-control-btn" id="btnLocateMeDesk" title="Show Your Location">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#1a73e8">
+          <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+        </svg>
+      </button>
+
+      <!-- Pegman (Street View) -->
+      <button type="button" class="gmap-control-btn" id="btnPegmanDesk" title="Street View (Admiralty Way, Ozumba Mbadiwe)">
+        <span style="font-size: 1.25rem;">🧍</span>
+      </button>
+
+      <!-- Zoom In / Out Stack -->
+      <div class="gmap-control-zoom-box">
+        <button type="button" id="btnZoomInDesk" title="Zoom in">+</button>
+        <button type="button" id="btnZoomOutDesk" title="Zoom out">&minus;</button>
+      </div>
+    </div>
+
+    <!-- The Real Interactive Leaflet Google Map Full-Bleed Canvas -->
+    <div id="realGMapDesk" class="gmap-canvas-full"></div>
+
+  </main>
+
+  <!-- MODAL: SCHEDULE INSPECTION -->
+  <div class="nh-modal-overlay" id="nhInspectionModal">
+    <div class="nh-modal-card" style="max-width: 500px;">
+      <button type="button" class="nh-modal-close" id="closeInspModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">📅</span>
+        <h2 class="nh-modal-title">Book Free Physical Inspection</h2>
+      </div>
+      <p class="nh-modal-desc">
+        Regarding: <strong id="inspPropertyTitle" style="color: #008751;">Selected Nigerian Property</strong>.
+        Our licensed realtor will meet you at the site. Zero inspection fee.
+      </p>
+
+      <form id="nhInspectionForm">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="nh-form-group">
+            <label class="nh-form-label">Your Full Name *</label>
+            <input type="text" id="inspName" class="nh-form-input" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">WhatsApp / Phone Number *</label>
+            <input type="tel" id="inspPhone" class="nh-form-input" placeholder="Enter your phone or WhatsApp number" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Preferred Date *</label>
+            <input type="date" id="inspDate" class="nh-form-input" required>
+          </div>
+
+          <button type="submit" class="nh-form-submit">Confirm Physical Inspection &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: POST A PROPERTY -->
+  <div class="nh-modal-overlay" id="nhSellModal">
+    <div class="nh-modal-card">
+      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">🏡</span>
+        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+      </div>
+      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
+
+      <form id="nhSellForm">
+        <div class="nh-form-grid">
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Property Title *</label>
+            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Purpose *</label>
+            <select id="sellPurpose" class="nh-form-select" required>
+              <option value="sale">For Sale</option>
+              <option value="rent">For Rent (Annual)</option>
+              <option value="shortlet">Short Let (Daily)</option>
+              <option value="land">Land / Plot</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Property Type *</label>
+            <select id="sellType" class="nh-form-select" required>
+              <option value="duplex">Detached Duplex</option>
+              <option value="terrace">Terraced Duplex</option>
+              <option value="penthouse">Penthouse</option>
+              <option value="apartment">Serviced Flat / Apartment</option>
+              <option value="land">Residential Land</option>
+              <option value="commercial">Commercial Property</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">State *</label>
+            <select id="sellState" class="nh-form-select" required>
+              <option value="Lagos">Lagos State</option>
+              <option value="Abuja">Abuja FCT</option>
+              <option value="Rivers">Rivers (Port Harcourt)</option>
+              <option value="Oyo">Oyo (Ibadan)</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Location / Neighborhood *</label>
+            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Price in Naira (₦) *</label>
+            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Title Document *</label>
+            <select id="sellTitleDoc" class="nh-form-select" required>
+              <option value="Governor's Consent">Governor's Consent</option>
+              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
+              <option value="Deed of Assignment">Deed of Assignment</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bedrooms</label>
+            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bathrooms</label>
+            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
+          </div>
+
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Photo Image URL</label>
+            <input type="url" id="sellImageUrl" class="nh-form-input" placeholder="Enter photo image URL">
+          </div>
+
+          <div class="nh-form-group full">
+            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Persistent Mobile Bottom Tab Bar -->
+  <nav class="hh-bottom-tabbar" aria-label="Mobile Navigation">
+    <a href="../index.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search</span>
+    </a>
+    <a href="saved.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>Saved</span>
+    </a>
+    <a href="messages.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/leaflet.js"></script>
+  <script src="../js/map-engine.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+  <script src="../js/homehaven.js"></script>
+</body>
+</html>
