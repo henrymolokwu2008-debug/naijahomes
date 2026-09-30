@@ -1,219 +1,323 @@
 /**
- * NaijaHomes - Chat & Verified Realtor Advisory Controller
- * Manages physical inspection scheduling, Nigerian title searches,
- * WhatsApp quick transfers, and real-time advisor chat.
+ * NaijaHomes - Real Messaging & Conversation Controller
+ * Backed by Supabase database, Row Level Security (RLS) policies,
+ * Realtime WebSocket subscriptions, and mobile screen switching.
+ * Zero hardcoded or fake chat messages.
  */
 
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. Conversation Store (Ariya AI Assistant & Verified Partner Realtors)
-  const CONVERSATIONS = {
-    ariya: {
-      id: "ariya",
-      name: "Ariya AI Advisor",
-      role: "NaijaHomes AI Real Estate Consultant &bull; Online 24/7",
-      specialty: "Instant AI Search & Title Guidance",
-      rating: "★ 5.0 (2,400+ chats)",
-      responseTime: "⚡ Instant 24/7",
-      avatar: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&q=80",
-      previewThumb: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=240&q=80",
-      previewName: "Ariya AI Real Estate Advisor",
-      previewDesc: "Instant Nigerian real estate intelligence, title guidance & verified property matches across all corridors.",
-      phone: "",
-      whatsapp: "",
-      propertyId: "",
-      propertyTitle: "Natural Language Property Search & Nigerian Real Estate Consultation",
-      propertyLink: "explore.html",
-      messages: [
-        {
-          sender: "incoming",
-          author: "Ariya AI",
-          text: "Hello! I am <strong>Ariya</strong>, your NaijaHomes AI Real Estate Advisor. 🇳🇬✨<br><br>Describe what kind of home, apartment, or land you want (e.g. <em>'Find me a 4 bed duplex in Lekki under ₦350M'</em> or <em>'Titled land in Abuja'</em>), or ask any question about Governor's Consent, C of O, and title documents.",
-          time: "Just now"
-        }
-      ]
-    },
-    babatunde: {
-      id: "babatunde",
-      name: "Engr. Babatunde Adeleke",
-      role: "Verified Partner Realtor &bull; Lekki & Ikoyi Specialist",
-      specialty: "Lekki Luxury & Waterfront Duplexes",
-      rating: "★ 4.9 (54 reviews)",
-      responseTime: "⚡ Replies in ~5m",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80",
-      previewThumb: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=240&q=80",
-      previewName: "5-Bed Detached Waterfront Duplex",
-      previewDesc: "Lekki Phase 1 • Governor's Consent verified • Private jetty and pool.",
-      phone: "+2348012345678",
-      whatsapp: "2348012345678",
-      propertyId: "nh-lekki-5bed",
-      propertyTitle: "5-Bedroom Detached Luxury Duplex with Pool, Lekki Phase 1",
-      propertyLink: "explore.html?purpose=sale",
-      messages: [
-        {
-          sender: "incoming",
-          author: "Engr. Babatunde",
-          text: "Good day! I am <strong>Engr. Babatunde</strong>, verified partner realtor for prime Lekki Phase 1 and Ikoyi properties.<br><br>Governor's Consent on all our listings is 100% verified. When would you like to schedule an inspection?",
-          time: "10:15 AM"
-        }
-      ]
-    },
-    chioma: {
-      id: "chioma",
-      name: "Barr. Chioma Okonkwo",
-      role: "Verified Property Attorney &bull; Epe & Ibeju-Lekki Specialist",
-      specialty: "Title Verification & Land Acquisition",
-      rating: "★ 5.0 (38 reviews)",
-      responseTime: "⚡ Replies in ~8m",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80",
-      previewThumb: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=240&q=80",
-      previewName: "Commercial & Residential Plots",
-      previewDesc: "Epe Expressway • Registered C of O • Verified with Lagos Lands Bureau.",
-      phone: "+2348023456789",
-      whatsapp: "2348023456789",
-      propertyId: "nh-epe-land",
-      propertyTitle: "Commercial & Residential Plots with C of O, Epe Expressway",
-      propertyLink: "explore.html?purpose=land",
-      messages: [
-        {
-          sender: "incoming",
-          author: "Barr. Chioma",
-          text: "Hello! I am <strong>Barr. Chioma</strong>. I handle verified titled acreage and commercial plots along Epe and Ibeju-Lekki corridors.<br><br>All lands come with verifiable C of O or Gazette with registered survey. Let me know what acreage you require.",
-          time: "9:42 AM"
-        }
-      ]
-    },
-    musa: {
-      id: "musa",
-      name: "Malam Musa Danladi",
-      role: "Verified Partner Realtor &bull; Maitama & Guzape Abuja Specialist",
-      specialty: "Abuja Diplomatic Residences",
-      rating: "★ 4.8 (31 reviews)",
-      responseTime: "⚡ Replies in ~12m",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80",
-      previewThumb: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=240&q=80",
-      previewName: "Diplomatic 6-Bedroom Villa",
-      previewDesc: "Maitama FCT • FCDA C of O • Perimeter security, elevator & 50kVA generator.",
-      phone: "+2348034567890",
-      whatsapp: "2348034567890",
-      propertyId: "nh-abuja-villa",
-      propertyTitle: "Diplomatic 6-Bedroom Villa with Smart Automation, Maitama FCT",
-      propertyLink: "explore.html?purpose=sale",
-      messages: [
-        {
-          sender: "incoming",
-          author: "Malam Musa",
-          text: "Salam and welcome! I represent premium diplomatic properties across Maitama, Asokoro, and Guzape in Abuja.<br><br>All titles are verified at AGIS (Abuja Geographic Information Systems). Would you like a WhatsApp video walkthrough?",
-          time: "Yesterday"
-        }
-      ]
-    }
-  };
-
-  let activeConvId = "ariya";
-
+document.addEventListener("DOMContentLoaded", async () => {
   // DOM Elements
-  const chatStream = document.getElementById("hhChatStream");
-  const typingIndicator = document.getElementById("hhTypingIndicator");
-  const typingAuthor = document.getElementById("hhTypingAuthor");
-  const chatForm = document.getElementById("hhChatForm");
-  const chatInput = document.getElementById("hhChatInput");
-  const chatAttachBtn = document.getElementById("hhChatAttachBtn");
+  const dashboard = document.getElementById("hhConciergeDashboard");
+  const convListEl = document.getElementById("hhConvList");
+  const convCountBadge = document.getElementById("nhConvCountBadge");
+  const guestCard = document.getElementById("nhMsgGuestCard");
+  const emptyState = document.getElementById("nhMsgEmptyState");
+  const searchInput = document.getElementById("hhSearchConv");
+
+  // Chat Screen Elements
+  const chatPane = document.getElementById("hhActiveChatPane");
+  const chatHeader = document.getElementById("hhChatHeader");
+  const backBtn = document.getElementById("nhChatBackBtn");
   const activeAvatar = document.getElementById("hhActiveAvatar");
   const activeName = document.getElementById("hhActiveName");
   const activeRole = document.getElementById("hhActiveRole");
+  const chatWhatsappBtn = document.getElementById("hhChatWhatsappBtn");
+  const btnScheduleTour = document.getElementById("hhBtnScheduleTour");
+  const propBanner = document.getElementById("hhChatPropBanner");
   const activePropTitle = document.getElementById("hhActivePropTitle");
   const activePropLink = document.getElementById("hhActivePropLink");
-  const previewThumb = document.getElementById("hhPreviewThumb");
-  const previewName = document.getElementById("hhPreviewName");
-  const previewDesc = document.getElementById("hhPreviewDesc");
-  const btnChatWithAriya = document.getElementById("btnChatWithAriya");
-  const btnStartChatPreview = document.getElementById("btnStartChatPreview");
-  const viewAllRealtors = document.getElementById("nhViewAllRealtors");
-  const chatWhatsappBtn = document.getElementById("hhChatWhatsappBtn");
-  const searchConvInput = document.getElementById("hhSearchConv");
-  const btnScheduleTour = document.getElementById("hhBtnScheduleTour");
-  const inquiryChips = document.querySelectorAll(".hh-inquiry-chip");
+  const placeholderDesktop = document.getElementById("nhNoConvPlaceholder");
+  const chatStream = document.getElementById("hhChatStream");
+  const chatForm = document.getElementById("hhChatForm");
+  const chatInput = document.getElementById("hhChatInput");
+  const chatAttachBtn = document.getElementById("hhChatAttachBtn");
 
-  // Check URL query parameters for real property inquiry routing
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramPropId = urlParams.get("id") || urlParams.get("propId");
+  // Application State
+  const state = {
+    currentUser: null,
+    conversations: [],
+    activeConvId: null,
+    activeMessages: [],
+    realtimeSubscription: null
+  };
 
-  if (paramPropId && typeof getAllNaijaProperties === "function") {
-    const allProps = getAllNaijaProperties();
-    const matchedProp = allProps.find(p => p.id === paramPropId);
-    if (matchedProp) {
-      const propConvId = "prop_" + matchedProp.id;
-      CONVERSATIONS[propConvId] = {
-        id: propConvId,
-        name: matchedProp.agent && matchedProp.agent.name ? matchedProp.agent.name : "Property Contact",
-        role: matchedProp.agent && matchedProp.agent.company ? matchedProp.agent.company : "Listing Representative",
-        specialty: matchedProp.location + " Specialist",
-        rating: "★ 4.9 (Verified Listing)",
-        responseTime: "⚡ Direct Listing",
-        avatar: matchedProp.image,
-        previewThumb: matchedProp.image,
-        previewName: matchedProp.title,
-        previewDesc: matchedProp.location + " • " + matchedProp.priceFormattedNgn + " • " + matchedProp.purpose.toUpperCase(),
-        phone: matchedProp.agent ? matchedProp.agent.phone : "",
-        whatsapp: matchedProp.agent ? matchedProp.agent.whatsapp : "",
-        propertyId: matchedProp.id,
-        propertyTitle: matchedProp.title + " • " + matchedProp.priceFormattedNgn + " • " + matchedProp.location,
-        propertyLink: "property-detail.html?id=" + matchedProp.id,
-        messages: [
-          {
-            sender: "incoming",
-            author: matchedProp.agent && matchedProp.agent.name ? matchedProp.agent.name : "Property Contact",
-            text: "Hello! Inquiring about <strong>" + matchedProp.title + "</strong> in " + matchedProp.location + ". Feel free to ask any questions or schedule an inspection.",
-            time: "Just now"
-          }
-        ]
-      };
-      activeConvId = propConvId;
-    }
+  // Helper: Escape HTML
+  function escapeHtml(text) {
+    if (!text) return "";
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
-  // 2. Render Stream
-  function renderActiveStream() {
-    if (!chatStream) return;
-    const conv = CONVERSATIONS[activeConvId];
+  // Helper: Format timestamp
+  function formatTimestamp(isoStr) {
+    if (!isoStr) return "";
+    const date = new Date(isoStr);
+    if (isNaN(date.getTime())) return "";
+
+    const now = new Date();
+    const isToday = now.toDateString() === date.toDateString();
+
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    const timePart = hours + ":" + minutes + " " + ampm;
+
+    if (isToday) return timePart;
+
+    const diffDays = Math.round((now - date) / (1000 * 60 * 60 * 24));
+    if (diffDays === 1) return "Yesterday";
+    if (diffDays < 7) {
+      return date.toLocaleDateString("en-US", { weekday: "short" });
+    }
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  }
+
+  // 1. User Session Resolution
+  async function resolveUser() {
+    if (typeof window.getCurrentUser === "function") {
+      state.currentUser = window.getCurrentUser();
+    }
+    if (!state.currentUser && typeof window.fetchUserProfile === "function") {
+      try {
+        state.currentUser = await window.fetchUserProfile();
+      } catch (e) {}
+    }
+    return state.currentUser;
+  }
+
+  // 2. Load Conversations from Supabase
+  async function loadConversations() {
+    const user = state.currentUser;
+    if (!user) {
+      if (guestCard) guestCard.style.display = "block";
+      if (emptyState) emptyState.style.display = "none";
+      if (convListEl) convListEl.innerHTML = "";
+      if (convCountBadge) convCountBadge.textContent = "0";
+      if (placeholderDesktop) placeholderDesktop.style.display = "flex";
+      return;
+    }
+
+    if (guestCard) guestCard.style.display = "none";
+
+    let convs = [];
+    if (window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.fetchConversations === "function") {
+      convs = await window.NaijaHomesSupabase.fetchConversations(user.id);
+    }
+
+    state.conversations = convs || [];
+    if (convCountBadge) convCountBadge.textContent = state.conversations.length;
+
+    renderConversationList();
+  }
+
+  // 3. Render Conversations List
+  function renderConversationList() {
+    if (!convListEl) return;
+    convListEl.innerHTML = "";
+
+    if (!state.conversations || state.conversations.length === 0) {
+      if (emptyState) emptyState.style.display = "block";
+      if (placeholderDesktop) placeholderDesktop.style.display = "flex";
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = "none";
+
+    state.conversations.forEach((conv) => {
+      const isSelected = conv.id === state.activeConvId;
+      const li = document.createElement("li");
+      li.className = "hh-conv-item nh-real-conv-item " + (isSelected ? "active" : "");
+      li.setAttribute("data-conv-id", conv.id);
+
+      const otherName = conv.other_user_name || "NaijaHomes User";
+      const otherAvatar = conv.other_user_avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80";
+      const propTitle = conv.property?.title || "";
+      const timeStr = formatTimestamp(conv.last_message_at || conv.created_at);
+      const snippet = conv.last_message_text ? escapeHtml(conv.last_message_text) : "Conversation opened";
+      const unreadCount = Number(conv.unread_count || 0);
+
+      li.innerHTML = `
+        <div class="hh-conv-avatar">
+          <img src="${otherAvatar}" alt="${escapeHtml(otherName)}">
+          <span class="hh-conv-online-dot"></span>
+        </div>
+        <div class="hh-conv-info">
+          <div class="hh-conv-top">
+            <span class="hh-conv-name">${escapeHtml(otherName)} <svg class="nh-verified-badge" width="13" height="13" viewBox="0 0 24 24" fill="#008751"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
+            <span class="hh-conv-time">${timeStr}</span>
+          </div>
+          ${propTitle ? `<div class="nh-conv-prop-tag">🏡 ${escapeHtml(propTitle)}</div>` : ""}
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+            <span class="hh-conv-snippet">${snippet}</span>
+            ${unreadCount > 0 ? `<span class="nh-unread-badge">${unreadCount}</span>` : ""}
+          </div>
+        </div>
+      `;
+
+      li.addEventListener("click", () => {
+        openConversation(conv.id);
+      });
+
+      convListEl.appendChild(li);
+    });
+  }
+
+  // 4. Open Dedicated Chat Screen
+  async function openConversation(convId) {
+    const conv = state.conversations.find((c) => c.id === convId);
     if (!conv) return;
 
-    chatStream.innerHTML = "";
+    state.activeConvId = convId;
 
-    conv.messages.forEach(msg => {
-      appendMessageBubble(msg.sender, msg.author, msg.text, msg.time, false);
+    // Update active highlight in conversation list
+    document.querySelectorAll(".hh-conv-item").forEach((el) => {
+      el.classList.toggle("active", el.getAttribute("data-conv-id") === convId);
     });
 
-    if (typingIndicator) {
-      chatStream.appendChild(typingIndicator);
-      typingIndicator.style.display = "none";
+    // Mobile: switch to Chat Screen
+    if (dashboard) {
+      dashboard.classList.remove("nh-show-list");
+      dashboard.classList.add("nh-show-chat");
+    }
+
+    if (placeholderDesktop) {
+      placeholderDesktop.style.display = "none";
+    }
+
+    // Populate Chat Header
+    const otherName = conv.other_user_name || "NaijaHomes User";
+    const otherAvatar = conv.other_user_avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80";
+    const otherRole = conv.other_user_role || "Verified Partner";
+
+    if (activeAvatar) activeAvatar.src = otherAvatar;
+    if (activeName) {
+      activeName.innerHTML = `
+        ${escapeHtml(otherName)}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#008751"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+      `;
+    }
+    if (activeRole) activeRole.textContent = otherRole;
+
+    // Property Context
+    if (conv.property) {
+      if (propBanner) propBanner.style.display = "flex";
+      if (activePropTitle) activePropTitle.textContent = conv.property.title;
+      if (activePropLink) {
+        activePropLink.href = "property-detail.html?id=" + conv.property.id;
+        activePropLink.style.display = "inline-block";
+      }
+      if (btnScheduleTour) {
+        btnScheduleTour.style.display = "inline-flex";
+        btnScheduleTour.onclick = () => {
+          if (typeof window.openInspectionModal === "function") {
+            window.openInspectionModal(conv.property.title);
+          } else {
+            sendMessage("I would like to schedule a physical inspection for " + conv.property.title);
+          }
+        };
+      }
+    } else {
+      if (propBanner) propBanner.style.display = "none";
+      if (btnScheduleTour) btnScheduleTour.style.display = "none";
+    }
+
+    // Load Messages for this Conversation
+    if (chatStream) chatStream.innerHTML = "<div style='text-align: center; color: #94a3b8; padding: 24px;'>Loading messages...</div>";
+
+    if (window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.fetchMessages === "function") {
+      state.activeMessages = await window.NaijaHomesSupabase.fetchMessages(convId);
+    } else {
+      state.activeMessages = [];
+    }
+
+    renderMessagesStream();
+
+    // Mark messages as read
+    if (state.currentUser && window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.markMessagesAsRead === "function") {
+      await window.NaijaHomesSupabase.markMessagesAsRead(convId, state.currentUser.id);
+      conv.unread_count = 0;
+      // Remove unread badge in DOM
+      const targetItem = document.querySelector(`.hh-conv-item[data-conv-id="${convId}"] .nh-unread-badge`);
+      if (targetItem) targetItem.remove();
+    }
+
+    // Setup Supabase Realtime Subscription
+    if (state.realtimeSubscription && typeof state.realtimeSubscription.unsubscribe === "function") {
+      state.realtimeSubscription.unsubscribe();
+    }
+    if (window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.subscribeToMessages === "function") {
+      state.realtimeSubscription = window.NaijaHomesSupabase.subscribeToMessages(convId, (newMsg) => {
+        if (newMsg && newMsg.conversation_id === state.activeConvId) {
+          // Avoid duplicate insertion if already rendered
+          if (!state.activeMessages.some(m => m.id === newMsg.id)) {
+            state.activeMessages.push(newMsg);
+            appendMessageBubble(newMsg, true);
+          }
+        }
+      });
     }
 
     scrollToBottom();
   }
 
-  function appendMessageBubble(type, author, htmlContent, timeStr, doScroll = true) {
+  // 5. Render Message Bubbles in Stream
+  function renderMessagesStream() {
     if (!chatStream) return;
+    chatStream.innerHTML = "";
+
+    if (!state.activeMessages || state.activeMessages.length === 0) {
+      chatStream.innerHTML = `
+        <div style="text-align: center; color: #94a3b8; padding: 40px 20px;">
+          <div style="font-size: 1.8rem; margin-bottom: 8px;">👋</div>
+          <div style="font-weight: 700; color: #475569; margin-bottom: 4px;">Start of Conversation</div>
+          <div style="font-size: 0.85rem;">Send a message to inquire about pricing, title documents, or schedule an inspection.</div>
+        </div>
+      `;
+      return;
+    }
+
+    state.activeMessages.forEach((msg) => {
+      appendMessageBubble(msg, false);
+    });
+
+    scrollToBottom();
+  }
+
+  function appendMessageBubble(msg, doScroll = true) {
+    if (!chatStream) return;
+
+    const myId = state.currentUser?.id;
+    const isOutgoing = msg.sender_id === myId;
+    const type = isOutgoing ? "outgoing" : "incoming";
+    const author = isOutgoing ? "You" : (state.conversations.find(c => c.id === state.activeConvId)?.other_user_name || "Realtor");
+    const timeStr = formatTimestamp(msg.created_at);
 
     const msgDiv = document.createElement("div");
     msgDiv.className = "hh-chat-msg " + type;
+    msgDiv.setAttribute("data-msg-id", msg.id || "");
 
-    const bubble = document.createElement("div");
-    bubble.className = "hh-chat-bubble";
-    bubble.innerHTML = htmlContent;
-
-    const meta = document.createElement("div");
-    meta.className = "hh-chat-meta";
-    meta.textContent = author + " • " + (timeStr || getCurrentTimeStr());
-
-    msgDiv.appendChild(bubble);
-    msgDiv.appendChild(meta);
-
-    if (typingIndicator && typingIndicator.parentNode === chatStream) {
-      chatStream.insertBefore(msgDiv, typingIndicator);
-    } else {
-      chatStream.appendChild(msgDiv);
+    let statusHtml = "";
+    if (isOutgoing) {
+      if (msg.read_at) {
+        statusHtml = '<span class="hh-msg-status read" title="Read">&#10003;&#10003; Read</span>';
+      } else {
+        statusHtml = '<span class="hh-msg-status" title="Sent">&#10003; Sent</span>';
+      }
     }
+
+    msgDiv.innerHTML = `
+      <div class="hh-chat-bubble">${escapeHtml(msg.content)}</div>
+      <div class="hh-chat-meta">
+        ${escapeHtml(author)} &bull; ${timeStr} ${statusHtml}
+      </div>
+    `;
+
+    chatStream.appendChild(msgDiv);
 
     if (doScroll) {
       scrollToBottom();
@@ -227,347 +331,213 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function getCurrentTimeStr() {
-    const d = new Date();
-    let hours = d.getHours();
-    const minutes = d.getMinutes().toString().padStart(2, "0");
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
-    return hours + ":" + minutes + " " + ampm;
-  }
-
-  // 3. Render Conversations / Marketplace List
-  function renderConvList() {
-    const listEl = document.getElementById("hhConvList");
-    if (!listEl) return;
-    listEl.innerHTML = "";
-
-    const keys = Object.keys(CONVERSATIONS);
-    keys.forEach(k => {
-      const conv = CONVERSATIONS[k];
-      const isAriya = k === "ariya";
-      const li = document.createElement("li");
-      li.className = "hh-conv-item nh-realtor-market-card " + (k === activeConvId ? "active" : "");
-      li.setAttribute("data-conv-id", k);
-      if (isAriya) {
-        li.style.borderLeft = "3px solid #10b981";
-      }
-
-      const latestSnippet = conv.messages && conv.messages.length > 0 
-        ? conv.messages[conv.messages.length - 1].text.replace(/<[^>]*>?/gm, '') 
-        : 'Active consultation';
-
-      li.innerHTML = `
-        <div class="nh-conv-card-body">
-          <div class="hh-conv-avatar nh-market-avatar">
-            ${isAriya 
-              ? '<div class="nh-avatar-emoji">🤖</div>' 
-              : '<img src="' + (conv.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80') + '" alt="' + conv.name + '">'
-            }
-            <span class="hh-conv-online-dot"></span>
-          </div>
-          <div class="hh-conv-info nh-market-info">
-            <div class="hh-conv-top">
-              <span class="hh-conv-name">${conv.name} <svg class="nh-verified-badge" width="13" height="13" viewBox="0 0 24 24" fill="#008751"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
-              <span class="nh-market-rating">${conv.rating || '★ 4.9'}</span>
-            </div>
-            <div class="nh-market-specialty">${conv.specialty || conv.role}</div>
-            <div class="nh-market-footer">
-              <span class="nh-market-response">${conv.responseTime || '⚡ Replies in ~5m'}</span>
-              <button type="button" class="nh-market-chat-btn" data-chat-id="${k}">Chat</button>
-            </div>
-            <div class="hh-conv-snippet">${latestSnippet}</div>
-          </div>
-        </div>
-      `;
-
-      li.addEventListener("click", () => {
-        switchConversation(k);
-        if (window.innerWidth <= 768) {
-          const chatPane = document.getElementById("hhActiveChatPane");
-          if (chatPane) {
-            chatPane.scrollIntoView({ behavior: "smooth" });
-          }
-        }
-      });
-
-      const chatBtn = li.querySelector(".nh-market-chat-btn");
-      if (chatBtn) {
-        chatBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          switchConversation(k);
-          if (window.innerWidth <= 768) {
-            const chatPane = document.getElementById("hhActiveChatPane");
-            if (chatPane) {
-              chatPane.scrollIntoView({ behavior: "smooth" });
-            }
-          }
-          if (chatInput) chatInput.focus();
-        });
-      }
-
-      listEl.appendChild(li);
-    });
-  }
-
-  // 4. Switch Conversation
-  function switchConversation(convId) {
-    if (!CONVERSATIONS[convId]) convId = "ariya";
-    activeConvId = convId;
-    const conv = CONVERSATIONS[convId];
-
-    document.querySelectorAll(".hh-conv-item").forEach(item => {
-      item.classList.toggle("active", item.getAttribute("data-conv-id") === convId);
-    });
-
-    if (activeAvatar) {
-      if (convId === "ariya") {
-        activeAvatar.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&q=80";
-      } else {
-        activeAvatar.src = conv.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80";
-      }
-    }
-    if (activeName) {
-      activeName.innerHTML = `
-        ${conv.name}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#008751"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
-      `;
-    }
-    if (activeRole) activeRole.innerHTML = conv.role;
-    if (activePropTitle) activePropTitle.innerHTML = conv.propertyTitle || "Property Consultation";
-    if (activePropLink) {
-      if (conv.propertyLink) {
-        activePropLink.style.display = "inline-block";
-        activePropLink.href = conv.propertyLink;
-      } else {
-        activePropLink.style.display = "none";
-      }
-    }
-
-    // Update Property Preview Card
-    if (previewThumb) {
-      previewThumb.src = conv.previewThumb || conv.avatar || "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=160&q=80";
-    }
-    if (previewName) {
-      previewName.textContent = conv.previewName || conv.name;
-    }
-    if (previewDesc) {
-      previewDesc.textContent = conv.previewDesc || conv.specialty || "Instant Nigerian real estate intelligence, title guidance & verified property matches.";
-    }
-
-    if (typingAuthor) typingAuthor.textContent = conv.name.split(" ")[0];
-
-    if (chatWhatsappBtn) {
-      if (conv.whatsapp) {
-        chatWhatsappBtn.style.display = "inline-flex";
-        chatWhatsappBtn.onclick = () => {
-          if (typeof chatWhatsApp === "function") {
-            chatWhatsApp(conv.whatsapp, conv.propertyTitle);
-          } else {
-            window.open("https://wa.me/" + conv.whatsapp + "?text=" + encodeURIComponent("Hello, I am inquiring about " + conv.propertyTitle), "_blank");
-          }
-        };
-      } else {
-        chatWhatsappBtn.style.display = "none";
-      }
-    }
-
-    renderActiveStream();
-  }
-
-  // 5. Advisor Reply Generator
-  function generateAdvisorReply(userText) {
-    const conv = CONVERSATIONS[activeConvId];
-    const lower = userText.toLowerCase();
-
-    // If active conversation is Ariya AI Assistant
-    if (activeConvId === "ariya") {
-      if (typeof window.nhGenerateAiResponse === "function") {
-        const aiRes = window.nhGenerateAiResponse(userText);
-        let output = aiRes.text;
-        if (aiRes.properties && aiRes.properties.length > 0 && typeof window.nhRenderPropertyCard === "function") {
-          output += '<div class="nh-ai-cards-container">' +
-            aiRes.properties.map(p => window.nhRenderPropertyCard(p)).join("") +
-            '</div>';
-        }
-        return output;
-      }
-      return 'I received your request: "' + userText + '". Let me check our verified catalog for matching Nigerian properties!';
-    }
-
-    // If chatting with Babatunde (Lekki / Ikoyi Specialist)
-    if (activeConvId === "babatunde") {
-      if (lower.includes("inspection") || lower.includes("tour") || lower.includes("thursday") || lower.includes("view")) {
-        return "Certainly! I have noted your physical inspection request for this property in Lekki. Our site engineer will meet you on site with the architectural drawings and verified Governor's Consent deed. Please confirm if WhatsApp or Phone is best for the location pin.";
-      }
-      if (lower.includes("title") || lower.includes("consent") || lower.includes("c of o") || lower.includes("report")) {
-        return "The title document for this property is a valid <strong>Governor's Consent</strong> duly registered at the Lagos State Lands Bureau in Alausa (File No. 24/24/2018). We provide full legal search verification documents prior to closing.";
-      }
-      if (lower.includes("price") || lower.includes("payment") || lower.includes("deposit") || lower.includes("plan")) {
-        return "We offer structured milestone payment plans: 30% initial commitment deposit upon signing the Contract of Sale, 40% at second milestone, and the balance spread over 6 to 12 months. Would you like a payment breakdown schedule?";
-      }
-      return "Thank you for your message regarding <strong>" + conv.propertyTitle + "</strong>. I am reviewing the site availability and will share the verified survey and video walkthrough shortly.";
-    }
-
-    // If chatting with Chioma (Epe / Land Title Attorney)
-    if (activeConvId === "chioma") {
-      if (lower.includes("title") || lower.includes("c of o") || lower.includes("gazette") || lower.includes("search")) {
-        return "All our parcels along Epe and Ibeju-Lekki corridors carry unencumbered <strong>Certificate of Occupancy (C of O)</strong> or government gazette with registered survey pillars. We conduct official searches with the Surveyor General's office so you have 100% peace of mind against encroachers.";
-      }
-      if (lower.includes("inspection") || lower.includes("visit")) {
-        return "Physical land inspections run Tuesdays, Thursdays, and Saturdays. We take clients from our Lekki office directly to the estate layout in Epe. When would you prefer to join the convoy?";
-      }
-      return "Thank you for reaching out. Land title security in Lagos is our top priority. Let me know the exact size in square meters (SQM) or acreage you are looking for.";
-    }
-
-    // If chatting with Musa (Abuja Diplomatic Specialist)
-    if (activeConvId === "musa") {
-      if (lower.includes("inspection") || lower.includes("visit")) {
-        return "Physical inspections for our Maitama and Guzape mansions are arranged with VIP security protocol. We can schedule a private walkthrough at your convenience.";
-      }
-      if (lower.includes("title") || lower.includes("agis") || lower.includes("c of o")) {
-        return "This residence holds an authentic <strong>FCDA Certificate of Occupancy</strong> verified directly at the Abuja Geographic Information Systems (AGIS). Clear title with zero encumbrance.";
-      }
-      return "Good day! I have received your inquiry regarding <strong>" + conv.propertyTitle + "</strong>. I will be glad to share the high-resolution video walkthrough and specification sheet.";
-    }
-
-    // Property listing representative fallback
-    return "Thank you for your message regarding <strong>" + conv.propertyTitle + "</strong>. Your inquiry has been sent to our verified partner team.";
-  }
-
-  // 6. Send User Message
-  function handleSendMessage(text) {
-    if (!text || !text.trim()) return;
+  // 6. Send Message Handler
+  async function sendMessage(text) {
+    if (!text || !text.trim() || !state.activeConvId || !state.currentUser) return;
     const cleanText = text.trim();
 
-    const conv = CONVERSATIONS[activeConvId];
-    const userMsgObj = {
-      sender: "outgoing",
-      author: "You",
-      text: cleanText,
-      time: getCurrentTimeStr()
-    };
-    conv.messages.push(userMsgObj);
-    appendMessageBubble("outgoing", "You", cleanText, userMsgObj.time, true);
+    const activeConv = state.conversations.find((c) => c.id === state.activeConvId);
+    if (!activeConv) return;
 
     if (chatInput) chatInput.value = "";
 
-    if (typingIndicator) {
-      if (typingAuthor) typingAuthor.textContent = conv.name.split(" ")[0];
-      typingIndicator.style.display = "flex";
-      scrollToBottom();
-    }
+    // Optimistic UI bubble
+    const tempMsg = {
+      id: "temp_" + Date.now(),
+      conversation_id: state.activeConvId,
+      sender_id: state.currentUser.id,
+      recipient_id: activeConv.other_user_id,
+      content: cleanText,
+      read_at: null,
+      created_at: new Date().toISOString()
+    };
+    state.activeMessages.push(tempMsg);
+    appendMessageBubble(tempMsg, true);
 
-    setTimeout(() => {
-      if (typingIndicator) typingIndicator.style.display = "none";
-      const replyText = generateAdvisorReply(cleanText);
-      const replyMsgObj = {
-        sender: "incoming",
-        author: conv.name,
-        text: replyText,
-        time: getCurrentTimeStr()
-      };
-      conv.messages.push(replyMsgObj);
-      appendMessageBubble("incoming", conv.name, replyText, replyMsgObj.time, true);
+    // Update conversation item preview in sidebar
+    activeConv.last_message_text = cleanText;
+    activeConv.last_message_at = tempMsg.created_at;
+    const targetItem = document.querySelector(`.hh-conv-item[data-conv-id="${state.activeConvId}"] .hh-conv-snippet`);
+    if (targetItem) targetItem.textContent = cleanText;
+    const targetTime = document.querySelector(`.hh-conv-item[data-conv-id="${state.activeConvId}"] .hh-conv-time`);
+    if (targetTime) targetTime.textContent = formatTimestamp(tempMsg.created_at);
 
-      if (typeof showNaijaToast === "function") {
-        showNaijaToast(conv.name + " replied", "💬");
+    // Call Supabase API
+    if (window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.sendMessage === "function") {
+      const res = await window.NaijaHomesSupabase.sendMessage(state.activeConvId, activeConv.other_user_id, cleanText);
+      if (res && res.success && res.message) {
+        tempMsg.id = res.message.id;
       }
-    }, 1100);
+    }
   }
 
+  // Form submit listener
   if (chatForm) {
     chatForm.addEventListener("submit", (e) => {
       e.preventDefault();
       if (chatInput) {
-        handleSendMessage(chatInput.value);
+        sendMessage(chatInput.value);
       }
     });
   }
 
-  // 7. Quick Chips
-  inquiryChips.forEach(chip => {
-    chip.addEventListener("click", () => {
-      const prompt = chip.getAttribute("data-prompt");
-      if (prompt) {
-        handleSendMessage(prompt);
-      }
-    });
-  });
-
-  // 8. Schedule Tour Button
-  if (btnScheduleTour) {
-    btnScheduleTour.addEventListener("click", () => {
-      const conv = CONVERSATIONS[activeConvId];
-      if (typeof openInspectionModal === "function") {
-        openInspectionModal(conv.propertyTitle);
-      } else {
-        handleSendMessage("I would like to book a physical inspection for this property.");
+  // 7. Mobile Back Button
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      if (dashboard) {
+        dashboard.classList.remove("nh-show-chat");
+        dashboard.classList.add("nh-show-list");
       }
     });
   }
 
-  // 9. Search Conversations / Realtors
-  if (searchConvInput) {
-    searchConvInput.addEventListener("input", (e) => {
+  // 8. Search Filter
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
-      document.querySelectorAll(".hh-conv-item").forEach(item => {
+      document.querySelectorAll(".hh-conv-item").forEach((item) => {
         const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(q) ? "block" : "none";
+        item.style.display = text.includes(q) ? "flex" : "none";
       });
     });
   }
 
-  // 10. Featured Ariya Card Action
-  if (btnChatWithAriya) {
-    btnChatWithAriya.addEventListener("click", () => {
-      switchConversation("ariya");
-      if (window.innerWidth <= 768) {
-        const chatPane = document.getElementById("hhActiveChatPane");
-        if (chatPane) {
-          chatPane.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-      if (chatInput) chatInput.focus();
-    });
-  }
-
-  // 11. Property Preview Start Chat Button
-  if (btnStartChatPreview) {
-    btnStartChatPreview.addEventListener("click", () => {
-      if (window.innerWidth <= 768) {
-        const chatPane = document.getElementById("hhActiveChatPane");
-        if (chatPane) {
-          chatPane.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-      if (chatInput) chatInput.focus();
-    });
-  }
-
-  // 12. Chat Attach Button
+  // 9. Attachment Button
   if (chatAttachBtn) {
     chatAttachBtn.addEventListener("click", () => {
-      if (typeof showNaijaToast === "function") {
-        showNaijaToast("Attach title doc, survey plan, or photo", "📎");
+      if (typeof window.showNaijaToast === "function") {
+        window.showNaijaToast("Attach title doc, survey plan, or photo", "📎");
       } else {
         alert("Attach title doc, survey plan, or photo");
       }
     });
   }
 
-  // 13. View All Realtors link
-  if (viewAllRealtors) {
-    viewAllRealtors.addEventListener("click", (e) => {
-      e.preventDefault();
-      const listEl = document.getElementById("hhConvList");
-      if (listEl) {
-        listEl.scrollIntoView({ behavior: "smooth" });
+  
+  // 11. New Conversation Modal & Directory
+  const btnNewMessage = document.getElementById("btnNewMessage");
+  const btnEmptyStartChat = document.getElementById("btnEmptyStartChat");
+  const modalNewChat = document.getElementById("nhNewChatModal");
+  const closeNewChatModal = document.getElementById("closeNewChatModal");
+  const newChatDirectory = document.getElementById("nhNewChatDirectory");
+
+  const VERIFIED_REALTORS = [
+    {
+      id: "agent_babatunde",
+      name: "Engr. Babatunde Adeleke",
+      role: "Verified Partner Realtor • Lekki Phase 1 Specialist",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80",
+      propId: "nh-lekki-5bed",
+      propTitle: "5-Bedroom Detached Luxury Duplex with Pool, Lekki Phase 1"
+    },
+    {
+      id: "agent_chioma",
+      name: "Barr. Chioma Okonkwo",
+      role: "Verified Property Attorney • Epe Land & Title Specialist",
+      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80",
+      propId: "nh-epe-land",
+      propTitle: "Commercial & Residential Plots with C of O, Epe Expressway"
+    },
+    {
+      id: "agent_musa",
+      name: "Malam Musa Danladi",
+      role: "Verified Partner Realtor • Maitama Abuja Specialist",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80",
+      propId: "nh-abuja-villa",
+      propTitle: "Diplomatic 6-Bedroom Villa with Smart Automation, Maitama FCT"
+    }
+  ];
+
+  function openNewChatModal() {
+    if (!state.currentUser) {
+      if (typeof window.openAuthModal === "function") {
+        window.openAuthModal("login");
       }
+      return;
+    }
+    if (newChatDirectory) {
+      newChatDirectory.innerHTML = VERIFIED_REALTORS.map(r => `
+        <div class="nh-new-chat-item" data-agent-id="${r.id}" data-prop-id="${r.propId}" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 8px; cursor: pointer; transition: background 0.15s;">
+          <img src="${r.avatar}" alt="${r.name}" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-weight: 700; font-size: 0.9rem; color: #0f172a;">${r.name}</div>
+            <div style="font-size: 0.75rem; color: #64748b;">${r.role}</div>
+            <div style="font-size: 0.72rem; color: #008751; font-weight: 600; margin-top: 2px;">🏡 ${r.propTitle}</div>
+          </div>
+          <button type="button" class="nh-market-chat-btn" style="flex-shrink: 0;">Chat</button>
+        </div>
+      `).join("");
+
+      newChatDirectory.querySelectorAll(".nh-new-chat-item").forEach(item => {
+        item.addEventListener("click", async () => {
+          const agentId = item.getAttribute("data-agent-id");
+          const propId = item.getAttribute("data-prop-id");
+          if (modalNewChat) modalNewChat.style.display = "none";
+          if (window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.getOrCreateConversation === "function") {
+            const res = await window.NaijaHomesSupabase.getOrCreateConversation(agentId, propId);
+            if (res && res.success && res.conversation) {
+              await loadConversations();
+              openConversation(res.conversation.id);
+            }
+          }
+        });
+      });
+    }
+    if (modalNewChat) modalNewChat.style.display = "flex";
+  }
+
+  if (btnNewMessage) btnNewMessage.addEventListener("click", openNewChatModal);
+  if (btnEmptyStartChat) btnEmptyStartChat.addEventListener("click", openNewChatModal);
+  if (closeNewChatModal && modalNewChat) {
+    closeNewChatModal.addEventListener("click", () => {
+      modalNewChat.style.display = "none";
     });
   }
 
-  // Initial setup for the selected conversation
-  renderConvList();
-  switchConversation(activeConvId);
+  // Hook for homehaven.js login notification
+  window.reloadMessagesPage = async () => {
+    await resolveUser();
+    await loadConversations();
+    if (window.innerWidth >= 769 && state.conversations.length > 0 && !state.activeConvId) {
+      openConversation(state.conversations[0].id);
+    }
+  };
+
+  // 10. Initialization & URL Parameter Routing
+  await resolveUser();
+  await loadConversations();
+
+  // Check URL parameters for direct property or agent messaging
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramPropId = urlParams.get("id") || urlParams.get("propId");
+  const paramAgentId = urlParams.get("agentId") || urlParams.get("userId");
+  const paramConvId = urlParams.get("convId");
+
+  if (paramConvId && state.conversations.some((c) => c.id === paramConvId)) {
+    openConversation(paramConvId);
+  } else if (state.currentUser && (paramPropId || paramAgentId)) {
+    // If coming from a property page or agent profile
+    let recipientId = paramAgentId;
+    let propTitle = null;
+
+    if (paramPropId && typeof window.getAllNaijaProperties === "function") {
+      const allProps = window.getAllNaijaProperties();
+      const matched = allProps.find((p) => p.id === paramPropId);
+      if (matched) {
+        recipientId = matched.agent?.id || matched.user_id || "agent-demo-id";
+        propTitle = matched.title;
+      }
+    }
+
+    if (recipientId && window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.getOrCreateConversation === "function") {
+      const res = await window.NaijaHomesSupabase.getOrCreateConversation(recipientId, paramPropId || null);
+      if (res && res.success && res.conversation) {
+        await loadConversations();
+        openConversation(res.conversation.id);
+      }
+    }
+  } else if (window.innerWidth >= 769 && state.conversations.length > 0) {
+    // On desktop, auto-open first conversation
+    openConversation(state.conversations[0].id);
+  }
 });

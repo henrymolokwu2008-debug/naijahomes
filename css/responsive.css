@@ -308,7 +308,7 @@ textarea,
     margin: 0 !important;
   }
 
-  /* Single-column mobile dashboard: NO fixed heights */
+  /* Mobile real estate messaging app layout (Conversation List vs Dedicated Chat Screen) */
   .hh-concierge-dashboard {
     display: flex !important;
     flex-direction: column !important;
@@ -323,22 +323,55 @@ textarea,
     box-sizing: border-box !important;
     overflow: hidden !important;
     margin-bottom: 16px !important;
+    background: #ffffff !important;
   }
 
-  /* "Verified Partner Realtors" section: compact and non-overlapping */
-  .hh-concierge-sidebar {
+  /* Mobile screen 1: Conversation List */
+  .hh-concierge-dashboard.nh-show-list .hh-concierge-sidebar {
+    display: flex !important;
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-    max-height: none !important;
-    min-height: auto !important;
-    background: #f8fafc !important;
+    background: #ffffff !important;
     border-right: none !important;
-    border-bottom: 2px solid #e2e8f0 !important;
+    border-bottom: none !important;
     box-sizing: border-box !important;
-    display: flex !important;
     flex-direction: column !important;
-    flex-shrink: 0 !important;
+  }
+
+  .hh-concierge-dashboard.nh-show-list .hh-concierge-main {
+    display: none !important;
+  }
+
+  /* Mobile screen 2: Dedicated Chat Screen */
+  .hh-concierge-dashboard.nh-show-chat .hh-concierge-sidebar {
+    display: none !important;
+  }
+
+  .hh-concierge-dashboard.nh-show-chat .hh-concierge-main {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 80vh !important;
+    height: auto !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+  }
+
+  .nh-chat-back-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #1e293b;
+    cursor: pointer;
+    flex-shrink: 0;
   }
 
   .hh-concierge-side-head {
@@ -449,17 +482,7 @@ textarea,
     margin-top: 2px !important;
   }
 
-  /* Compact Ariya AI Advisor Main Chat Area */
-  .hh-concierge-main {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    height: auto !important;
-    min-height: auto !important;
-    background: #ffffff !important;
-    box-sizing: border-box !important;
-  }
+
 
   .hh-chat-header {
     padding: 10px 12px !important;

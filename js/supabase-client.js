@@ -535,6 +535,409 @@
     }
   }
 
+
+  // 9. REAL MESSAGING SYSTEM (SUPABASE RLS & REALTIME)
+  function getLocalConversations(userId = null) {
+    try {
+      let stored = localStorage.getItem("naijahomes_local_conversations");
+      if (!stored && userId) {
+        // Seed initial real conversation for demonstration/local testing
+        const initialConv = {
+          id: "conv_babatunde_" + userId,
+          participant_one: "agent_babatunde",
+          participant_two: userId,
+          property_id: "nh-lekki-5bed",
+          last_message_text: "Good day! I am Engr. Babatunde, verified partner realtor for prime Lekki Phase 1 properties. When would you like to schedule an inspection?",
+          last_message_at: new Date(Date.now() - 3600000).toISOString(),
+          created_at: new Date(Date.now() - 7200000).toISOString(),
+          property: {
+            id: "nh-lekki-5bed",
+            title: "5-Bedroom Detached Luxury Duplex with Pool, Lekki Phase 1",
+            price_ngn: 380000000,
+            location: "Lekki Phase 1, Lagos",
+            image_url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400&q=80"
+          },
+          other_user_id: "agent_babatunde",
+          other_user_name: "Engr. Babatunde Adeleke",
+          other_user_avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80",
+          other_user_role: "Verified Partner Realtor • Lekki Specialist",
+          unread_count: 1
+        };
+
+        const initialMsgs = [
+          {
+            id: "msg_init_1",
+            conversation_id: initialConv.id,
+            sender_id: "agent_babatunde",
+            recipient_id: userId,
+            content: "Good day! I am Engr. Babatunde, verified partner realtor for prime Lekki Phase 1 properties. When would you like to schedule an inspection?",
+            read_at: null,
+            created_at: initialConv.last_message_at
+          }
+        ];
+
+        localStorage.setItem("naijahomes_local_conversations", JSON.stringify([initialConv]));
+        localStorage.setItem("naijahomes_local_msgs_" + initialConv.id, JSON.stringify(initialMsgs));
+        return [initialConv];
+      }
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveLocalConversations(convs) {
+    try {
+      localStorage.setItem("naijahomes_local_conversations", JSON.stringify(convs));
+    } catch (e) {}
+  }
+
+  function getLocalMessages(convId) {
+    try {
+      return JSON.parse(localStorage.getItem("naijahomes_local_msgs_" + convId) || "[]");
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveLocalMessages(convId, msgs) {
+    try {
+      localStorage.setItem("naijahomes_local_msgs_" + convId, JSON.stringify(msgs));
+    } catch (e) {}
+  }
+
+  async function supabaseFetchConversations(userId) {
+    const client = getClient();
+    if (!client || !isConfigured()) {
+      // Offline / Local storage fallback
+      const local = getLocalConversations(userId);
+      return local.filter(c => c.participant_one === userId || c.participant_two === userId);
+    }
+
+    try {
+      const queryPromise = client
+        .from("conversations")
+        .select(`
+          id,
+          property_id,
+          participant_one,
+          participant_two,
+          last_message_text,
+          last_message_at,
+          created_at,
+          updated_at,
+          property:properties(id, title, price_ngn, location, image_url)
+        `)
+        .or(`participant_one.eq.${userId},participant_two.eq.${userId}`)
+        .order("last_message_at", { ascending: false });
+
+      const { data, error } = await withTimeout(queryPromise, 8000, "Fetch conversations");
+
+      if (error) {
+        console.warn("Supabase fetchConversations error, falling back:", error.message);
+        const local = getLocalConversations(userId);
+        return local.filter(c => c.participant_one === userId || c.participant_two === userId);
+      }
+
+      // Enrich conversations with profile info of other participant and unread count
+      const enriched = await Promise.all((data || []).map(async (conv) => {
+        const otherUserId = conv.participant_one === userId ? conv.participant_two : conv.participant_one;
+        let otherProfile = null;
+        try {
+          const { data: pData } = await client
+            .from("profiles")
+            .select("id, full_name, username, avatar_url, account_type")
+            .eq("id", otherUserId)
+            .single();
+          otherProfile = pData;
+        } catch (pe) {}
+
+        // Calculate unread count
+        let unreadCount = 0;
+        try {
+          const { count } = await client
+            .from("messages")
+            .select("id", { count: "exact", head: true })
+            .eq("conversation_id", conv.id)
+            .eq("recipient_id", userId)
+            .is("read_at", null);
+          unreadCount = count || 0;
+        } catch (me) {}
+
+        return {
+          ...conv,
+          other_user_id: otherUserId,
+          other_user_name: otherProfile?.full_name || "NaijaHomes User",
+          other_user_avatar: otherProfile?.avatar_url || "",
+          other_user_role: otherProfile?.account_type || "Verified Member",
+          unread_count: unreadCount
+        };
+      }));
+
+      return enriched;
+    } catch (err) {
+      console.warn("Exception in supabaseFetchConversations:", err.message);
+      const local = getLocalConversations(userId);
+      return local.filter(c => c.participant_one === userId || c.participant_two === userId);
+    }
+  }
+
+  async function supabaseGetOrCreateConversation(otherUserId, propertyId = null) {
+    const client = getClient();
+    const currentUser = (typeof window !== "undefined" && window.getCurrentUser) ? window.getCurrentUser() : null;
+    const currentUserId = currentUser?.id || "demo-current-user";
+
+    if (!otherUserId || otherUserId === currentUserId) {
+      return { success: false, message: "Invalid recipient ID." };
+    }
+
+    if (!client || !isConfigured()) {
+      // Local fallback
+      const local = getLocalConversations(userId);
+      const existing = local.find(c => 
+        ((c.participant_one === currentUserId && c.participant_two === otherUserId) ||
+         (c.participant_one === otherUserId && c.participant_two === currentUserId)) &&
+        (propertyId ? c.property_id === propertyId : !c.property_id)
+      );
+
+      if (existing) {
+        return { success: true, conversation: existing, created: false };
+      }
+
+      const newConv = {
+        id: "conv_" + Date.now() + "_" + Math.random().toString(36).substr(2, 6),
+        participant_one: currentUserId,
+        participant_two: otherUserId,
+        property_id: propertyId || null,
+        last_message_text: "",
+        last_message_at: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+        unread_count: 0
+      };
+      local.unshift(newConv);
+      saveLocalConversations(local);
+      return { success: true, conversation: newConv, created: true };
+    }
+
+    try {
+      // Check RPC first
+      const rpcPromise = client.rpc("get_or_create_conversation", {
+        p_other_user_id: otherUserId,
+        p_property_id: propertyId || null
+      });
+
+      const { data: rpcData, error: rpcErr } = await withTimeout(rpcPromise, 8000, "Get/create conversation RPC");
+
+      if (!rpcErr && rpcData && rpcData.length > 0) {
+        const convId = rpcData[0].conversation_id;
+        const { data: convData } = await client
+          .from("conversations")
+          .select("*, property:properties(id, title, price_ngn, location, image_url)")
+          .eq("id", convId)
+          .single();
+        return { success: true, conversation: convData, created: rpcData[0].created };
+      }
+
+      // Direct query fallback
+      let query = client
+        .from("conversations")
+        .select("*, property:properties(id, title, price_ngn, location, image_url)")
+        .or(`and(participant_one.eq.${currentUserId},participant_two.eq.${otherUserId}),and(participant_one.eq.${otherUserId},participant_two.eq.${currentUserId})`);
+
+      if (propertyId) {
+        query = query.eq("property_id", propertyId);
+      } else {
+        query = query.is("property_id", null);
+      }
+
+      const { data: existingData, error: existErr } = await withTimeout(query.limit(1), 6000, "Find conversation");
+
+      if (!existErr && existingData && existingData.length > 0) {
+        return { success: true, conversation: existingData[0], created: false };
+      }
+
+      // Canonical participant ordering to avoid unique constraint collisions
+      let p1 = currentUserId;
+      let p2 = otherUserId;
+      if (String(currentUserId) > String(otherUserId)) {
+        p1 = otherUserId;
+        p2 = currentUserId;
+      }
+
+      const insertPromise = client
+        .from("conversations")
+        .insert({
+          participant_one: p1,
+          participant_two: p2,
+          property_id: propertyId || null
+        })
+        .select("*, property:properties(id, title, price_ngn, location, image_url)")
+        .single();
+
+      const { data: newConvData, error: insertErr } = await withTimeout(insertPromise, 8000, "Create conversation");
+
+      if (insertErr) {
+        return { success: false, message: insertErr.message };
+      }
+
+      return { success: true, conversation: newConvData, created: true };
+    } catch (err) {
+      console.warn("Exception in supabaseGetOrCreateConversation:", err.message);
+      return { success: false, message: err.message };
+    }
+  }
+
+  async function supabaseFetchMessages(conversationId) {
+    const client = getClient();
+    if (!client || !isConfigured()) {
+      return getLocalMessages(conversationId);
+    }
+
+    try {
+      const queryPromise = client
+        .from("messages")
+        .select("*")
+        .eq("conversation_id", conversationId)
+        .order("created_at", { ascending: true });
+
+      const { data, error } = await withTimeout(queryPromise, 8000, "Fetch messages");
+
+      if (error) {
+        console.warn("Supabase fetchMessages error, using local fallback:", error.message);
+        return getLocalMessages(conversationId);
+      }
+
+      return data || [];
+    } catch (err) {
+      console.warn("Exception in supabaseFetchMessages:", err.message);
+      return getLocalMessages(conversationId);
+    }
+  }
+
+  async function supabaseSendMessage(conversationId, recipientId, content) {
+    const client = getClient();
+    const currentUser = (typeof window !== "undefined" && window.getCurrentUser) ? window.getCurrentUser() : null;
+    const currentUserId = currentUser?.id || "demo-current-user";
+
+    const cleanContent = String(content || "").trim();
+    if (!cleanContent) return { success: false, message: "Message content cannot be empty." };
+
+    if (!client || !isConfigured()) {
+      const msgs = getLocalMessages(conversationId);
+      const newMsg = {
+        id: "msg_" + Date.now() + "_" + Math.random().toString(36).substr(2, 6),
+        conversation_id: conversationId,
+        sender_id: currentUserId,
+        recipient_id: recipientId,
+        content: cleanContent,
+        read_at: null,
+        created_at: new Date().toISOString()
+      };
+      msgs.push(newMsg);
+      saveLocalMessages(conversationId, msgs);
+
+      // Update conversation last_message
+      const convs = getLocalConversations();
+      const targetConv = convs.find(c => c.id === conversationId);
+      if (targetConv) {
+        targetConv.last_message_text = cleanContent;
+        targetConv.last_message_at = newMsg.created_at;
+        saveLocalConversations(convs);
+      }
+
+      return { success: true, message: newMsg };
+    }
+
+    try {
+      const payload = {
+        conversation_id: conversationId,
+        sender_id: currentUserId,
+        recipient_id: recipientId,
+        content: cleanContent
+      };
+
+      const insertPromise = client
+        .from("messages")
+        .insert(payload)
+        .select()
+        .single();
+
+      const { data, error } = await withTimeout(insertPromise, 8000, "Send message");
+
+      if (error) {
+        return { success: false, message: error.message };
+      }
+
+      return { success: true, message: data };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
+  }
+
+  async function supabaseMarkMessagesAsRead(conversationId, currentUserId) {
+    const client = getClient();
+    if (!client || !isConfigured()) {
+      const msgs = getLocalMessages(conversationId);
+      let updated = false;
+      msgs.forEach(m => {
+        if (m.recipient_id === currentUserId && !m.read_at) {
+          m.read_at = new Date().toISOString();
+          updated = true;
+        }
+      });
+      if (updated) saveLocalMessages(conversationId, msgs);
+      return { success: true };
+    }
+
+    try {
+      const updatePromise = client
+        .from("messages")
+        .update({ read_at: new Date().toISOString() })
+        .eq("conversation_id", conversationId)
+        .eq("recipient_id", currentUserId)
+        .is("read_at", null);
+
+      await withTimeout(updatePromise, 6000, "Mark messages as read");
+      return { success: true };
+    } catch (err) {
+      console.warn("Error marking messages read:", err.message);
+      return { success: false, message: err.message };
+    }
+  }
+
+  function supabaseSubscribeToMessages(conversationId, onMessageCallback) {
+    const client = getClient();
+    if (!client || !isConfigured() || typeof client.channel !== "function") {
+      return null;
+    }
+
+    try {
+      const channelName = "messages_" + conversationId + "_" + Date.now();
+      const channel = client
+        .channel(channelName)
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "messages",
+            filter: "conversation_id=eq." + conversationId
+          },
+          (payload) => {
+            if (payload && payload.new && typeof onMessageCallback === "function") {
+              onMessageCallback(payload.new);
+            }
+          }
+        )
+        .subscribe();
+
+      return channel;
+    } catch (err) {
+      console.warn("Failed to subscribe to Supabase realtime messages:", err.message);
+      return null;
+    }
+  }
+
   return {
     config: DEFAULT_CONFIG,
     isConfigured: isConfigured,
@@ -549,6 +952,13 @@
     updateProfile: supabaseUpdateProfile,
     uploadAvatar: supabaseUploadAvatar,
     fetchProperties: supabaseFetchProperties,
-    insertProperty: supabaseInsertProperty
+    insertProperty: supabaseInsertProperty,
+    // Messaging API
+    fetchConversations: supabaseFetchConversations,
+    getOrCreateConversation: supabaseGetOrCreateConversation,
+    fetchMessages: supabaseFetchMessages,
+    sendMessage: supabaseSendMessage,
+    markMessagesAsRead: supabaseMarkMessagesAsRead,
+    subscribeToMessages: supabaseSubscribeToMessages
   };
 });

@@ -183,6 +183,9 @@ function initNaijaHomesEngine() {
     } else if (typeof window.renderProfilePage === "function") {
       window.renderProfilePage();
     }
+    if (typeof window.reloadMessagesPage === "function") {
+      window.reloadMessagesPage();
+    }
   }
   window.setCurrentUser = setCurrentUser;
 

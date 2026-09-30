@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat &amp; Realtor Advisory | NaijaHomes</title>
+  <title>Messages &amp; Direct Chat | NaijaHomes</title>
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,13 +38,13 @@
     <!-- Clean Production Navigation Links -->
     <nav class="hh-main-nav" aria-label="Main Navigation">
       <a href="../index.html" class="hh-nav-link">Home</a>
-      <a href="explore.html?purpose=sale" class="hh-nav-link">Buy</a>
-      <a href="explore.html?purpose=rent" class="hh-nav-link">Rent</a>
-      <a href="explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
-      <a href="explore.html?purpose=land" class="hh-nav-link">Land</a>
-      <a href="map.html" class="hh-nav-link">Google Maps</a>
-      <a href="messages.html" class="hh-nav-link active">Chat</a>
-      <a href="saved.html" class="hh-nav-link">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
+      <a href="../explore.html?purpose=sale" class="hh-nav-link">Buy</a>
+      <a href="../explore.html?purpose=rent" class="hh-nav-link">Rent</a>
+      <a href="../explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
+      <a href="../explore.html?purpose=land" class="hh-nav-link">Land</a>
+      <a href="../map.html" class="hh-nav-link">Google Maps</a>
+      <a href="../messages.html" class="hh-nav-link active">Chat</a>
+      <a href="../saved.html" class="hh-nav-link">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
     </nav>
 
     <!-- Header Actions -->
@@ -67,108 +67,97 @@
   </header>
 
   <!-- Full-Width Responsive Container -->
-  <main class="hh-device-shell" role="region" aria-label="Chat &amp; Realtor Advisory">
+  <main class="hh-device-shell" role="region" aria-label="Messages &amp; Direct Real Estate Chat">
     <div class="hh-concierge-wrap">
       
       <!-- Top Title Bar -->
       <div class="hh-concierge-head">
-        <h1>Nigerian Realtor Advisory &amp; Chat</h1>
+        <h1>Messages &amp; Consultations</h1>
         <p>Direct chat and inspection scheduling with verified partner realtors across Lagos and Abuja corridors.</p>
       </div>
 
-            <!-- Two-Column Luxury Chat Dashboard -->
-      <div class="hh-concierge-dashboard">
+      <!-- Two-Column Luxury Chat Dashboard -->
+      <div class="hh-concierge-dashboard nh-show-list" id="hhConciergeDashboard">
         
-        <!-- Sidebar Directory (Left Column on Desktop, Top Flow on Mobile) -->
-        <aside class="hh-concierge-sidebar" aria-label="Realtor Directory and Advisory Cards">
+        <!-- Sidebar Directory: Conversations List (Left Column on Desktop, Screen 1 on Mobile) -->
+        <aside class="hh-concierge-sidebar" id="nhConversationsListView" aria-label="Conversations List">
           
+          <div class="nh-conv-list-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h2 class="nh-conv-list-title">Conversations</h2>
+              <span class="nh-conv-count-badge" id="nhConvCountBadge">0</span>
+            </div>
+            <button type="button" class="nh-btn-new-msg" id="btnNewMessage" title="Start a new conversation">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              <span>New Chat</span>
+            </button>
+          </div>
+
           <!-- Clean Rounded Search Box -->
           <div class="nh-realtor-search-box">
             <svg class="nh-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" id="hhSearchConv" placeholder="Search realtors..." autocomplete="off">
+            <input type="text" id="hhSearchConv" placeholder="Search conversations or listings..." autocomplete="off">
           </div>
 
-          <!-- Ariya AI Main Featured Card -->
-          <div class="nh-ariya-feature-card">
-            <div class="nh-ariya-card-top">
-              <div class="nh-ariya-avatar-wrap">
-                <span class="nh-ariya-emoji">🤖</span>
-                <span class="nh-ariya-dot"></span>
-              </div>
-              <div class="nh-ariya-card-meta">
-                <div class="nh-ariya-name-row">
-                  <h3 class="nh-ariya-name">Ariya AI Advisor</h3>
-                  <span class="nh-sparkle-pill">✨ 24/7 AI</span>
-                </div>
-                <div class="nh-ariya-subtext">Online 24/7 &bull; Instant property matches &amp; advisory</div>
-              </div>
-            </div>
-            <p class="nh-ariya-desc">Describe your budget, preferred corridor (Lekki, Ikoyi, Abuja), or ask about Governor's Consent &amp; C of O verification.</p>
-            <button type="button" class="nh-btn-chat-ariya" id="btnChatWithAriya">
-              <span>Chat with Ariya</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-
-          <!-- Active Consultation Card -->
-          <div class="nh-consultation-card" id="nhConsultationCard">
-            <div class="nh-consultation-bar">
-              <span class="nh-consultation-label">
-                <span class="nh-status-pulsar"></span>
-                Active Consultation
-              </span>
-              <a href="explore.html" class="hh-chat-prop-link nh-consultation-link" id="hhActivePropLink">View Property Details &rarr;</a>
-            </div>
-            <h4 class="hh-chat-prop-title nh-consultation-title" id="hhActivePropTitle">Natural Language Property Search &amp; Nigerian Real Estate Consultation</h4>
-          </div>
-
-          <!-- Property Preview Card -->
-          <div class="nh-prop-preview-card" id="nhPropPreviewCard">
-            <img class="nh-preview-thumb" id="hhPreviewThumb" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=160&q=80" alt="Property Preview">
-            <div class="nh-preview-details">
-              <h4 class="nh-preview-title" id="hhPreviewName">Ariya AI Real Estate Advisor</h4>
-              <p class="nh-preview-desc" id="hhPreviewDesc">Instant Nigerian real estate intelligence, title guidance &amp; verified property matches.</p>
-              <button type="button" class="nh-btn-start-chat" id="btnStartChatPreview">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                Start Chat
-              </button>
+          <!-- Unauthenticated / Guest State (Shown if user is NOT logged in) -->
+          <div class="nh-msg-guest-card" id="nhMsgGuestCard" style="display: none;">
+            <div class="nh-msg-guest-icon">🔒</div>
+            <h3 class="nh-msg-guest-title">Sign In to View Messages</h3>
+            <p class="nh-msg-guest-desc">Private messages, property inquiries, and inspection schedules are tied securely to your verified account.</p>
+            <div class="nh-msg-guest-btns">
+              <button type="button" class="nh-btn-login-prompt" onclick="if(window.openAuthModal) openAuthModal('login');">Log In</button>
+              <button type="button" class="nh-btn-signup-prompt" onclick="if(window.openAuthModal) openAuthModal('signup');">Create Account</button>
             </div>
           </div>
 
-          <!-- Verified Partner Realtors Section -->
-          <div class="nh-marketplace-section">
-            <div class="nh-marketplace-head">
-              <div class="nh-marketplace-titles">
-                <h3 class="nh-marketplace-heading">Verified Partner Realtors</h3>
-                <span class="nh-marketplace-caption">Direct verified brokers across Lagos &amp; Abuja</span>
-              </div>
-              <a href="#hhConvList" class="nh-marketplace-all" id="nhViewAllRealtors">View All &rarr;</a>
+          <!-- Empty State (Shown if user is logged in but has 0 conversations) -->
+          <div class="nh-msg-empty-card" id="nhMsgEmptyState" style="display: none;">
+            <div class="nh-msg-empty-icon">💬</div>
+            <h3 class="nh-msg-empty-title">No Conversations Yet</h3>
+            <p class="nh-msg-empty-desc">When you message a property owner or verified realtor, your conversations and inspection schedules will appear here.</p>
+            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" class="nh-btn-login-prompt" id="btnEmptyStartChat">Start a Chat</button>
+              <a href="../explore.html" class="nh-btn-browse-props">Browse Properties &rarr;</a>
             </div>
-
-            <!-- List of Realtor Cards -->
-            <ul class="hh-conv-list nh-realtor-market-list" id="hhConvList">
-              <!-- Populated dynamically by messages.js -->
-            </ul>
           </div>
+
+          <!-- Real Conversations List (Populated dynamically from Supabase) -->
+          <ul class="hh-conv-list" id="hhConvList">
+            <!-- Rendered dynamically -->
+          </ul>
 
         </aside>
 
-        <!-- Main Chat Area (Right Column on Desktop, Bottom Flow on Mobile) -->
-        <section class="hh-concierge-main" id="hhActiveChatPane" aria-label="Conversation with Advisor">
+        <!-- Main Chat Area: Dedicated Chat Screen (Right Column on Desktop, Screen 2 on Mobile) -->
+        <section class="hh-concierge-main" id="hhActiveChatPane" aria-label="Conversation Details">
           
-          <!-- Header -->
-          <div class="hh-chat-header">
-            <div class="hh-chat-header-profile">
-              <img id="hhActiveAvatar" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&q=80" alt="Ariya AI Advisor">
-              <div>
-                <h3 class="hh-chat-header-title" id="hhActiveName">
-                  Ariya AI Advisor
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#008751"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
-                </h3>
-                <div class="hh-chat-header-subtitle" id="hhActiveRole">NaijaHomes AI Real Estate Consultant &bull; Online 24/7</div>
+          <!-- Header with Mobile Back Button -->
+          <div class="hh-chat-header" id="hhChatHeader">
+            <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+              <!-- Back button on mobile screens -->
+              <button type="button" class="nh-chat-back-btn" id="nhChatBackBtn" aria-label="Back to conversations">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <span class="nh-back-btn-text">Conversations</span>
+              </button>
+
+              <div class="hh-chat-header-profile">
+                <div style="position: relative; flex-shrink: 0;">
+                  <img id="hhActiveAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Contact Avatar">
+                  <span class="hh-conv-online-dot"></span>
+                </div>
+                <div style="min-width: 0;">
+                  <h3 class="hh-chat-header-title" id="hhActiveName">
+                    Select a conversation
+                  </h3>
+                  <div class="hh-chat-header-subtitle" id="hhActiveRole">Direct Real Estate Chat</div>
+                </div>
               </div>
             </div>
 
@@ -176,7 +165,7 @@
               <button type="button" class="nh-btn-whatsapp" id="hhChatWhatsappBtn" style="display: none;">
                 <span>💬 WhatsApp</span>
               </button>
-              <button type="button" class="hh-chat-action-btn primary" id="hhBtnScheduleTour">
+              <button type="button" class="hh-chat-action-btn primary" id="hhBtnScheduleTour" style="display: none;">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                   <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -188,35 +177,35 @@
             </div>
           </div>
 
-          <!-- Messages Stream (WhatsApp / iMessage style) -->
+          <!-- Property Context Banner (if conversation is linked to a property) -->
+          <div class="hh-chat-property-banner" id="hhChatPropBanner" style="display: none;">
+            <div class="hh-chat-prop-left">
+              <span style="font-size: 1.1rem; flex-shrink: 0;">🏡</span>
+              <span class="hh-chat-prop-title" id="hhActivePropTitle">Property Inquiry</span>
+            </div>
+            <a href="#" class="hh-chat-prop-link" id="hhActivePropLink" target="_blank">View Listing &rarr;</a>
+          </div>
+
+          <!-- Desktop Placeholder (shown when no conversation is selected yet on desktop) -->
+          <div class="nh-no-conv-placeholder" id="nhNoConvPlaceholder" style="display: none;">
+            <div class="nh-no-conv-icon">✉️</div>
+            <h3 class="nh-no-conv-title">Select a Conversation</h3>
+            <p class="nh-no-conv-desc">Choose a conversation from the list to view real-time messages, inquire about title verification, or schedule an on-site physical inspection.</p>
+          </div>
+
+          <!-- Live Chat Stream (Loaded from Supabase) -->
           <div class="hh-chat-stream" id="hhChatStream">
             <!-- Messages rendered dynamically -->
-            <div class="hh-typing-indicator" id="hhTypingIndicator" style="display: none;">
-              <span id="hhTypingAuthor">Realtor</span> is typing
-              <div class="hh-typing-dots">
-                <span class="hh-typing-dot"></span>
-                <span class="hh-typing-dot"></span>
-                <span class="hh-typing-dot"></span>
-              </div>
-            </div>
           </div>
 
-          <!-- Quick Consultation Suggestion Chips -->
-          <div class="hh-quick-inquiries">
-            <button type="button" class="hh-inquiry-chip" data-prompt="Can I schedule a free physical inspection for this Thursday at 12:00 PM?">📅 Book Physical Inspection</button>
-            <button type="button" class="hh-inquiry-chip" data-prompt="Has the Governor's Consent or C of O been verified with the Lands Bureau?">📑 Request Title Search Report</button>
-            <button type="button" class="hh-inquiry-chip" data-prompt="What are the structured payment milestone options and initial deposit requirement?">💰 Price &amp; Payment Plans</button>
-            <button type="button" class="hh-inquiry-chip" data-prompt="Can you send me a video walkthrough and survey plan on WhatsApp?">📱 Send WhatsApp Video Walkthrough</button>
-          </div>
-
-          <!-- Composer Bar with Attachment Button -->
+          <!-- Composer Bar -->
           <form class="hh-chat-composer" id="hhChatForm">
             <button type="button" class="hh-chat-attach-btn" id="hhChatAttachBtn" title="Attach document, survey plan, or photo">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
               </svg>
             </button>
-            <input type="text" id="hhChatInput" placeholder="Message verified Nigerian realtor regarding property inspection or title..." autocomplete="off">
+            <input type="text" id="hhChatInput" placeholder="Write a message..." autocomplete="off">
             <button type="submit" class="hh-chat-send-btn" title="Send Message">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -231,131 +220,19 @@
     </div>
   </main>
 
-  <!-- MODAL: POST A PROPERTY -->
-  <div class="nh-modal-overlay" id="nhSellModal">
-    <div class="nh-modal-card">
-      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+  <!-- MODAL: START NEW CHAT -->
+  <div class="nh-modal-overlay" id="nhNewChatModal" style="display: none;">
+    <div class="nh-modal-card" style="max-width: 480px;">
+      <button type="button" class="nh-modal-close" id="closeNewChatModal">&times;</button>
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-        <span style="font-size: 1.4rem;">🏡</span>
-        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+        <span style="font-size: 1.4rem;">💬</span>
+        <h2 class="nh-modal-title">Start a Conversation</h2>
       </div>
-      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
-
-      <form id="nhSellForm">
-        <div class="nh-form-grid">
-          <div class="nh-form-group full">
-            <label class="nh-form-label">Property Title *</label>
-            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Purpose *</label>
-            <select id="sellPurpose" class="nh-form-select" required>
-              <option value="sale">For Sale</option>
-              <option value="rent">For Rent (Annual)</option>
-              <option value="shortlet">Short Let (Daily)</option>
-              <option value="land">Land / Plot</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Property Type *</label>
-            <select id="sellType" class="nh-form-select" required>
-              <option value="duplex">Detached Duplex</option>
-              <option value="terrace">Terraced Duplex</option>
-              <option value="penthouse">Penthouse</option>
-              <option value="apartment">Serviced Flat / Apartment</option>
-              <option value="land">Residential Land</option>
-              <option value="commercial">Commercial Property</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">State *</label>
-            <select id="sellState" class="nh-form-select" required>
-              <option value="Lagos">Lagos State</option>
-              <option value="Abuja">Abuja FCT</option>
-              <option value="Rivers">Rivers (Port Harcourt)</option>
-              <option value="Oyo">Oyo (Ibadan)</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Location / Neighborhood *</label>
-            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Price in Naira (₦) *</label>
-            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Title Document *</label>
-            <select id="sellTitleDoc" class="nh-form-select" required>
-              <option value="Governor's Consent">Governor's Consent</option>
-              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
-              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
-              <option value="Deed of Assignment">Deed of Assignment</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Bedrooms</label>
-            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Bathrooms</label>
-            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
-          </div>
-
-          <div class="nh-form-group full">
-            <label class="nh-form-label">Photo Image URL</label>
-            <input type="url" id="sellImageUrl" class="nh-form-input" placeholder="Enter photo image URL">
-          </div>
-
-          <div class="nh-form-group full">
-            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: SCHEDULE INSPECTION -->
-  <div class="nh-modal-overlay" id="nhInspectionModal">
-    <div class="nh-modal-card" style="max-width: 500px;">
-      <button type="button" class="nh-modal-close" id="closeInspModal">&times;</button>
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-        <span style="font-size: 1.4rem;">📅</span>
-        <h2 class="nh-modal-title">Book Free Physical Inspection</h2>
+      <p class="nh-modal-desc">Direct chat with verified partner realtors across prime Nigerian corridors.</p>
+      
+      <div class="nh-new-chat-list" id="nhNewChatDirectory">
+        <!-- Rendered dynamically -->
       </div>
-      <p class="nh-modal-desc">
-        Regarding: <strong id="inspPropertyTitle" style="color: #008751;">Selected Property</strong>.
-        Submit your requested inspection date below.
-      </p>
-
-      <form id="nhInspectionForm">
-        <div style="display: flex; flex-direction: column; gap: 14px;">
-          <div class="nh-form-group">
-            <label class="nh-form-label">Your Full Name *</label>
-            <input type="text" id="inspName" class="nh-form-input" placeholder="Enter your full name" required>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">WhatsApp / Phone Number *</label>
-            <input type="tel" id="inspPhone" class="nh-form-input" placeholder="Enter your phone or WhatsApp number" required>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Preferred Date *</label>
-            <input type="date" id="inspDate" class="nh-form-input" required>
-          </div>
-
-          <button type="submit" class="nh-form-submit">Confirm Physical Inspection &rarr;</button>
-        </div>
-      </form>
     </div>
   </div>
 
@@ -365,28 +242,29 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
       <span>Home</span>
     </a>
-    <a href="explore.html" class="hh-tab-item">
+    <a href="../explore.html" class="hh-tab-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <span>Search</span>
     </a>
-    <a href="saved.html" class="hh-tab-item">
+    <a href="../saved.html" class="hh-tab-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
       <span>Saved</span>
     </a>
-    <a href="messages.html" class="hh-tab-item active">
+    <a href="../messages.html" class="hh-tab-item active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <span>Messages</span>
     </a>
-    <a href="profile.html" class="hh-tab-item">
+    <a href="../profile.html" class="hh-tab-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span>Profile</span>
     </a>
   </nav>
 
-  <!-- Scripts -->
+  <!-- Scripts: Supabase SDK & Client, Data, HomeHaven Core, Messages Controller -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-client.js"></script>
   <script src="../js/data.js"></script>
-  <script src="../js/ai-assistant.js"></script>
-  <script src="../js/messages.js"></script>
   <script src="../js/homehaven.js"></script>
+  <script src="../js/messages.js"></script>
 </body>
 </html>
