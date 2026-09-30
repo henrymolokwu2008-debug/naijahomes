@@ -1,5 +1,5 @@
 /**
- * NaijaHomes - Inspection Desk & Verified Realtor Advisory Controller
+ * NaijaHomes - Chat & Verified Realtor Advisory Controller
  * Manages physical inspection scheduling, Nigerian title searches,
  * WhatsApp quick transfers, and real-time advisor chat.
  */
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="hh-conv-name" ${isAriya ? 'style="color: #008751; font-weight: 800;"' : ''}>${conv.name} ${isAriya ? '✨' : ''}</span>
             <span class="hh-conv-time">${isAriya ? '24/7 AI' : 'Active'}</span>
           </div>
-          <div class="hh-conv-snippet">${conv.messages && conv.messages.length > 0 ? conv.messages[conv.messages.length - 1].text.replace(/<[^>]*>?/gm, '').substring(0, 36) + '...' : 'Conversation'}</div>
+          <div class="hh-conv-snippet">${conv.messages && conv.messages.length > 0 ? conv.messages[conv.messages.length - 1].text.replace(/<[^>]*>?/gm, '') : 'Conversation'}</div>
         </div>
       `;
 

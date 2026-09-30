@@ -826,7 +826,8 @@ button {
 .card-specs {
   display: flex;
   align-items: center;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 12px;
   padding: 12px 0;
   border-top: 1px solid var(--slate-100);
   border-bottom: 1px solid var(--slate-100);
@@ -846,6 +847,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: auto;
 }
 
@@ -8198,10 +8201,45 @@ button {
     width: 100% !important;
     justify-content: center !important;
     padding: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-global-banner.mobile-menu-open .nh-auth-container,
+  .nh-header.mobile-menu-open .nh-auth-container {
+    width: 100% !important;
+    display: flex !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-global-banner.mobile-menu-open .nh-btn-login,
+  .hh-global-banner.mobile-menu-open .nh-btn-signup,
+  .nh-header.mobile-menu-open .nh-btn-login,
+  .nh-header.mobile-menu-open .nh-btn-signup {
+    flex: 1 !important;
+    text-align: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-global-banner.mobile-menu-open .nh-user-session-pill,
+  .nh-header.mobile-menu-open .nh-user-session-pill {
+    width: 100% !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
   }
 
   .hh-nav-avatar {
     align-self: center !important;
+  }
+
+  /* Universal mobile button safety */
+  button,
+  .btn,
+  .nh-form-submit,
+  .hh-chat-action-btn {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* Shell padding on mobile */
@@ -8237,23 +8275,34 @@ button {
 
 @media (max-width: 768px) {
   .hh-hero-search-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 12px 6px 4px;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 12px 6px 4px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  .hh-hero-search-grid>div:first-child {
-    grid-column: 1 / -1;
+  .hh-hero-search-grid>div {
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  .hh-hero-search-grid>div:last-child {
-    grid-column: 1 / -1;
+  .hh-hero-search-grid select,
+  .hh-hero-search-grid input,
+  .hh-hero-search-grid .nh-form-select {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  .hh-hero-search-grid>div:last-child button {
-    width: 100%;
-    justify-content: center;
-    padding: 12px 20px;
+  .hh-hero-search-grid button,
+  #heroSearchBtn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px 20px !important;
+    box-sizing: border-box !important;
   }
 }
 
@@ -8303,6 +8352,30 @@ button {
   .hh-filter-dropdowns-grid button {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hh-filter-dropdowns-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-filter-dropdowns-grid>div {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-filter-dropdowns-grid select,
+  .hh-filter-dropdowns-grid .nh-form-select,
+  .hh-filter-dropdowns-grid button {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 }
 
@@ -8432,37 +8505,58 @@ button {
 /* Hero Section Mobile Enhancements */
 @media (max-width: 768px) {
   .hh-portal-hero {
-    padding: 32px 16px 40px !important;
+    padding: 30px 14px 38px !important;
     border-radius: 20px !important;
     margin: 8px 0 24px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .hh-portal-hero h1 {
-    font-size: 1.85rem !important;
+    font-size: 1.6rem !important;
     line-height: 1.25 !important;
     letter-spacing: -0.5px !important;
     word-break: break-word !important;
+    text-align: center !important;
+    margin: 0 auto 12px !important;
+    max-width: 100% !important;
   }
 
   .hh-portal-hero p {
-    font-size: 0.95rem !important;
-    margin-bottom: 24px !important;
+    font-size: 0.92rem !important;
+    line-height: 1.45 !important;
+    text-align: center !important;
+    margin: 0 auto 24px !important;
+    max-width: 100% !important;
   }
 
   .hh-hero-badge {
     max-width: 100% !important;
     box-sizing: border-box !important;
     flex-wrap: wrap !important;
-    text-align: left !important;
+    text-align: center !important;
+    justify-content: center !important;
+    margin: 0 auto 16px !important;
   }
 
   .hh-hero-badge span:last-child {
     white-space: normal !important;
     line-height: 1.4 !important;
+    text-align: center !important;
   }
 
   .hh-hero-glow {
     display: none !important;
+  }
+
+  .hh-hero-search-card {
+    padding: 12px 10px 16px !important;
+    border-radius: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .hh-features-section {
@@ -8503,13 +8597,75 @@ button {
     justify-content: center !important;
   }
 
+  #heroTabs,
+  #explorePurposeTabs,
+  #gridFilterChips,
+  .home-dash-nav-list {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #heroTabs::-webkit-scrollbar,
+  #explorePurposeTabs::-webkit-scrollbar,
+  #gridFilterChips::-webkit-scrollbar,
+  .home-dash-nav-list::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #heroTabs .hh-tab-btn,
+  #explorePurposeTabs .hh-tab-btn,
+  #gridFilterChips .hh-tab-btn {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  #portfolioMetrics {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 16px !important;
+  }
+
+  .hh-calc-result-box {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .hh-infra-grid {
+    grid-template-columns: 1fr !important;
+  }
+
   body {
-    padding-bottom: 64px;
+    padding-bottom: 72px !important;
   }
 
   .nh-ai-fab {
     bottom: 74px !important;
     right: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hh-portal-hero {
+    padding: 24px 12px 32px !important;
+  }
+  .hh-portal-hero h1 {
+    font-size: 1.38rem !important;
+  }
+  .hh-portal-hero p {
+    font-size: 0.86rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .hh-portal-hero h1 {
+    font-size: 1.22rem !important;
+  }
+  .hh-portal-hero p {
+    font-size: 0.8rem !important;
   }
 }
 
@@ -11317,6 +11473,8 @@ button {
     right: 8px !important;
     padding: 6px 10px !important;
     font-size: 0.74rem !important;
+    max-width: calc(100vw - 16px) !important;
+    box-sizing: border-box !important;
   }
 }
 
@@ -11558,18 +11716,32 @@ button {
   transform: translateY(-1px);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .nh-form-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 
   .nh-form-group.full {
-    grid-column: span 1;
+    grid-column: span 1 !important;
   }
 
   .nh-modal-card {
     padding: 24px 16px;
     border-radius: 20px;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nh-modal-overlay {
+    padding: 12px 8px !important;
+  }
+
+  .nh-modal-card,
+  .nh-edit-profile-modal-card {
+    padding: 20px 14px !important;
+    border-radius: 18px !important;
   }
 }
 
@@ -13203,7 +13375,7 @@ button {
   left: 0;
   bottom: 0;
   width: 408px;
-  max-width: 100vw;
+  max-width: 100%;
   background: #ffffff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.22);
   z-index: 1000;
@@ -14547,7 +14719,7 @@ button {
   gap: 12px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .nh-auth-grid-2 {
     grid-template-columns: 1fr !important;
     gap: 10px !important;
