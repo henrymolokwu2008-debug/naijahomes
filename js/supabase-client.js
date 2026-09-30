@@ -441,6 +441,35 @@
   }
 
   // 7. AVATAR UPLOAD TO SUPABASE STORAGE ('avatars' BUCKET)
+  
+  // 7.1 PROPERTY IMAGE UPLOAD TO SUPABASE STORAGE ('property-images' BUCKET)
+  async function supabaseUploadPropertyImage(file, userId) {
+    const client = getClient();
+    if (!client || !file || !userId) return null;
+
+    try {
+      const fileExt = file.name ? file.name.split(".").pop() : "jpg";
+      const filePath = `${userId}/property-${Date.now()}.${fileExt}`;
+
+      const uploadPromise = client.storage.from("property-images").upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: true
+      });
+
+      const { data, error } = await withTimeout(uploadPromise, 15000, "Property image upload");
+      if (error) {
+        console.error("Storage property-images upload error:", error);
+        return null;
+      }
+
+      const { data: urlData } = client.storage.from("property-images").getPublicUrl(data.path);
+      return urlData ? urlData.publicUrl : null;
+    } catch (e) {
+      console.error("Property image upload exception:", e);
+      return null;
+    }
+  }
+
   async function supabaseUploadAvatar(file, userId) {
     const client = getClient();
     if (!client || !file || !userId) return null;
@@ -951,6 +980,7 @@
     fetchProfile: supabaseFetchProfile,
     updateProfile: supabaseUpdateProfile,
     uploadAvatar: supabaseUploadAvatar,
+    uploadPropertyImage: supabaseUploadPropertyImage,
     fetchProperties: supabaseFetchProperties,
     insertProperty: supabaseInsertProperty,
     // Messaging API

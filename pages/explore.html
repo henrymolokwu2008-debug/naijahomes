@@ -228,9 +228,19 @@
             <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
           </div>
 
-          <div class="nh-form-group full">
-            <label class="nh-form-label">Photo Image URL</label>
-            <input type="url" id="sellImageUrl" class="nh-form-input" placeholder="Enter photo image URL">
+                    <div class="nh-form-group full">
+            <label class="nh-form-label" for="sellImageFile">Upload Picture</label>
+            <div class="nh-upload-picture-box">
+              <input type="file" id="sellImageFile" accept="image/*" class="nh-form-input nh-file-input" style="padding: 7px 10px; font-size: 0.85rem; cursor: pointer;">
+              <input type="hidden" id="sellImageUrl">
+              <div id="sellImagePreviewWrap" class="nh-image-preview-wrap" style="display: none; align-items: center; gap: 12px; margin-top: 10px; padding: 10px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px;">
+                <img id="sellImagePreview" src="" alt="Property Preview" style="width: 72px; height: 54px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="flex: 1; min-width: 0;">
+                  <div id="sellImageFileName" style="font-size: 0.82rem; font-weight: 700; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">property-photo.jpg</div>
+                  <button type="button" id="btnRemoveSellImage" style="background: none; border: none; color: #ef4444; font-size: 0.75rem; font-weight: 700; cursor: pointer; padding: 0; margin-top: 2px;">✕ Remove Picture</button>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="nh-form-group full">

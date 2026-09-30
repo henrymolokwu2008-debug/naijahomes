@@ -236,6 +236,108 @@
     </div>
   </div>
 
+  <!-- MODAL: POST A PROPERTY -->
+  <div class="nh-modal-overlay" id="nhSellModal">
+    <div class="nh-modal-card">
+      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">🏡</span>
+        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+      </div>
+      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
+
+      <form id="nhSellForm">
+        <div class="nh-form-grid">
+          <div class="nh-form-group full">
+            <label class="nh-form-label">Property Title *</label>
+            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Purpose *</label>
+            <select id="sellPurpose" class="nh-form-select" required>
+              <option value="sale">For Sale</option>
+              <option value="rent">For Rent (Annual)</option>
+              <option value="shortlet">Short Let (Daily)</option>
+              <option value="land">Land / Plot</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Property Type *</label>
+            <select id="sellType" class="nh-form-select" required>
+              <option value="duplex">Detached Duplex</option>
+              <option value="terrace">Terraced Duplex</option>
+              <option value="penthouse">Penthouse</option>
+              <option value="apartment">Serviced Flat / Apartment</option>
+              <option value="land">Residential Land</option>
+              <option value="commercial">Commercial Property</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">State *</label>
+            <select id="sellState" class="nh-form-select" required>
+              <option value="Lagos">Lagos State</option>
+              <option value="Abuja">Abuja FCT</option>
+              <option value="Rivers">Rivers (Port Harcourt)</option>
+              <option value="Oyo">Oyo (Ibadan)</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Location / Neighborhood *</label>
+            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Price in Naira (₦) *</label>
+            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Title Document *</label>
+            <select id="sellTitleDoc" class="nh-form-select" required>
+              <option value="Governor's Consent">Governor's Consent</option>
+              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
+              <option value="Deed of Assignment">Deed of Assignment</option>
+            </select>
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bedrooms</label>
+            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
+          </div>
+
+          <div class="nh-form-group">
+            <label class="nh-form-label">Bathrooms</label>
+            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
+          </div>
+
+          <div class="nh-form-group full">
+            <label class="nh-form-label" for="sellImageFile">Upload Picture</label>
+            <div class="nh-upload-picture-box">
+              <input type="file" id="sellImageFile" accept="image/*" class="nh-form-input nh-file-input" style="padding: 7px 10px; font-size: 0.85rem; cursor: pointer;">
+              <input type="hidden" id="sellImageUrl">
+              <div id="sellImagePreviewWrap" class="nh-image-preview-wrap" style="display: none; align-items: center; gap: 12px; margin-top: 10px; padding: 10px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px;">
+                <img id="sellImagePreview" src="" alt="Property Preview" style="width: 72px; height: 54px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="flex: 1; min-width: 0;">
+                  <div id="sellImageFileName" style="font-size: 0.82rem; font-weight: 700; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">property-photo.jpg</div>
+                  <button type="button" id="btnRemoveSellImage" style="background: none; border: none; color: #ef4444; font-size: 0.75rem; font-weight: 700; cursor: pointer; padding: 0; margin-top: 2px;">✕ Remove Picture</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nh-form-group full">
+            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Persistent Mobile Bottom Tab Bar -->
   <nav class="hh-bottom-tabbar" aria-label="Mobile Navigation">
     <a href="../index.html" class="hh-tab-item">

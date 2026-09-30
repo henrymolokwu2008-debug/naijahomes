@@ -15626,3 +15626,43 @@ button {
   background: #f1f5f9;
   border-color: #cbd5e1;
 }
+
+
+/* Property Picture Upload Component */
+.nh-upload-picture-box {
+  width: 100%;
+}
+
+.nh-file-input {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.nh-file-input:hover {
+  background: #f1f5f9;
+  border-color: #008751;
+}
+
+.nh-file-input:focus {
+  border-color: #008751;
+  box-shadow: 0 0 0 3px rgba(0, 135, 81, 0.15);
+}
+
+.nh-image-preview-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}

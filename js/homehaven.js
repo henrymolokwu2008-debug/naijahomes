@@ -589,11 +589,15 @@ function initNaijaHomesEngine() {
               <input type="text" id="loginIdentifier" class="nh-form-input" placeholder="Enter your email or username" required autocomplete="username">
             </div>
             <div class="nh-form-group">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
-                <label class="nh-form-label" for="loginPassword" style="margin-bottom: 0;">Password *</label>
-                <a href="javascript:void(0)" id="linkForgotPassword" class="nh-forgot-password-link" style="color: #008751; font-size: 0.8rem; font-weight: 700; text-decoration: none; cursor: pointer;">Forgot Password?</a>
-              </div>
+              <label class="nh-form-label" for="loginPassword" style="margin-bottom: 4px;">Password *</label>
               <input type="password" id="loginPassword" class="nh-form-input" placeholder="Enter your password" required autocomplete="current-password">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: -2px;">
+              <label style="display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: #475569; cursor: pointer; user-select: none;">
+                <input type="checkbox" id="loginRememberMe" checked style="width: 16px; height: 16px; accent-color: #008751; cursor: pointer; border-radius: 4px;">
+                <span>Remember me</span>
+              </label>
+              <a href="javascript:void(0)" id="linkForgotPassword" class="nh-forgot-password-link" style="color: #008751; font-size: 0.8rem; font-weight: 700; text-decoration: none; cursor: pointer;">Forgot Password?</a>
             </div>
             <button type="submit" class="nh-form-submit" style="margin-top: 6px;">Log In to Account &rarr;</button>
           </div>
@@ -973,6 +977,20 @@ function initNaijaHomesEngine() {
         formLogin.style.display = "block";
         formSignup.style.display = "none";
         clearAlert();
+
+        // If login identifier is blank, populate with what user entered in signup or remembered credentials
+        const loginIdInput = document.getElementById("loginIdentifier");
+        const loginPassInput = document.getElementById("loginPassword");
+        const signupEmailVal = document.getElementById("signupEmail") ? document.getElementById("signupEmail").value.trim() : "";
+        const signupUserVal = document.getElementById("signupUsername") ? document.getElementById("signupUsername").value.trim() : "";
+        const signupPassVal = document.getElementById("signupPassword") ? document.getElementById("signupPassword").value : "";
+
+        if (loginIdInput && !loginIdInput.value) {
+          loginIdInput.value = signupEmailVal || signupUserVal || localStorage.getItem("naijahomes_remembered_identifier") || "";
+        }
+        if (loginPassInput && !loginPassInput.value) {
+          loginPassInput.value = signupPassVal || localStorage.getItem("naijahomes_remembered_password") || "";
+        }
       });
 
       tabSignup.addEventListener("click", () => {
@@ -996,10 +1014,26 @@ function initNaijaHomesEngine() {
         }
 
         try {
-          const identifier = document.getElementById("loginIdentifier").value;
+          const identifier = document.getElementById("loginIdentifier").value.trim();
           const pass = document.getElementById("loginPassword").value;
+          const rememberCheck = document.getElementById("loginRememberMe");
+          const shouldRemember = rememberCheck ? rememberCheck.checked : true;
+
           const result = await loginUser(identifier, pass);
           if (result.success) {
+            if (shouldRemember) {
+              try {
+                localStorage.setItem("naijahomes_remembered_identifier", identifier);
+                localStorage.setItem("naijahomes_remembered_password", pass);
+                localStorage.setItem("naijahomes_remember_me", "true");
+              } catch (e) {}
+            } else {
+              try {
+                localStorage.removeItem("naijahomes_remembered_identifier");
+                localStorage.removeItem("naijahomes_remembered_password");
+                localStorage.setItem("naijahomes_remember_me", "false");
+              } catch (e) {}
+            }
             formLogin.reset();
             modal.style.display = "none";
             showNaijaToast(`Welcome back, ${result.user.name}!`, "👋");
@@ -1084,6 +1118,29 @@ function initNaijaHomesEngine() {
 
           const result = await registerUser(signupData);
           if (result.success) {
+            // Remember user login details upon sign up
+            const registeredIdentifier = signupData.email || signupData.username || signupData.phone;
+            try {
+              localStorage.setItem("naijahomes_remembered_identifier", registeredIdentifier);
+              if (signupData.password) {
+                localStorage.setItem("naijahomes_remembered_password", signupData.password);
+              }
+              localStorage.setItem("naijahomes_remember_me", "true");
+
+              // Immediately pre-fill login inputs
+              const loginIdEl = document.getElementById("loginIdentifier");
+              const loginPassEl = document.getElementById("loginPassword");
+              if (loginIdEl) loginIdEl.value = registeredIdentifier;
+              if (loginPassEl && signupData.password) loginPassEl.value = signupData.password;
+
+              const pageLoginIdEl = document.getElementById("pageLoginIdentifier");
+              const pageLoginPassEl = document.getElementById("pageLoginPassword");
+              if (pageLoginIdEl) pageLoginIdEl.value = registeredIdentifier;
+              if (pageLoginPassEl && signupData.password) pageLoginPassEl.value = signupData.password;
+            } catch (e) {
+              console.warn("Could not save remembered credentials:", e);
+            }
+
             formSignup.reset();
             if (agreeCheckbox) agreeCheckbox.checked = false;
             signupPhotoDataUrl = "";
@@ -1220,6 +1277,19 @@ function initNaijaHomesEngine() {
 
     if (authAlert) authAlert.style.display = "none";
 
+    // Auto-populate remembered user details in login form
+    try {
+      const savedLoginId = localStorage.getItem("naijahomes_remembered_identifier") || "";
+      const savedLoginPass = localStorage.getItem("naijahomes_remembered_password") || "";
+      const savedRememberMe = localStorage.getItem("naijahomes_remember_me") !== "false";
+      const loginIdEl = document.getElementById("loginIdentifier");
+      const loginPassEl = document.getElementById("loginPassword");
+      const rememberMeEl = document.getElementById("loginRememberMe");
+      if (loginIdEl && savedLoginId && !loginIdEl.value) loginIdEl.value = savedLoginId;
+      if (loginPassEl && savedLoginPass && !loginPassEl.value) loginPassEl.value = savedLoginPass;
+      if (rememberMeEl) rememberMeEl.checked = savedRememberMe;
+    } catch (e) {}
+
     if (defaultTab === "signup") {
       if (tabsContainer) tabsContainer.style.display = "grid";
       if (tabSignup) tabSignup.classList.add("active");
@@ -1314,6 +1384,46 @@ function initNaijaHomesEngine() {
   const sellModal = document.getElementById("nhSellModal");
   const closeSellModal = document.getElementById("closeSellModal");
   const sellForm = document.getElementById("nhSellForm");
+  const sellImageFile = document.getElementById("sellImageFile");
+  const sellImagePreview = document.getElementById("sellImagePreview");
+  const sellImagePreviewWrap = document.getElementById("sellImagePreviewWrap");
+  const sellImageFileName = document.getElementById("sellImageFileName");
+  const btnRemoveSellImage = document.getElementById("btnRemoveSellImage");
+  const sellImageUrlInput = document.getElementById("sellImageUrl");
+
+  let uploadedPropertyDataUrl = "";
+
+  if (sellImageFile) {
+    sellImageFile.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (file) {
+        if (file.size > 8 * 1024 * 1024) {
+          showNaijaToast("Image size is too large (maximum 8MB). Please choose a smaller photo.", "⚠️");
+          sellImageFile.value = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          uploadedPropertyDataUrl = evt.target.result;
+          if (sellImageUrlInput) sellImageUrlInput.value = uploadedPropertyDataUrl;
+          if (sellImagePreview) sellImagePreview.src = uploadedPropertyDataUrl;
+          if (sellImageFileName) sellImageFileName.textContent = file.name;
+          if (sellImagePreviewWrap) sellImagePreviewWrap.style.display = "flex";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  if (btnRemoveSellImage) {
+    btnRemoveSellImage.addEventListener("click", () => {
+      uploadedPropertyDataUrl = "";
+      if (sellImageFile) sellImageFile.value = "";
+      if (sellImageUrlInput) sellImageUrlInput.value = "";
+      if (sellImagePreview) sellImagePreview.src = "";
+      if (sellImagePreviewWrap) sellImagePreviewWrap.style.display = "none";
+    });
+  }
 
   if (btnOpenSell && sellModal) {
     btnOpenSell.addEventListener("click", () => {
@@ -1339,7 +1449,7 @@ function initNaijaHomesEngine() {
   });
 
   if (sellForm) {
-    sellForm.addEventListener("submit", (e) => {
+    sellForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const title = document.getElementById("sellTitle").value;
@@ -1351,13 +1461,21 @@ function initNaijaHomesEngine() {
       const bedrooms = parseInt(document.getElementById("sellBeds").value) || 0;
       const bathrooms = parseInt(document.getElementById("sellBaths").value) || 0;
       const titleDoc = document.getElementById("sellTitleDoc").value;
-      const rawImageUrl = document.getElementById("sellImageUrl").value.trim();
+      let uploadedCloudUrl = null;
+      const fileToUpload = sellImageFile && sellImageFile.files && sellImageFile.files[0];
+      const currentUser = getCurrentUser();
+      if (fileToUpload && currentUser && currentUser.id && window.NaijaHomesSupabase && typeof window.NaijaHomesSupabase.uploadPropertyImage === "function" && window.NaijaHomesSupabase.isConfigured()) {
+        try {
+          uploadedCloudUrl = await window.NaijaHomesSupabase.uploadPropertyImage(fileToUpload, currentUser.id);
+        } catch (ue) {
+          console.warn("Cloud upload deferred, using data URL:", ue);
+        }
+      }
+      const rawImageUrl = uploadedCloudUrl || uploadedPropertyDataUrl || (document.getElementById("sellImageUrl") ? document.getElementById("sellImageUrl").value.trim() : "");
 
       // Clean SVG placeholder if no image URL provided
       const defaultPlaceholderSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Crect width='100%25' height='100%25' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' fill='%2394a3b8' font-size='22' font-family='system-ui,sans-serif' text-anchor='middle' dominant-baseline='middle'%3EProperty Photo Pending%3C/text%3E%3C/svg%3E";
       const imageUrl = rawImageUrl || defaultPlaceholderSvg;
-
-      const currentUser = getCurrentUser();
 
       const newListing = {
         id: `nh-user-${Date.now()}`,
@@ -1409,6 +1527,9 @@ function initNaijaHomesEngine() {
 
       // Reset form and close modal
       sellForm.reset();
+      uploadedPropertyDataUrl = "";
+      if (sellImagePreviewWrap) sellImagePreviewWrap.style.display = "none";
+      if (sellImagePreview) sellImagePreview.src = "";
       sellModal.style.display = "none";
 
       showNaijaToast("Listing published successfully! It is now live on NaijaHomes.", "🎉");
