@@ -142,14 +142,161 @@ function initNaijaHomesEngine() {
 
   // 4. Client-Side Authentication Engine (Log In / Sign Up / Profile Session Management)
   function getNaijaUsers() {
-    return JSON.parse(localStorage.getItem("naijahomes_users") || "[]");
+    let users = [];
+
+    // Helper to safely parse an array from localStorage
+    function readStorageArray(key) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return parsed;
+        if (parsed && typeof parsed === "object") return [parsed];
+        return [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    // 1. Read from primary storage key
+    const primary = readStorageArray("naijahomes_users");
+    users = users.concat(primary);
+
+    // 2. Read from alternate/legacy keys if present
+    const altKeys = ["nh_users", "users", "accounts", "naijahomes_accounts"];
+    for (const k of altKeys) {
+      const altUsers = readStorageArray(k);
+      for (const u of altUsers) {
+        if (u && typeof u === "object") {
+          const uId = u.id;
+          const uEmail = String(u.email || u.userEmail || u.user_email || "").trim().toLowerCase();
+          const uUser = String(u.username || u.userName || u.user_name || "").trim().toLowerCase();
+          const already = users.some(existing => {
+            const exEmail = String(existing.email || existing.userEmail || existing.user_email || "").trim().toLowerCase();
+            const exUser = String(existing.username || existing.userName || existing.user_name || "").trim().toLowerCase();
+            return (uId && existing.id === uId) || (uEmail && exEmail === uEmail) || (uUser && exUser === uUser);
+          });
+          if (!already) users.push(u);
+        }
+      }
+    }
+
+    // 3. Check active session (naijahomes_current_user)
+    try {
+      const curRaw = localStorage.getItem("naijahomes_current_user");
+      if (curRaw) {
+        const curUser = JSON.parse(curRaw);
+        if (curUser && typeof curUser === "object") {
+          const cEmail = String(curUser.email || curUser.userEmail || curUser.user_email || "").trim().toLowerCase();
+          const cUser = String(curUser.username || curUser.userName || curUser.user_name || "").trim().toLowerCase();
+          const exists = users.some(existing => {
+            const exEmail = String(existing.email || existing.userEmail || existing.user_email || "").trim().toLowerCase();
+            const exUser = String(existing.username || existing.userName || existing.user_name || "").trim().toLowerCase();
+            return (curUser.id && existing.id === curUser.id) || (cEmail && exEmail === cEmail) || (cUser && exUser === cUser);
+          });
+          if (!exists) {
+            users.push(curUser);
+          }
+        }
+      }
+    } catch (e) {}
+
+    // 4. Standardize all user objects with both canonical fields and aliases
+    users = users.map(u => {
+      if (!u || typeof u !== "object") return u;
+      const email = String(u.email || u.userEmail || u.user_email || "").trim().toLowerCase();
+      const username = String(u.username || u.userName || u.user_name || "").trim().toLowerCase();
+      const phone = String(u.phone || u.phoneNumber || u.phone_number || u.userPhone || "").trim();
+      const name = String(u.name || u.fullName || u.full_name || username || "User").trim();
+      const password = u.password || u.userPassword || "";
+
+      return {
+        ...u,
+        email: email || u.email || "",
+        userEmail: email || u.userEmail || "",
+        username: username || u.username || "",
+        userName: username || u.userName || "",
+        phone: phone || u.phone || "",
+        phoneNumber: phone || u.phoneNumber || "",
+        name: name,
+        fullName: name,
+        password: password,
+        userPassword: password
+      };
+    });
+
+    return users;
   }
   window.getNaijaUsers = getNaijaUsers;
 
   function saveNaijaUsers(users) {
-    localStorage.setItem("naijahomes_users", JSON.stringify(users));
+    if (!Array.isArray(users)) return;
+    try {
+      localStorage.setItem("naijahomes_users", JSON.stringify(users));
+      localStorage.setItem("nh_users", JSON.stringify(users));
+    } catch (e) {
+      console.error("Error saving users to localStorage:", e);
+    }
   }
   window.saveNaijaUsers = saveNaijaUsers;
+
+  function findUserAccount(identifier) {
+    if (!identifier) return null;
+    const cleanId = String(identifier).trim().toLowerCase();
+    if (!cleanId) return null;
+
+    const users = getNaijaUsers();
+
+    // 1. Check Email (case-insensitive, trimmed)
+    let found = users.find(u => {
+      const email = String(u.email || u.userEmail || u.user_email || "").trim().toLowerCase();
+      return email && email === cleanId;
+    });
+    if (found) return found;
+
+    // 2. Check Username (case-insensitive, trimmed)
+    found = users.find(u => {
+      const username = String(u.username || u.userName || u.user_name || "").trim().toLowerCase();
+      return username && username === cleanId;
+    });
+    if (found) return found;
+
+    // 3. Check Phone (normalized digits & Nigerian 234/0 country code compatibility)
+    const idDigits = cleanId.replace(/\D/g, "");
+    if (idDigits.length >= 7) {
+      found = users.find(u => {
+        const uPhoneDigits = String(u.phone || u.phoneNumber || u.phone_number || u.userPhone || "").replace(/\D/g, "");
+        if (!uPhoneDigits || uPhoneDigits.length < 7) return false;
+        if (uPhoneDigits === idDigits) return true;
+        const d1 = uPhoneDigits.startsWith("234") ? uPhoneDigits.slice(3) : (uPhoneDigits.startsWith("0") ? uPhoneDigits.slice(1) : uPhoneDigits);
+        const d2 = idDigits.startsWith("234") ? idDigits.slice(3) : (idDigits.startsWith("0") ? idDigits.slice(1) : idDigits);
+        return d1 === d2;
+      });
+      if (found) return found;
+    }
+
+    // 4. Check ID (usr-...)
+    found = users.find(u => u.id && String(u.id).trim().toLowerCase() === cleanId);
+    if (found) return found;
+
+    // 5. Fallback: check active session if available
+    const sessionUser = getCurrentUser();
+    if (sessionUser) {
+      const sEmail = String(sessionUser.email || sessionUser.userEmail || sessionUser.user_email || "").trim().toLowerCase();
+      const sUser = String(sessionUser.username || sessionUser.userName || sessionUser.user_name || "").trim().toLowerCase();
+      const sPhoneDigits = String(sessionUser.phone || sessionUser.phoneNumber || "").replace(/\D/g, "");
+      if (sEmail && sEmail === cleanId) return sessionUser;
+      if (sUser && sUser === cleanId) return sessionUser;
+      if (idDigits.length >= 7 && sPhoneDigits) {
+        const d1 = sPhoneDigits.startsWith("234") ? sPhoneDigits.slice(3) : (sPhoneDigits.startsWith("0") ? sPhoneDigits.slice(1) : sPhoneDigits);
+        const d2 = idDigits.startsWith("234") ? idDigits.slice(3) : (idDigits.startsWith("0") ? idDigits.slice(1) : idDigits);
+        if (d1 === d2) return sessionUser;
+      }
+    }
+
+    return null;
+  }
+  window.findUserAccount = findUserAccount;
 
   function getCurrentUser() {
     if (window.__currentUser) return window.__currentUser;
@@ -254,12 +401,13 @@ function initNaijaHomesEngine() {
     const users = getNaijaUsers();
 
     // 1. Full Name Validation
-    if (!data.name || data.name.trim().length < 2) {
+    const cleanName = (data.name || data.fullName || "").trim();
+    if (!cleanName || cleanName.length < 2) {
       return { success: false, message: "Please enter your full name." };
     }
 
     // 2. Username Validation
-    const cleanUsername = (data.username || "").trim().toLowerCase();
+    const cleanUsername = (data.username || data.userName || "").trim().toLowerCase();
     if (!cleanUsername || cleanUsername.length < 3) {
       return { success: false, message: "Username must be at least 3 characters." };
     }
@@ -267,23 +415,25 @@ function initNaijaHomesEngine() {
       return { success: false, message: "Username can only contain letters, numbers, underscores, and periods." };
     }
 
-    // 3. Email Validation
-    const cleanEmail = (data.email || "").trim().toLowerCase();
+    // 3. Email Validation (case-insensitive & trimmed)
+    const cleanEmail = (data.email || data.userEmail || "").trim().toLowerCase();
     if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       return { success: false, message: "Please provide a valid email address." };
     }
 
     // 4. Phone Validation
-    const cleanPhone = (data.phone || "").trim();
+    const cleanPhone = (data.phone || data.phoneNumber || data.userPhone || "").trim();
     if (!cleanPhone || cleanPhone.length < 7) {
       return { success: false, message: "Please provide a valid phone number." };
     }
 
     // 5. Password & Confirmation Validation
-    if (!data.password || data.password.length < 6) {
+    const pass = data.password || data.userPassword || "";
+    const confirmPass = data.confirmPassword || pass;
+    if (!pass || pass.length < 6) {
       return { success: false, message: "Password must be at least 6 characters long." };
     }
-    if (data.password !== data.confirmPassword) {
+    if (pass !== confirmPass) {
       return { success: false, message: "Passwords do not match. Please verify both password fields." };
     }
 
@@ -292,20 +442,20 @@ function initNaijaHomesEngine() {
     const accountType = validAccountTypes.includes(data.accountType) ? data.accountType : "Buyer";
 
     // 7. City and State Validation
-    const cleanCity = (data.city || "").trim();
-    if (!cleanCity) {
-      return { success: false, message: "Please enter your city." };
-    }
-    const cleanState = (data.state || "").trim();
-    if (!cleanState) {
-      return { success: false, message: "Please select your state." };
-    }
+    const cleanCity = (data.city || "").trim() || "Lagos";
+    const cleanState = (data.state || "").trim() || "Lagos State";
 
-    // 8. Check Uniqueness
-    if (users.some(u => u.email.toLowerCase() === cleanEmail)) {
+    // 8. Check Uniqueness (Safe case-insensitive & trimmed)
+    if (users.some(u => {
+      const em = String(u.email || u.userEmail || u.user_email || "").trim().toLowerCase();
+      return em && em === cleanEmail;
+    })) {
       return { success: false, message: "An account with this email address already exists. Please log in." };
     }
-    if (users.some(u => u.username && u.username.toLowerCase() === cleanUsername)) {
+    if (users.some(u => {
+      const un = String(u.username || u.userName || u.user_name || "").trim().toLowerCase();
+      return un && un === cleanUsername;
+    })) {
       return { success: false, message: "This username is already taken. Please choose another username." };
     }
 
@@ -318,11 +468,16 @@ function initNaijaHomesEngine() {
 
     const newUser = {
       id: "usr-" + Date.now(),
-      name: data.name.trim(),
+      name: cleanName,
+      fullName: cleanName,
       username: cleanUsername,
+      userName: cleanUsername,
       email: cleanEmail,
+      userEmail: cleanEmail,
       phone: cleanPhone,
-      password: data.password,
+      phoneNumber: cleanPhone,
+      password: pass,
+      userPassword: pass,
       accountType: accountType,
       role: accountType,
       city: cleanCity,
@@ -344,10 +499,11 @@ function initNaijaHomesEngine() {
         try {
           const sbRes = await window.NaijaHomesSupabase.signUp(data);
           if (sbRes.success && sbRes.user) {
-            users.push(sbRes.user);
+            const mergedUser = { ...newUser, ...sbRes.user, password: pass, userPassword: pass };
+            users.push(mergedUser);
             saveNaijaUsers(users);
-            setCurrentUser(sbRes.user);
-            return { success: true, user: sbRes.user };
+            setCurrentUser(mergedUser);
+            return { success: true, user: mergedUser };
           }
           if (!sbRes.fallback) {
             return { success: false, message: sbRes.message || "Registration failed." };
@@ -373,7 +529,7 @@ function initNaijaHomesEngine() {
     const cleanId = (identifier || "").trim().toLowerCase();
 
     if (!cleanId || !password) {
-      return { success: false, message: "Please enter your email or username and password." };
+      return { success: false, message: "Please enter your email, phone, or username and password." };
     }
 
     // 1. Supabase Authentication Integration (if configured)
@@ -382,6 +538,14 @@ function initNaijaHomesEngine() {
         try {
           const sbRes = await window.NaijaHomesSupabase.signIn(identifier, password);
           if (sbRes.success && sbRes.user) {
+            const users = getNaijaUsers();
+            const existsIdx = users.findIndex(u => u.id === sbRes.user.id || (u.email && u.email.toLowerCase() === sbRes.user.email.toLowerCase()));
+            if (existsIdx > -1) {
+              users[existsIdx] = { ...users[existsIdx], ...sbRes.user };
+            } else {
+              users.push(sbRes.user);
+            }
+            saveNaijaUsers(users);
             setCurrentUser(sbRes.user);
             return { success: true, user: sbRes.user };
           }
@@ -392,17 +556,12 @@ function initNaijaHomesEngine() {
           console.warn("Supabase login warning, falling back:", err);
         }
 
-        const users = getNaijaUsers();
-        const matched = users.find(u =>
-          (u.email.toLowerCase() === cleanId || (u.username && u.username.toLowerCase() === cleanId)) &&
-          u.password === password
-        );
+        const matched = findUserAccount(cleanId);
         if (!matched) {
-          const exists = users.some(u => u.email.toLowerCase() === cleanId || (u.username && u.username.toLowerCase() === cleanId));
-          if (exists) {
-            return { success: false, message: "Incorrect password. Please verify and try again." };
-          }
-          return { success: false, message: "No account found with this email or username. Please sign up." };
+          return { success: false, message: "No account found with this email, phone, or username. Please sign up." };
+        }
+        if (matched.password !== password && matched.userPassword !== password) {
+          return { success: false, message: "Incorrect password. Please verify and try again." };
         }
         setCurrentUser(matched);
         return { success: true, user: matched };
@@ -410,18 +569,12 @@ function initNaijaHomesEngine() {
     }
 
     // 2. Local Fallback Authentication
-    const users = getNaijaUsers();
-    const matched = users.find(u =>
-      (u.email.toLowerCase() === cleanId || (u.username && u.username.toLowerCase() === cleanId)) &&
-      u.password === password
-    );
-
+    const matched = findUserAccount(cleanId);
     if (!matched) {
-      const exists = users.some(u => u.email.toLowerCase() === cleanId || (u.username && u.username.toLowerCase() === cleanId));
-      if (exists) {
-        return { success: false, message: "Incorrect password. Please verify and try again." };
-      }
-      return { success: false, message: "No account found with this email or username. Please sign up." };
+      return { success: false, message: "No account found with this email, phone, or username. Please sign up." };
+    }
+    if (matched.password !== password && matched.userPassword !== password) {
+      return { success: false, message: "Incorrect password. Please verify and try again." };
     }
 
     setCurrentUser(matched);
@@ -430,7 +583,10 @@ function initNaijaHomesEngine() {
   window.loginUser = loginUser;
 
   function resetUserPassword(identifier, newPassword) {
-    const cleanId = (identifier || "").trim().toLowerCase();
+    if (!identifier) {
+      return { success: false, message: "Please provide your email address, phone number, or username." };
+    }
+    const cleanId = String(identifier).trim().toLowerCase();
     if (!cleanId) {
       return { success: false, message: "Please provide your email address, phone number, or username." };
     }
@@ -438,30 +594,55 @@ function initNaijaHomesEngine() {
       return { success: false, message: "New password must be at least 6 characters long." };
     }
 
-    const users = getNaijaUsers();
-    const index = users.findIndex(u =>
-      (u.email && u.email.toLowerCase() === cleanId) ||
-      (u.username && u.username.toLowerCase() === cleanId) ||
-      (u.phone && u.phone.replace(/[\s+-]/g, "") === cleanId.replace(/[\s+-]/g, ""))
-    );
-
-    if (index === -1) {
+    const matched = findUserAccount(cleanId);
+    if (!matched) {
       return { success: false, message: "No registered account found matching that email, phone, or username." };
     }
 
-    users[index].password = newPassword;
-    users[index].updatedAt = new Date().toISOString();
-    saveNaijaUsers(users);
+    const users = getNaijaUsers();
+    const index = users.findIndex(u =>
+      (matched.id && u.id === matched.id) ||
+      (matched.email && String(u.email || u.userEmail || "").trim().toLowerCase() === String(matched.email).trim().toLowerCase())
+    );
+
+    if (index === -1) {
+      matched.password = newPassword;
+      matched.userPassword = newPassword;
+      matched.updatedAt = new Date().toISOString();
+      users.push(matched);
+      saveNaijaUsers(users);
+    } else {
+      users[index].password = newPassword;
+      users[index].userPassword = newPassword;
+      users[index].updatedAt = new Date().toISOString();
+      saveNaijaUsers(users);
+    }
 
     // Also notify Supabase if configured and user has email
-    if (typeof window !== "undefined" && window.NaijaHomesSupabase && window.NaijaHomesSupabase.isConfigured() && users[index].email) {
-      window.NaijaHomesSupabase.resetPassword(users[index].email).catch(e => {
+    if (typeof window !== "undefined" && window.NaijaHomesSupabase && window.NaijaHomesSupabase.isConfigured() && matched.email) {
+      window.NaijaHomesSupabase.resetPassword(matched.email).catch(e => {
         console.warn("Supabase password reset notice:", e);
       });
     }
 
-    setCurrentUser(users[index]);
-    return { success: true, user: users[index], message: "Password updated successfully! You are now logged in." };
+    const currentUser = getCurrentUser();
+    if (currentUser && (
+      (matched.id && currentUser.id === matched.id) ||
+      (matched.email && String(currentUser.email || currentUser.userEmail || "").trim().toLowerCase() === String(matched.email).trim().toLowerCase())
+    )) {
+      currentUser.password = newPassword;
+      currentUser.userPassword = newPassword;
+      setCurrentUser(currentUser);
+    }
+
+    try {
+      const remId = localStorage.getItem("naijahomes_remembered_identifier");
+      if (remId && String(remId).trim().toLowerCase() === cleanId) {
+        localStorage.setItem("naijahomes_remembered_password", newPassword);
+      }
+    } catch (e) {}
+
+    return { success: true, user: matched, message: "Password updated successfully! You are now logged in." };
   }
   window.resetUserPassword = resetUserPassword;
 
@@ -883,6 +1064,15 @@ function initNaijaHomesEngine() {
       });
     }
 
+    if (forgotIdentifier) {
+      forgotIdentifier.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (btnForgotVerify) btnForgotVerify.click();
+        }
+      });
+    }
+
     if (btnForgotVerify) {
       btnForgotVerify.addEventListener("click", () => {
         clearAlert();
@@ -893,12 +1083,7 @@ function initNaijaHomesEngine() {
           return;
         }
 
-        const users = getNaijaUsers();
-        const matched = users.find(u =>
-          (u.email && u.email.toLowerCase() === idVal) ||
-          (u.username && u.username.toLowerCase() === idVal) ||
-          (u.phone && u.phone.replace(/[\s+-]/g, "") === idVal.replace(/[\s+-]/g, ""))
-        );
+        const matched = findUserAccount(idVal);
 
         if (!matched) {
           if (typeof window !== "undefined" && window.NaijaHomesSupabase && window.NaijaHomesSupabase.isConfigured() && idVal.includes("@")) {
@@ -920,7 +1105,7 @@ function initNaijaHomesEngine() {
         }
 
         if (forgotFoundName) {
-          forgotFoundName.textContent = matched.name + " (" + (matched.email || matched.username) + ")";
+          forgotFoundName.textContent = (matched.name || matched.fullName || "User") + " (" + (matched.email || matched.userEmail || matched.username || matched.userName) + ")";
         }
         if (forgotStep1) forgotStep1.style.display = "none";
         if (forgotStep2) forgotStep2.style.display = "block";
@@ -933,6 +1118,13 @@ function initNaijaHomesEngine() {
       formForgot.addEventListener("submit", (e) => {
         e.preventDefault();
         clearAlert();
+
+        // If on step 1, trigger account verification
+        if (forgotStep1 && forgotStep1.style.display !== "none") {
+          if (btnForgotVerify) btnForgotVerify.click();
+          return;
+        }
+
         const idVal = forgotIdentifier ? forgotIdentifier.value.trim() : "";
         const newPass = document.getElementById("forgotNewPassword") ? document.getElementById("forgotNewPassword").value : "";
         const confirmPass = document.getElementById("forgotConfirmPassword") ? document.getElementById("forgotConfirmPassword").value : "";
@@ -1308,6 +1500,19 @@ function initNaijaHomesEngine() {
       if (step1) step1.style.display = "block";
       if (step2) step2.style.display = "none";
       if (authSubtitle) authSubtitle.textContent = "Recover your NaijaHomes account credentials";
+
+      // Pre-fill forgot identifier if available
+      try {
+        const forgotInput = document.getElementById("forgotIdentifier");
+        const loginIdInput = document.getElementById("loginIdentifier");
+        const signupEmailInput = document.getElementById("signupEmail");
+        const rememberedId = localStorage.getItem("naijahomes_remembered_identifier") || "";
+        if (forgotInput && !forgotInput.value) {
+          forgotInput.value = (loginIdInput && loginIdInput.value) || 
+                              (signupEmailInput && signupEmailInput.value) || 
+                              rememberedId || "";
+        }
+      } catch (e) {}
     } else {
       if (tabsContainer) tabsContainer.style.display = "grid";
       if (tabLogin) tabLogin.classList.add("active");

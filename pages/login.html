@@ -419,6 +419,15 @@
         });
       }
 
+      if (forgotIdInput) {
+        forgotIdInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (btnVerifyAccount) btnVerifyAccount.click();
+          }
+        });
+      }
+
       // 2. Verify Account for Password Reset
       if (btnVerifyAccount) {
         btnVerifyAccount.addEventListener("click", () => {
@@ -430,12 +439,13 @@
             return;
           }
 
-          const users = typeof getNaijaUsers === "function" ? getNaijaUsers() : [];
-          const matched = users.find(u =>
-            (u.email && u.email.toLowerCase() === idVal) ||
-            (u.username && u.username.toLowerCase() === idVal) ||
-            (u.phone && u.phone.replace(/[\s+-]/g, "") === idVal.replace(/[\s+-]/g, ""))
-          );
+          const matched = typeof findUserAccount === "function" 
+            ? findUserAccount(idVal)
+            : (typeof getNaijaUsers === "function" ? getNaijaUsers().find(u => 
+                (u.email && String(u.email || u.userEmail || "").trim().toLowerCase() === idVal) ||
+                (u.username && String(u.username || u.userName || "").trim().toLowerCase() === idVal) ||
+                (u.phone && String(u.phone || u.phoneNumber || "").replace(/\D/g, "") === idVal.replace(/\D/g, ""))
+              ) : null);
 
           if (!matched) {
             if (typeof window.NaijaHomesSupabase !== "undefined" && window.NaijaHomesSupabase.isConfigured() && idVal.includes("@")) {
@@ -457,7 +467,7 @@
           }
 
           if (forgotFoundName) {
-            forgotFoundName.textContent = matched.name + " (" + (matched.email || matched.username) + ")";
+            forgotFoundName.textContent = (matched.name || matched.fullName || "User") + " (" + (matched.email || matched.userEmail || matched.username || matched.userName) + ")";
           }
           if (forgotStep1) forgotStep1.style.display = "none";
           if (forgotStep2) forgotStep2.style.display = "block";
@@ -471,6 +481,13 @@
         forgotForm.addEventListener("submit", (e) => {
           e.preventDefault();
           clearAlert();
+
+          // If on step 1 and Enter was pressed, trigger verify button
+          if (forgotStep1 && forgotStep1.style.display !== "none") {
+            if (btnVerifyAccount) btnVerifyAccount.click();
+            return;
+          }
+
           const idVal = forgotIdInput ? forgotIdInput.value.trim() : "";
           const newPass = document.getElementById("pageForgotNewPassword").value;
           const confirmPass = document.getElementById("pageForgotConfirmPassword").value;
