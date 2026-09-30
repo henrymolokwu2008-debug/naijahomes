@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In &bull; NaijaHomes</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="hh-page-body">
+
+  <!-- Global Header Banner -->
+  <header class="hh-global-banner">
+    <a href="../index.html" class="hh-brand-logo">
+      <div class="hh-logo-icon" style="background: #008751; color: #ffffff;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px;">NAIJA<span style="color: #008751;">HOMES</span></span>
+      </div>
+    </a>
+
+    <button class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+    </button>
+
+    <!-- Clean Navigation Links -->
+    <nav class="hh-main-nav" aria-label="Main Navigation">
+      <a href="../index.html" class="hh-nav-link">Home</a>
+      <a href="explore.html?purpose=sale" class="hh-nav-link">Buy</a>
+      <a href="explore.html?purpose=rent" class="hh-nav-link">Rent</a>
+      <a href="explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
+      <a href="explore.html?purpose=land" class="hh-nav-link">Land</a>
+      <a href="map.html" class="hh-nav-link">Google Maps</a>
+      <a href="messages.html" class="hh-nav-link">Chat</a>
+      <a href="saved.html" class="hh-nav-link">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hh-nav-actions" style="gap: 12px;">
+      <div class="nh-currency-group">
+        <button type="button" class="nh-currency-btn active" id="btnNgn">₦ NGN</button>
+        <button type="button" class="nh-currency-btn" id="btnUsd">$ USD</button>
+      </div>
+
+      <button type="button" class="nh-btn-post" id="btnOpenSell">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Post a Property
+      </button>
+
+      <div class="nh-auth-container" id="nhAuthContainer"></div>
+    </div>
+  </header>
+
+  <!-- Full-Width Responsive Container -->
+  <main class="hh-device-shell" role="region" aria-label="Sign In to NaijaHomes">
+    <div class="hh-page-content-wrapper" style="max-width: 500px; margin: 0 auto; padding: 24px 16px 40px;">
+
+      <!-- Sign In Card -->
+      <div class="nh-auth-modal-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; border-radius: 20px; padding: 28px 24px; background: #ffffff;">
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: #ecfdf5; border-radius: 50%; color: #008751; font-size: 1.6rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0, 135, 81, 0.15);">
+            🏡
+          </div>
+          <h1 id="standaloneAuthTitle" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin: 0 0 6px; letter-spacing: -0.02em;">Sign in to your Account</h1>
+          <p id="standaloneAuthSubtitle" style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.45;">Access your verified Nigerian properties, inspection appointments, and advisor chats.</p>
+        </div>
+
+        <div id="standaloneAuthAlert" style="display: none; padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; margin-bottom: 16px; line-height: 1.4;"></div>
+
+        <!-- Standalone Log In Form -->
+        <form id="standaloneLoginForm">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="nh-form-group">
+              <label class="nh-form-label" for="pageLoginIdentifier">Email Address or Username *</label>
+              <input type="text" id="pageLoginIdentifier" class="nh-form-input" placeholder="e.g. name@example.com or username" required autocomplete="username">
+            </div>
+
+            <div class="nh-form-group">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <label class="nh-form-label" for="pageLoginPassword" style="margin-bottom: 0;">Password *</label>
+                <a href="javascript:void(0)" id="pageLinkForgotPassword" class="nh-forgot-password-link" style="color: #008751; font-size: 0.82rem; font-weight: 700; text-decoration: none; cursor: pointer;">Forgot Password?</a>
+              </div>
+              <input type="password" id="pageLoginPassword" class="nh-form-input" placeholder="Enter your password" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" id="pageBtnLoginSubmit" class="nh-form-submit" style="margin-top: 6px; padding: 12px 18px; font-size: 0.95rem;">Log In to Account &rarr;</button>
+
+            <div style="text-align: center; margin-top: 10px; font-size: 0.85rem; color: #64748b;">
+              Don't have an account? 
+              <a href="javascript:void(0)" id="pageBtnOpenSignup" style="color: #008751; font-weight: 800; text-decoration: underline; margin-left: 4px;">Sign Up Free</a>
+            </div>
+          </div>
+        </form>
+
+        <!-- Standalone Forgot Password Form -->
+        <form id="standaloneForgotForm" style="display: none;">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="text-align: left; margin-bottom: 4px;">
+              <a href="javascript:void(0)" id="pageLinkBackToLogin" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: #008751; text-decoration: none; margin-bottom: 10px; cursor: pointer;">
+                &larr; Back to Sign In
+              </a>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0 0 4px;">Reset Your Password</h3>
+              <p style="font-size: 0.82rem; color: #64748b; margin: 0; line-height: 1.45;">Enter your registered Nigerian email, phone number, or username to recover your account credentials.</p>
+            </div>
+
+            <div id="pageForgotStep1">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="pageForgotIdentifier">Email, Phone, or Username *</label>
+                <input type="text" id="pageForgotIdentifier" class="nh-form-input" placeholder="e.g. name@example.com or username" autocomplete="username">
+              </div>
+              <button type="button" id="pageBtnVerifyAccount" class="nh-form-submit" style="margin-top: 10px; padding: 12px 18px; font-size: 0.92rem;">Find Account &rarr;</button>
+            </div>
+
+            <div id="pageForgotStep2" style="display: none;">
+              <div id="pageForgotUserInfo" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: #166534; margin-bottom: 12px;">
+                Account verified: <strong id="pageForgotFoundName">User</strong>
+              </div>
+              <div class="nh-form-group" style="margin-bottom: 12px;">
+                <label class="nh-form-label" for="pageForgotNewPassword">New Password *</label>
+                <input type="password" id="pageForgotNewPassword" class="nh-form-input" placeholder="Min 6 characters" minlength="6" autocomplete="new-password">
+              </div>
+              <div class="nh-form-group" style="margin-bottom: 12px;">
+                <label class="nh-form-label" for="pageForgotConfirmPassword">Confirm New Password *</label>
+                <input type="password" id="pageForgotConfirmPassword" class="nh-form-input" placeholder="Repeat new password" minlength="6" autocomplete="new-password">
+              </div>
+              <button type="submit" id="pageBtnSubmitReset" class="nh-form-submit" style="margin-top: 6px; padding: 12px 18px; font-size: 0.92rem;">Reset Password &amp; Log In &rarr;</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL: POST A PROPERTY -->
+  <div class="nh-modal-overlay" id="nhSellModal">
+    <div class="nh-modal-card">
+      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">🏡</span>
+        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
+      </div>
+      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet.</p>
+    </div>
+  </div>
+
+  <!-- Persistent Mobile Bottom Tab Bar -->
+  <nav class="hh-bottom-tabbar" aria-label="Mobile Navigation">
+    <a href="../index.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="../explore.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search</span>
+    </a>
+    <a href="saved.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>Saved</span>
+    </a>
+    <a href="messages.html" class="hh-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Chat</span>
+    </a>
+    <a href="profile.html" class="hh-tab-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Core Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+  <script src="../js/homehaven.js"></script>
+
+  <!-- Page Controller Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("standaloneLoginForm");
+      const forgotForm = document.getElementById("standaloneForgotForm");
+      const alertBox = document.getElementById("standaloneAuthAlert");
+      const titleEl = document.getElementById("standaloneAuthTitle");
+      const subtitleEl = document.getElementById("standaloneAuthSubtitle");
+      const linkForgot = document.getElementById("pageLinkForgotPassword");
+      const linkBack = document.getElementById("pageLinkBackToLogin");
+      const btnOpenSignup = document.getElementById("pageBtnOpenSignup");
+      const btnVerifyAccount = document.getElementById("pageBtnVerifyAccount");
+      const forgotIdInput = document.getElementById("pageForgotIdentifier");
+      const forgotStep1 = document.getElementById("pageForgotStep1");
+      const forgotStep2 = document.getElementById("pageForgotStep2");
+      const forgotFoundName = document.getElementById("pageForgotFoundName");
+      const pagePrefix = "../";
+
+      // If user is already logged in, redirect to profile
+      if (typeof getCurrentUser === "function" && getCurrentUser()) {
+        window.location.href = pagePrefix + "profile.html";
+        return;
+      }
+
+      function showAlert(msg, isSuccess = false) {
+        if (!alertBox) return;
+        alertBox.style.display = "block";
+        alertBox.style.background = isSuccess ? "#ecfdf5" : "#fef2f2";
+        alertBox.style.color = isSuccess ? "#065f46" : "#991b1b";
+        alertBox.style.border = "1px solid " + (isSuccess ? "#a7f3d0" : "#fecaca");
+        alertBox.textContent = msg;
+      }
+
+      function clearAlert() {
+        if (!alertBox) return;
+        alertBox.style.display = "none";
+        alertBox.textContent = "";
+      }
+
+      // Check query parameter (?action=forgot)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("action") === "forgot") {
+        showForgotView();
+      }
+
+      function showForgotView() {
+        clearAlert();
+        loginForm.style.display = "none";
+        forgotForm.style.display = "block";
+        if (titleEl) titleEl.textContent = "Reset Your Password";
+        if (subtitleEl) subtitleEl.textContent = "Recover your NaijaHomes account credentials";
+        if (forgotStep1) forgotStep1.style.display = "block";
+        if (forgotStep2) forgotStep2.style.display = "none";
+        if (forgotIdInput) forgotIdInput.focus();
+      }
+
+      function showLoginView() {
+        clearAlert();
+        forgotForm.style.display = "none";
+        loginForm.style.display = "block";
+        if (titleEl) titleEl.textContent = "Sign in to your Account";
+        if (subtitleEl) subtitleEl.textContent = "Access your verified Nigerian properties, inspection appointments, and advisor chats.";
+      }
+
+      if (linkForgot) linkForgot.addEventListener("click", showForgotView);
+      if (linkBack) linkBack.addEventListener("click", showLoginView);
+
+      if (btnOpenSignup) {
+        btnOpenSignup.addEventListener("click", () => {
+          if (typeof openAuthModal === "function") {
+            openAuthModal("signup");
+          }
+        });
+      }
+
+      // 1. Submit Sign In Form
+      if (loginForm) {
+        loginForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          clearAlert();
+          const submitBtn = document.getElementById("pageBtnLoginSubmit");
+          const origText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Signing In...";
+
+          try {
+            const idVal = document.getElementById("pageLoginIdentifier").value.trim();
+            const passVal = document.getElementById("pageLoginPassword").value;
+            const res = await loginUser(idVal, passVal);
+            if (res.success) {
+              if (typeof showNaijaToast === "function") {
+                showNaijaToast("Welcome back, " + res.user.name + "!", "👋");
+              }
+              setTimeout(() => {
+                window.location.href = pagePrefix + "profile.html";
+              }, 400);
+            } else {
+              showAlert(res.message || "Invalid credentials.");
+            }
+          } catch (err) {
+            showAlert(err.message || "An error occurred during sign in.");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = origText;
+          }
+        });
+      }
+
+      // 2. Verify Account for Password Reset
+      if (btnVerifyAccount) {
+        btnVerifyAccount.addEventListener("click", () => {
+          clearAlert();
+          const idVal = forgotIdInput ? forgotIdInput.value.trim().toLowerCase() : "";
+          if (!idVal) {
+            showAlert("Please enter your registered email address, phone number, or username.");
+            forgotIdInput.focus();
+            return;
+          }
+
+          const users = typeof getNaijaUsers === "function" ? getNaijaUsers() : [];
+          const matched = users.find(u =>
+            (u.email && u.email.toLowerCase() === idVal) ||
+            (u.username && u.username.toLowerCase() === idVal) ||
+            (u.phone && u.phone.replace(/[\s+-]/g, "") === idVal.replace(/[\s+-]/g, ""))
+          );
+
+          if (!matched) {
+            if (typeof window.NaijaHomesSupabase !== "undefined" && window.NaijaHomesSupabase.isConfigured() && idVal.includes("@")) {
+              btnVerifyAccount.disabled = true;
+              btnVerifyAccount.textContent = "Sending Reset Link...";
+              window.NaijaHomesSupabase.resetPassword(idVal).then(res => {
+                btnVerifyAccount.disabled = false;
+                btnVerifyAccount.textContent = "Find Account →";
+                if (res.success) {
+                  showAlert("Password reset link sent to " + idVal + "! Check your inbox.", true);
+                } else {
+                  showAlert(res.message || "No account found with this email. Please check spelling or sign up.", false);
+                }
+              });
+              return;
+            }
+            showAlert("No registered account found with that email, phone, or username. Please check your spelling or sign up.");
+            return;
+          }
+
+          if (forgotFoundName) {
+            forgotFoundName.textContent = matched.name + " (" + (matched.email || matched.username) + ")";
+          }
+          if (forgotStep1) forgotStep1.style.display = "none";
+          if (forgotStep2) forgotStep2.style.display = "block";
+          const newPass = document.getElementById("pageForgotNewPassword");
+          if (newPass) newPass.focus();
+        });
+      }
+
+      // 3. Submit New Password
+      if (forgotForm) {
+        forgotForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          clearAlert();
+          const idVal = forgotIdInput ? forgotIdInput.value.trim() : "";
+          const newPass = document.getElementById("pageForgotNewPassword").value;
+          const confirmPass = document.getElementById("pageForgotConfirmPassword").value;
+
+          if (!newPass || newPass.length < 6) {
+            showAlert("New password must be at least 6 characters long.");
+            return;
+          }
+          if (newPass !== confirmPass) {
+            showAlert("Passwords do not match. Please verify both fields.");
+            return;
+          }
+
+          const res = resetUserPassword(idVal, newPass);
+          if (res.success) {
+            if (typeof showNaijaToast === "function") {
+              showNaijaToast("Password updated successfully! Welcome back!", "🎉");
+            }
+            showAlert("Password reset successfully! Redirecting to profile...", true);
+            setTimeout(() => {
+              window.location.href = pagePrefix + "profile.html";
+            }, 800);
+          } else {
+            showAlert(res.message);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

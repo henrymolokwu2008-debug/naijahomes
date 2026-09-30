@@ -297,6 +297,24 @@
     }
   }
 
+  async function supabaseResetPassword(email) {
+    const client = getClient();
+    if (!client) return { success: false, fallback: true, message: "Supabase client not initialized." };
+
+    try {
+      const resetPromise = client.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
+        redirectTo: window.location.origin + window.location.pathname
+      });
+      const { data, error } = await withTimeout(resetPromise, 8000, "Password reset");
+      if (error) {
+        return { success: false, fallback: true, message: error.message };
+      }
+      return { success: true, message: `Password reset instructions sent to ${email}. Please check your email inbox.` };
+    } catch (err) {
+      return { success: false, fallback: true, message: err.message };
+    }
+  }
+
   // 5. ASYNC PROFILE FETCH WITH RLS ERROR SHIELD & TIMEOUT GUARD
   async function supabaseFetchProfile(userId) {
     const client = getClient();
@@ -526,6 +544,7 @@
     signUp: supabaseSignUp,
     signIn: supabaseSignIn,
     signOut: supabaseSignOut,
+    resetPassword: supabaseResetPassword,
     fetchProfile: supabaseFetchProfile,
     updateProfile: supabaseUpdateProfile,
     uploadAvatar: supabaseUploadAvatar,

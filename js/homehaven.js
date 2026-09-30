@@ -426,6 +426,43 @@ function initNaijaHomesEngine() {
   }
   window.loginUser = loginUser;
 
+  function resetUserPassword(identifier, newPassword) {
+    const cleanId = (identifier || "").trim().toLowerCase();
+    if (!cleanId) {
+      return { success: false, message: "Please provide your email address, phone number, or username." };
+    }
+    if (!newPassword || newPassword.length < 6) {
+      return { success: false, message: "New password must be at least 6 characters long." };
+    }
+
+    const users = getNaijaUsers();
+    const index = users.findIndex(u =>
+      (u.email && u.email.toLowerCase() === cleanId) ||
+      (u.username && u.username.toLowerCase() === cleanId) ||
+      (u.phone && u.phone.replace(/[\s+-]/g, "") === cleanId.replace(/[\s+-]/g, ""))
+    );
+
+    if (index === -1) {
+      return { success: false, message: "No registered account found matching that email, phone, or username." };
+    }
+
+    users[index].password = newPassword;
+    users[index].updatedAt = new Date().toISOString();
+    saveNaijaUsers(users);
+
+    // Also notify Supabase if configured and user has email
+    if (typeof window !== "undefined" && window.NaijaHomesSupabase && window.NaijaHomesSupabase.isConfigured() && users[index].email) {
+      window.NaijaHomesSupabase.resetPassword(users[index].email).catch(e => {
+        console.warn("Supabase password reset notice:", e);
+      });
+    }
+
+    setCurrentUser(users[index]);
+    return { success: true, user: users[index], message: "Password updated successfully! You are now logged in." };
+  }
+  window.resetUserPassword = resetUserPassword;
+
+
   function logoutUser() {
     if (typeof window !== "undefined" && window.NaijaHomesSupabase && window.NaijaHomesSupabase.isConfigured()) {
       return (async () => {
@@ -549,10 +586,49 @@ function initNaijaHomesEngine() {
               <input type="text" id="loginIdentifier" class="nh-form-input" placeholder="Enter your email or username" required autocomplete="username">
             </div>
             <div class="nh-form-group">
-              <label class="nh-form-label" for="loginPassword">Password *</label>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <label class="nh-form-label" for="loginPassword" style="margin-bottom: 0;">Password *</label>
+                <a href="javascript:void(0)" id="linkForgotPassword" class="nh-forgot-password-link" style="color: #008751; font-size: 0.8rem; font-weight: 700; text-decoration: none; cursor: pointer;">Forgot Password?</a>
+              </div>
               <input type="password" id="loginPassword" class="nh-form-input" placeholder="Enter your password" required autocomplete="current-password">
             </div>
             <button type="submit" class="nh-form-submit" style="margin-top: 6px;">Log In to Account &rarr;</button>
+          </div>
+        </form>
+
+        <!-- Forgot Password Form -->
+        <form id="nhForgotForm" style="display: none;">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="text-align: left; margin-bottom: 4px;">
+              <a href="javascript:void(0)" id="linkBackToLoginFromForgot" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: #008751; text-decoration: none; margin-bottom: 10px; cursor: pointer;">
+                &larr; Back to Log In
+              </a>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0 0 4px;">Reset Your Password</h3>
+              <p style="font-size: 0.82rem; color: #64748b; margin: 0; line-height: 1.45;">Enter your registered Nigerian email, phone number, or username to recover your account.</p>
+            </div>
+
+            <div id="nhForgotStep1">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="forgotIdentifier">Email, Phone, or Username *</label>
+                <input type="text" id="forgotIdentifier" class="nh-form-input" placeholder="e.g. name@example.com or username" autocomplete="username">
+              </div>
+              <button type="button" id="btnForgotVerifyAccount" class="nh-form-submit" style="margin-top: 10px;">Find Account &rarr;</button>
+            </div>
+
+            <div id="nhForgotStep2" style="display: none;">
+              <div id="nhForgotUserInfo" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: #166534; margin-bottom: 12px;">
+                Account verified: <strong id="nhForgotFoundName">User</strong>
+              </div>
+              <div class="nh-form-group" style="margin-bottom: 12px;">
+                <label class="nh-form-label" for="forgotNewPassword">New Password *</label>
+                <input type="password" id="forgotNewPassword" class="nh-form-input" placeholder="Min 6 characters" minlength="6" autocomplete="new-password">
+              </div>
+              <div class="nh-form-group" style="margin-bottom: 12px;">
+                <label class="nh-form-label" for="forgotConfirmPassword">Confirm New Password *</label>
+                <input type="password" id="forgotConfirmPassword" class="nh-form-input" placeholder="Repeat new password" minlength="6" autocomplete="new-password">
+              </div>
+              <button type="submit" id="btnForgotSubmitReset" class="nh-form-submit" style="margin-top: 6px;">Reset Password &amp; Log In &rarr;</button>
+            </div>
           </div>
         </form>
 
@@ -776,6 +852,117 @@ function initNaijaHomesEngine() {
       }
     });
 
+    
+    const linkForgot = document.getElementById("linkForgotPassword");
+    const linkBackForgot = document.getElementById("linkBackToLoginFromForgot");
+    const formForgot = document.getElementById("nhForgotForm");
+    const btnForgotVerify = document.getElementById("btnForgotVerifyAccount");
+    const forgotIdentifier = document.getElementById("forgotIdentifier");
+    const forgotStep1 = document.getElementById("nhForgotStep1");
+    const forgotStep2 = document.getElementById("nhForgotStep2");
+    const forgotFoundName = document.getElementById("nhForgotFoundName");
+
+    if (linkForgot) {
+      linkForgot.addEventListener("click", (e) => {
+        e.preventDefault();
+        openAuthModal("forgot");
+      });
+    }
+
+    if (linkBackForgot) {
+      linkBackForgot.addEventListener("click", (e) => {
+        e.preventDefault();
+        openAuthModal("login");
+      });
+    }
+
+    if (btnForgotVerify) {
+      btnForgotVerify.addEventListener("click", () => {
+        clearAlert();
+        const idVal = forgotIdentifier ? forgotIdentifier.value.trim().toLowerCase() : "";
+        if (!idVal) {
+          showAlert("Please enter your registered email address, phone number, or username.");
+          if (forgotIdentifier) forgotIdentifier.focus();
+          return;
+        }
+
+        const users = getNaijaUsers();
+        const matched = users.find(u =>
+          (u.email && u.email.toLowerCase() === idVal) ||
+          (u.username && u.username.toLowerCase() === idVal) ||
+          (u.phone && u.phone.replace(/[\s+-]/g, "") === idVal.replace(/[\s+-]/g, ""))
+        );
+
+        if (!matched) {
+          if (typeof window !== "undefined" && window.NaijaHomesSupabase && window.NaijaHomesSupabase.isConfigured() && idVal.includes("@")) {
+            btnForgotVerify.disabled = true;
+            btnForgotVerify.textContent = "Sending Reset Link...";
+            window.NaijaHomesSupabase.resetPassword(idVal).then(res => {
+              btnForgotVerify.disabled = false;
+              btnForgotVerify.textContent = "Find Account →";
+              if (res.success) {
+                showAlert("Password reset email sent to " + idVal + "! Check your inbox.", true);
+              } else {
+                showAlert(res.message || "No account found with this email. Please check spelling or sign up.", false);
+              }
+            });
+            return;
+          }
+          showAlert("No registered account found with that email, phone, or username. Please check your spelling or sign up for a free account.", false);
+          return;
+        }
+
+        if (forgotFoundName) {
+          forgotFoundName.textContent = matched.name + " (" + (matched.email || matched.username) + ")";
+        }
+        if (forgotStep1) forgotStep1.style.display = "none";
+        if (forgotStep2) forgotStep2.style.display = "block";
+        const newPassInput = document.getElementById("forgotNewPassword");
+        if (newPassInput) newPassInput.focus();
+      });
+    }
+
+    if (formForgot) {
+      formForgot.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearAlert();
+        const idVal = forgotIdentifier ? forgotIdentifier.value.trim() : "";
+        const newPass = document.getElementById("forgotNewPassword") ? document.getElementById("forgotNewPassword").value : "";
+        const confirmPass = document.getElementById("forgotConfirmPassword") ? document.getElementById("forgotConfirmPassword").value : "";
+
+        if (!newPass || newPass.length < 6) {
+          showAlert("New password must be at least 6 characters long.");
+          return;
+        }
+        if (newPass !== confirmPass) {
+          showAlert("Passwords do not match. Please ensure both passwords match.");
+          return;
+        }
+
+        const res = resetUserPassword(idVal, newPass);
+        if (res.success) {
+          formForgot.reset();
+          if (forgotStep1) forgotStep1.style.display = "block";
+          if (forgotStep2) forgotStep2.style.display = "none";
+          modal.style.display = "none";
+          showNaijaToast("Password updated successfully! Welcome back!", "🎉");
+          updateAuthUI();
+
+          const currentPath = (window.location.pathname || "").toLowerCase();
+          const isOnProfilePage = currentPath.endsWith("profile.html") || currentPath.endsWith("profile");
+          if (isOnProfilePage) {
+            if (typeof window.loadUserProfile === "function") {
+              window.loadUserProfile();
+            } else if (typeof window.renderProfilePage === "function") {
+              window.renderProfilePage();
+            }
+          }
+        } else {
+          showAlert(res.message, false);
+        }
+      });
+    }
+  
     if (tabLogin && tabSignup && formLogin && formSignup) {
       tabLogin.addEventListener("click", () => {
         tabLogin.classList.add("active");
@@ -1019,24 +1206,43 @@ function initNaijaHomesEngine() {
   function openAuthModal(defaultTab = "login") {
     ensureAuthModal();
     const modal = document.getElementById("nhAuthModal");
+    const tabsContainer = modal ? modal.querySelector(".nh-auth-tabs") : null;
     const tabLogin = document.getElementById("nhAuthTabLogin");
     const tabSignup = document.getElementById("nhAuthTabSignup");
     const formLogin = document.getElementById("nhLoginForm");
     const formSignup = document.getElementById("nhSignupForm");
+    const formForgot = document.getElementById("nhForgotForm");
     const authAlert = document.getElementById("nhAuthAlert");
+    const authSubtitle = document.getElementById("nhAuthSubtitle");
 
     if (authAlert) authAlert.style.display = "none";
 
     if (defaultTab === "signup") {
+      if (tabsContainer) tabsContainer.style.display = "grid";
       if (tabSignup) tabSignup.classList.add("active");
       if (tabLogin) tabLogin.classList.remove("active");
       if (formSignup) formSignup.style.display = "block";
       if (formLogin) formLogin.style.display = "none";
+      if (formForgot) formForgot.style.display = "none";
+      if (authSubtitle) authSubtitle.textContent = "Create your free verified Nigerian account";
+    } else if (defaultTab === "forgot") {
+      if (tabsContainer) tabsContainer.style.display = "none";
+      if (formSignup) formSignup.style.display = "none";
+      if (formLogin) formLogin.style.display = "none";
+      if (formForgot) formForgot.style.display = "block";
+      const step1 = document.getElementById("nhForgotStep1");
+      const step2 = document.getElementById("nhForgotStep2");
+      if (step1) step1.style.display = "block";
+      if (step2) step2.style.display = "none";
+      if (authSubtitle) authSubtitle.textContent = "Recover your NaijaHomes account credentials";
     } else {
+      if (tabsContainer) tabsContainer.style.display = "grid";
       if (tabLogin) tabLogin.classList.add("active");
       if (tabSignup) tabSignup.classList.remove("active");
       if (formLogin) formLogin.style.display = "block";
       if (formSignup) formSignup.style.display = "none";
+      if (formForgot) formForgot.style.display = "none";
+      if (authSubtitle) authSubtitle.textContent = "Access your verified Nigerian properties and profile dashboard";
     }
 
     if (modal) modal.style.display = "flex";

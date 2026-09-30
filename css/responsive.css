@@ -1212,6 +1212,62 @@ textarea,
    body padding is reset, and two-column layouts remain intact.
    ========================================================================== */
 @media (min-width: 769px) {
+
+  .hh-concierge-wrap {
+    max-width: 1080px !important;
+    margin: 0 auto !important;
+    padding: 28px 24px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-concierge-dashboard {
+    display: grid !important;
+    grid-template-columns: 380px 1fr !important;
+    gap: 24px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: auto !important;
+    min-height: 720px !important;
+    align-items: start !important;
+  }
+
+  .hh-concierge-sidebar {
+    height: auto !important;
+    background: transparent !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .hh-concierge-main {
+    height: 760px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04) !important;
+    overflow: hidden !important;
+    position: sticky !important;
+    top: 88px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .hh-chat-stream {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .hh-conv-list {
+    max-height: 280px !important;
+    overflow-y: auto !important;
+  }
+
   body.hh-page-body,
   body {
     padding-top: 0 !important;

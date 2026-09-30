@@ -14892,3 +14892,485 @@ button {
   animation: nhSpin 0.8s linear infinite;
   margin: 0 auto 16px;
 }
+
+/* ==========================================================================
+   NAIJAHOMES NIGERIAN REALTOR ADVISORY & MOBILE APP REDESIGN COMPONENTS
+   ========================================================================== */
+.nh-realtor-search-box {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nh-realtor-search-box input {
+  width: 100%;
+  height: 44px;
+  padding: 10px 14px 10px 42px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 0.9rem;
+  color: #0f172a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.nh-realtor-search-box input:focus {
+  border-color: #008751;
+  box-shadow: 0 0 0 3px rgba(0, 135, 81, 0.12);
+}
+
+.nh-realtor-search-box .nh-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+/* Ariya AI Featured Card */
+.nh-ariya-feature-card {
+  background: linear-gradient(135deg, #ffffff, #f0fdf4);
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 135, 81, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.nh-ariya-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nh-ariya-avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #054f30, #008751);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 135, 81, 0.25);
+}
+
+.nh-ariya-emoji {
+  font-size: 1.35rem;
+}
+
+.nh-ariya-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.nh-ariya-card-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.nh-ariya-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nh-ariya-name {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.nh-sparkle-pill {
+  background: #ecfdf5;
+  color: #008751;
+  border: 1px solid #a7f3d0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.nh-ariya-subtext {
+  font-size: 0.78rem;
+  color: #059669;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.nh-ariya-desc {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.nh-btn-chat-ariya {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #008751;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 135, 81, 0.25);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nh-btn-chat-ariya:hover {
+  background: #05693e;
+  transform: translateY(-1px);
+}
+
+/* Active Consultation Card */
+.nh-consultation-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.nh-consultation-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.nh-consultation-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #008751;
+}
+
+.nh-status-pulsar {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.nh-consultation-link {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #008751;
+  text-decoration: none;
+}
+
+.nh-consultation-link:hover {
+  text-decoration: underline;
+}
+
+.nh-consultation-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Property Preview Card */
+.nh-prop-preview-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.nh-preview-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #f1f5f9;
+}
+
+.nh-preview-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nh-preview-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nh-preview-desc {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.nh-btn-start-chat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #008751;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 2px;
+  transition: background 0.2s ease;
+}
+
+.nh-btn-start-chat:hover {
+  background: #05693e;
+}
+
+/* Marketplace Section */
+.nh-marketplace-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nh-marketplace-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.nh-marketplace-heading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 2px;
+}
+
+.nh-marketplace-caption {
+  font-size: 0.74rem;
+  color: #64748b;
+}
+
+.nh-marketplace-all {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #008751;
+  text-decoration: none;
+}
+
+.nh-marketplace-all:hover {
+  text-decoration: underline;
+}
+
+.nh-realtor-market-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nh-realtor-market-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.nh-realtor-market-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nh-realtor-market-card.active {
+  background: #f0fdf4 !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 1px #10b981;
+}
+
+.nh-conv-card-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.nh-market-avatar {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.nh-market-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nh-market-avatar .nh-avatar-emoji {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #054f30, #008751);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+.nh-market-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.nh-market-rating {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #d97706;
+  background: #fffbeb;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid #fef3c7;
+  flex-shrink: 0;
+}
+
+.nh-market-specialty {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #059669;
+  margin-top: 1px;
+}
+
+.nh-market-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  gap: 8px;
+}
+
+.nh-market-response {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.nh-market-chat-btn {
+  background: #e2e8f0;
+  color: #1e293b;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nh-market-chat-btn:hover,
+.nh-realtor-market-card.active .nh-market-chat-btn {
+  background: #008751;
+  color: #ffffff;
+}
+
+/* Chat Attach Button */
+.hh-chat-attach-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.hh-chat-attach-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Forgot Password Link & Form Styling */
+.nh-forgot-password-link {
+  color: #008751;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
+}
+
+.nh-forgot-password-link:hover {
+  color: #05693e;
+  text-decoration: underline;
+}
+
