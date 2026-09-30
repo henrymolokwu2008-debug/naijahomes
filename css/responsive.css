@@ -61,7 +61,7 @@ textarea,
    ========================================================================== */
 @media (max-width: 768px) {
 
-  /* --- Body & Container Safety --- */
+  /* --- Body & Container Safety: Header & Tabbar Clearance --- */
   html,
   body {
     overflow-x: hidden !important;
@@ -71,50 +71,79 @@ textarea,
 
   body.hh-page-body,
   body {
-    padding-bottom: 74px !important;
+    /* Content starts comfortably BELOW the 58px fixed header */
+    padding-top: 68px !important;
+    /* Content never hidden behind the 54px fixed bottom navigation */
+    padding-bottom: 84px !important;
+    box-sizing: border-box !important;
   }
 
-  .container,
-  .main-container,
-  .page-container,
-  .hh-device-shell {
+  .hh-device-shell,
+  main {
     width: 100% !important;
     max-width: 100% !important;
     padding-left: 14px !important;
     padding-right: 14px !important;
+    padding-top: 4px !important;
+    padding-bottom: 12px !important;
+    margin-top: 0 !important;
     box-sizing: border-box !important;
     overflow-x: clip !important;
   }
 
-  /* --- Production Header Banner & Hamburger Navigation --- */
+  /* Universal section vertical spacing tightening */
+  section {
+    margin-bottom: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Universal text wrapping & removal of fixed card heights */
+  h1, h2, h3, h4, h5, h6, p, span, a, label {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  /* --- Fixed Mobile Header Banner (Rock-Solid at Top, Fully Opaque) --- */
   .hh-global-banner,
   .nh-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
+    height: auto !important;
+    min-height: 56px !important;
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: space-between !important;
     align-items: center !important;
-    padding: 12px 14px !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 1000 !important;
-    background: rgba(255, 255, 255, 0.98) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    padding: 10px 14px !important;
+    z-index: 10000 !important;
+    background: #ffffff !important; /* Solid white: scrolling content never bleeds through */
+    border-bottom: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
     box-sizing: border-box !important;
   }
 
   .hh-brand-logo {
     display: flex !important;
     align-items: center !important;
-    gap: 10px !important;
-    max-width: calc(100% - 60px) !important;
+    gap: 8px !important;
+    max-width: calc(100% - 56px) !important;
     flex-shrink: 0 !important;
     text-decoration: none !important;
   }
 
   .hh-brand-title {
-    font-size: 1.1rem !important;
+    font-size: 1.05rem !important;
     font-weight: 800 !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  .hh-logo-icon {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .hh-hamburger-btn {
@@ -122,21 +151,21 @@ textarea,
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 5px !important;
-    width: 40px !important;
-    height: 40px !important;
+    gap: 4px !important;
+    width: 38px !important;
+    height: 38px !important;
     border-radius: 10px !important;
     background: #f1f5f9 !important;
     border: 1px solid #cbd5e1 !important;
     cursor: pointer !important;
-    padding: 8px !important;
+    padding: 7px !important;
     margin-left: auto !important;
     flex-shrink: 0 !important;
-    z-index: 1002 !important;
+    z-index: 10002 !important;
   }
 
   .hh-hamburger-bar {
-    width: 20px !important;
+    width: 18px !important;
     height: 2.2px !important;
     background: #008751 !important;
     border-radius: 2px !important;
@@ -144,7 +173,7 @@ textarea,
   }
 
   .hh-hamburger-btn.active .hh-hamburger-bar:nth-child(1) {
-    transform: translateY(7.2px) rotate(45deg) !important;
+    transform: translateY(6.2px) rotate(45deg) !important;
   }
 
   .hh-hamburger-btn.active .hh-hamburger-bar:nth-child(2) {
@@ -152,7 +181,7 @@ textarea,
   }
 
   .hh-hamburger-btn.active .hh-hamburger-bar:nth-child(3) {
-    transform: translateY(-7.2px) rotate(-45deg) !important;
+    transform: translateY(-6.2px) rotate(-45deg) !important;
   }
 
   /* Desktop links hidden by default on mobile */
@@ -164,12 +193,13 @@ textarea,
     align-items: stretch !important;
     gap: 6px !important;
     order: 3 !important;
-    padding-top: 14px !important;
-    margin-top: 10px !important;
+    padding-top: 12px !important;
+    margin-top: 8px !important;
     border-top: 1px solid #e2e8f0 !important;
-    max-height: calc(100vh - 140px) !important;
+    max-height: calc(100vh - 120px) !important;
     overflow-y: auto !important;
     box-sizing: border-box !important;
+    background: #ffffff !important;
   }
 
   /* Header actions hidden by default on mobile */
@@ -181,9 +211,10 @@ textarea,
     align-items: stretch !important;
     gap: 10px !important;
     order: 4 !important;
-    padding-top: 12px !important;
+    padding-top: 10px !important;
     border-top: 1px dashed #e2e8f0 !important;
     box-sizing: border-box !important;
+    background: #ffffff !important;
   }
 
   /* Expand drawer when active */
@@ -198,7 +229,7 @@ textarea,
   .nh-nav-link {
     width: 100% !important;
     padding: 10px 14px !important;
-    font-size: 0.92rem !important;
+    font-size: 0.9rem !important;
     border-radius: 10px !important;
     justify-content: flex-start !important;
     box-sizing: border-box !important;
@@ -248,11 +279,428 @@ textarea,
     box-sizing: border-box !important;
   }
 
-  /* --- 6. Hero Section --- */
+  /* --- 6. Messages & Realtor Advisory Page Layout --- */
+  .hh-concierge-wrap {
+    padding: 2px 0 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-concierge-head {
+    margin-bottom: 12px !important;
+    padding: 0 2px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-concierge-head h1 {
+    font-size: 1.25rem !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.3px !important;
+    margin: 0 0 4px !important;
+  }
+
+  .hh-concierge-head p {
+    font-size: 0.82rem !important;
+    line-height: 1.4 !important;
+    color: #64748b !important;
+    margin: 0 !important;
+  }
+
+  /* Single-column mobile dashboard: NO fixed heights */
+  .hh-concierge-dashboard {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    min-height: auto !important;
+    border-radius: 16px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* "Verified Partner Realtors" section: compact and non-overlapping */
+  .hh-concierge-sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    background: #f8fafc !important;
+    border-right: none !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-shrink: 0 !important;
+  }
+
+  .hh-concierge-side-head {
+    padding: 10px 12px 6px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-concierge-side-head h2 {
+    font-size: 0.92rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    margin: 0 0 6px !important;
+  }
+
+  .hh-concierge-search {
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+
+  .hh-concierge-search input {
+    width: 100% !important;
+    height: 36px !important;
+    padding: 6px 12px 6px 34px !important;
+    font-size: 0.8rem !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  .hh-concierge-search svg {
+    left: 10px !important;
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .hh-conv-list {
+    max-height: 130px !important; /* Compact: not too tall */
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    padding: 2px 0 6px !important;
+    list-style: none !important;
+    margin: 0 !important;
+  }
+
+  .hh-conv-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    padding: 8px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .hh-conv-item.active {
+    background: #ecfdf5 !important;
+    border-left: 3px solid #10b981 !important;
+  }
+
+  .hh-conv-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+    font-size: 1.1rem !important;
+  }
+
+  .hh-conv-info {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+  }
+
+  .hh-conv-top {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .hh-conv-name {
+    font-size: 0.84rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .hh-conv-time {
+    font-size: 0.7rem !important;
+    color: #94a3b8 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .hh-conv-snippet {
+    font-size: 0.76rem !important;
+    color: #64748b !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    margin-top: 2px !important;
+  }
+
+  /* Compact Ariya AI Advisor Main Chat Area */
+  .hh-concierge-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: auto !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-chat-header {
+    padding: 10px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+  }
+
+  .hh-chat-header-profile {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+
+  .hh-chat-header-profile img {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+    object-fit: cover !important;
+  }
+
+  .hh-chat-header-title {
+    font-size: 0.88rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    word-break: break-word !important;
+  }
+
+  .hh-chat-header-subtitle {
+    font-size: 0.72rem !important;
+    color: #10b981 !important;
+    font-weight: 600 !important;
+    margin: 1px 0 0 !important;
+    word-break: break-word !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Actions & Book Inspection Button with side margins */
+  .hh-chat-header-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+  }
+
+  .hh-chat-action-btn,
+  .hh-chat-header-actions .hh-chat-action-btn {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 9px 14px !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    background: #008751 !important;
+    color: #ffffff !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  .nh-btn-whatsapp,
+  .hh-chat-header-actions .nh-btn-whatsapp {
+    padding: 9px 12px !important;
+    font-size: 0.8rem !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Property Context Banner & View Property Details link */
+  .hh-chat-property-banner {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-chat-prop-left {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+    color: #475569 !important;
+  }
+
+  .hh-chat-prop-title {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    word-break: break-word !important;
+  }
+
+  .hh-chat-prop-link {
+    display: inline-block !important;
+    font-size: 0.75rem !important;
+    color: #008751 !important;
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    word-break: break-word !important;
+    margin: 2px 0 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Chat Messages Stream */
+  .hh-chat-stream {
+    padding: 12px 10px !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    height: 300px !important;
+    max-height: 42vh !important;
+    overflow-y: auto !important;
+    background: #fafafa !important;
+  }
+
+  .hh-chat-msg {
+    max-width: 90% !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-chat-bubble {
+    padding: 10px 14px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.4 !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .hh-chat-meta {
+    font-size: 0.68rem !important;
+    margin-top: 3px !important;
+  }
+
+  /* Quick Consultation Suggestions */
+  .hh-quick-inquiries {
+    padding: 8px 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-inquiry-chip {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 7px 10px !important;
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    text-align: left !important;
+  }
+
+  /* Message Composer */
+  .hh-chat-composer {
+    padding: 8px 10px !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border-top: 1px solid #e2e8f0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .hh-chat-composer input {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    height: 38px !important;
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-chat-send-btn {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #008751 !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-sizing: border-box !important;
+  }
+
+  /* --- 7. Hero Section & Typography --- */
   .hh-portal-hero {
-    padding: 28px 14px 40px !important;
+    padding: 24px 14px 28px !important;
     border-radius: 18px !important;
-    margin: 12px 0 24px !important;
+    margin: 8px 0 20px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     text-align: center !important;
@@ -264,20 +712,20 @@ textarea,
   }
 
   .hh-portal-hero h1 {
-    font-size: 1.55rem !important;
+    font-size: 1.45rem !important;
     line-height: 1.22 !important;
-    letter-spacing: -0.5px !important;
+    letter-spacing: -0.4px !important;
     word-break: break-word !important;
     text-align: center !important;
-    margin: 0 auto 12px !important;
+    margin: 0 auto 10px !important;
     max-width: 100% !important;
   }
 
   .hh-portal-hero p {
-    font-size: 0.88rem !important;
-    line-height: 1.45 !important;
+    font-size: 0.85rem !important;
+    line-height: 1.42 !important;
     text-align: center !important;
-    margin: 0 auto 20px !important;
+    margin: 0 auto 18px !important;
     max-width: 100% !important;
   }
 
@@ -285,7 +733,7 @@ textarea,
     display: inline-flex !important;
     font-size: 0.72rem !important;
     padding: 5px 10px !important;
-    margin-bottom: 14px !important;
+    margin-bottom: 12px !important;
     text-align: center !important;
     justify-content: center !important;
     max-width: 100% !important;
@@ -293,7 +741,7 @@ textarea,
     white-space: normal !important;
   }
 
-  /* --- 7. Hero Search Box & Category Tabs --- */
+  /* Hero Search Box & Category Tabs */
   .hh-hero-search-card {
     padding: 8px 10px 14px !important;
     border-radius: 16px !important;
@@ -310,7 +758,7 @@ textarea,
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     gap: 6px !important;
-    padding: 4px 2px 10px !important;
+    padding: 4px 2px 8px !important;
   }
 
   #heroTabs::-webkit-scrollbar,
@@ -382,6 +830,8 @@ textarea,
     gap: 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    height: auto !important;
+    min-height: auto !important;
   }
 
   .hh-corridor-icon,
@@ -393,22 +843,24 @@ textarea,
 
   /* --- 9. Features & Sell Banner --- */
   .hh-sell-banner {
-    padding: 24px 16px !important;
+    padding: 20px 14px !important;
     border-radius: 18px !important;
-    margin-bottom: 36px !important;
+    margin-bottom: 24px !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 16px !important;
+    gap: 14px !important;
     box-sizing: border-box !important;
+    height: auto !important;
+    min-height: auto !important;
   }
 
   .hh-sell-banner h2 {
-    font-size: 1.35rem !important;
-    line-height: 1.3 !important;
+    font-size: 1.3rem !important;
+    line-height: 1.25 !important;
   }
 
   .hh-sell-banner p {
-    font-size: 0.88rem !important;
+    font-size: 0.85rem !important;
   }
 
   .hh-sell-banner button,
@@ -419,25 +871,29 @@ textarea,
   }
 
   .hh-features-section {
-    padding: 24px 14px !important;
+    padding: 20px 14px !important;
     border-radius: 18px !important;
-    margin-bottom: 36px !important;
+    margin-bottom: 24px !important;
     box-sizing: border-box !important;
+    height: auto !important;
+    min-height: auto !important;
   }
 
   .hh-features-grid {
     display: flex !important;
     flex-direction: column !important;
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 12px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .hh-features-grid > div {
-    padding: 16px !important;
+    padding: 14px !important;
     box-sizing: border-box !important;
     width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
   }
 
   /* --- 10. Universal Property Grid & Cards --- */
@@ -451,7 +907,7 @@ textarea,
   .hh-saved-list {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    gap: 14px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
@@ -465,19 +921,21 @@ textarea,
     box-sizing: border-box !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
   }
 
   .card-specs,
   .property-specs,
   .hh-property-features {
     flex-wrap: wrap !important;
-    gap: 8px !important;
+    gap: 6px !important;
   }
 
   .card-footer,
   .property-card-footer {
     flex-wrap: wrap !important;
-    gap: 8px !important;
+    gap: 6px !important;
   }
 
   /* --- 11. Google Maps Page --- */
@@ -507,8 +965,8 @@ textarea,
   #map,
   .leaflet-container {
     width: 100% !important;
-    height: 380px !important;
-    min-height: 300px !important;
+    height: 360px !important;
+    min-height: 280px !important;
     box-sizing: border-box !important;
   }
 
@@ -521,94 +979,44 @@ textarea,
     box-sizing: border-box !important;
   }
 
-  /* --- 12. Messages & Concierge Page --- */
-  .hh-concierge-grid,
-  .nh-messages-layout {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    gap: 16px !important;
-  }
-
-  .hh-realtor-list-col {
-    width: 100% !important;
-    max-width: 100% !important;
-    max-height: 340px !important;
-    overflow-y: auto !important;
-    box-sizing: border-box !important;
-  }
-
-  .hh-chat-window-col {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .hh-realtor-card {
-    padding: 12px !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-  }
-
-  .hh-realtor-card h4,
-  .hh-realtor-card p {
-    word-break: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-  }
-
-  .hh-chat-msg {
-    max-width: 90% !important;
-    word-break: break-word !important;
-    overflow-wrap: break-word !important;
-  }
-
-  .hh-chat-action-buttons {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    gap: 8px !important;
-  }
-
-  .hh-chat-action-btn {
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* --- 13. Profile Page --- */
+  /* --- 12. Profile Page --- */
   .profile-layout,
   .hh-profile-grid,
   .hh-profile-pad {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 16px 12px !important;
+    padding: 14px 10px !important;
     box-sizing: border-box !important;
-    gap: 16px !important;
+    gap: 14px !important;
+    height: auto !important;
+    min-height: auto !important;
   }
 
   #portfolioMetrics {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
+    gap: 8px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  /* --- 14. Property Detail Page --- */
+  /* --- 13. Property Detail Page --- */
   .hh-detail-grid,
   .hh-detail-desktop-grid,
   .property-detail-layout {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    gap: 16px !important;
+    gap: 14px !important;
     box-sizing: border-box !important;
+    height: auto !important;
+    min-height: auto !important;
   }
 
   .hh-gallery-main,
   .hh-detail-hero {
-    height: 240px !important;
+    height: 230px !important;
     border-radius: 14px !important;
     width: 100% !important;
   }
@@ -617,68 +1025,71 @@ textarea,
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 10px !important;
+    gap: 8px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  /* --- 15. AI Floating Assistant FAB & Dialog Window --- */
+  /* --- 14. Floating AI Assistant FAB (Positioned Safely Above Bottom Navigation) --- */
   .nh-ai-fab {
     position: fixed !important;
-    bottom: 74px !important;
+    bottom: 64px !important; /* Sits 10px above the 54px bottom navigation */
     right: 12px !important;
     max-width: calc(100vw - 24px) !important;
     box-sizing: border-box !important;
     z-index: 9990 !important;
-    font-size: 0.82rem !important;
-    padding: 9px 14px !important;
+    font-size: 0.8rem !important;
+    padding: 8px 12px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
   }
 
   .nh-ai-window {
     position: fixed !important;
-    bottom: 66px !important;
+    bottom: 58px !important;
     left: 8px !important;
     right: 8px !important;
     width: calc(100vw - 16px) !important;
     max-width: 100% !important;
     height: calc(100vh - 120px) !important;
-    max-height: 560px !important;
+    max-height: 540px !important;
     border-radius: 20px !important;
     box-sizing: border-box !important;
     z-index: 9995 !important;
   }
 
-  /* --- 16. Mobile Bottom Navigation Tabbar --- */
+  /* --- 15. Fixed Mobile Bottom Navigation Tabbar --- */
   .hh-bottom-tabbar {
     display: flex !important;
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
-    height: 60px !important;
-    background: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
+    height: 54px !important; /* Compact, streamlined height */
+    background: #ffffff !important; /* Fully opaque background */
     border-top: 1px solid #e2e8f0 !important;
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05) !important;
     z-index: 9998 !important;
     justify-content: space-around !important;
     align-items: center !important;
     padding: 0 4px !important;
+    margin: 0 !important;
     box-sizing: border-box !important;
   }
 
   .hh-tab-item {
-    flex: 1 !important;
+    flex: 1 1 0% !important;
+    max-width: 20% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     text-decoration: none !important;
     color: #64748b !important;
-    font-size: 0.68rem !important;
+    font-size: 0.64rem !important;
     font-weight: 700 !important;
-    padding: 4px 0 !important;
+    padding: 2px 0 !important;
     gap: 2px !important;
     min-width: 0 !important;
   }
@@ -688,82 +1099,86 @@ textarea,
     font-weight: 800 !important;
   }
 
-  .hh-tab-icon {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+  .hh-tab-item svg,
+  .hh-tab-icon svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 
-  /* --- 17. Modal Dialogs on Mobile --- */
+  /* --- 16. Modal Dialogs on Mobile --- */
   .nh-modal-card,
   .nh-auth-modal-card,
   .nh-edit-profile-modal-card,
   .nh-terms-modal-card {
-    width: calc(100vw - 24px) !important;
+    width: calc(100vw - 20px) !important;
     max-width: 100% !important;
-    padding: 20px 16px !important;
-    border-radius: 18px !important;
+    padding: 18px 14px !important;
+    border-radius: 16px !important;
     box-sizing: border-box !important;
-    margin: 12px auto !important;
+    margin: 10px auto !important;
   }
 
   .nh-form-grid,
   .nh-auth-grid-2 {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 10px !important;
   }
 
-  /* --- 18. Footer on Mobile --- */
+  /* --- 17. Footer on Mobile --- */
   .hh-footer-grid,
   .nh-footer-container {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
-    padding: 32px 14px !important;
+    gap: 20px !important;
+    padding: 28px 14px !important;
     box-sizing: border-box !important;
   }
 }
 
 /* ==========================================================================
-   19. EXTRA COMPACT PHONES (<= 480px, e.g. iPhone Mini, SE, Samsung Galaxy)
+   18. EXTRA COMPACT PHONES (<= 480px, e.g. iPhone Mini, SE, Samsung Galaxy)
    ========================================================================== */
 @media (max-width: 480px) {
   .hh-portal-hero h1 {
-    font-size: 1.38rem !important;
+    font-size: 1.35rem !important;
   }
 
   .hh-portal-hero p {
-    font-size: 0.84rem !important;
+    font-size: 0.82rem !important;
   }
 
   #portfolioMetrics {
     grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
+    gap: 6px !important;
   }
 
   .hh-corridor-card,
   .hh-corridors-grid > div {
-    padding: 10px 14px !important;
+    padding: 10px 12px !important;
   }
 
   .hh-corridor-card h3 {
-    font-size: 0.92rem !important;
+    font-size: 0.9rem !important;
   }
 
   .hh-bottom-tabbar {
-    height: 56px !important;
+    height: 52px !important;
   }
 
   .hh-tab-item {
-    font-size: 0.65rem !important;
+    font-size: 0.62rem !important;
   }
 }
 
 /* ==========================================================================
-   20. ULTRA NARROW SCREENS (<= 360px, e.g. iPhone SE 1st Gen, Galaxy Fold)
+   19. ULTRA NARROW SCREENS (<= 360px, e.g. iPhone SE 1st Gen, Galaxy Fold)
    ========================================================================== */
 @media (max-width: 360px) {
   .hh-portal-hero h1 {
-    font-size: 1.22rem !important;
+    font-size: 1.2rem !important;
+  }
+
+  .hh-concierge-head h1 {
+    font-size: 1.15rem !important;
   }
 
   #portfolioMetrics {
@@ -771,27 +1186,51 @@ textarea,
   }
 
   .hh-bottom-tabbar span {
-    font-size: 0.6rem !important;
+    font-size: 0.58rem !important;
   }
 
   .nh-currency-btn,
   .nh-curr-btn {
-    font-size: 0.75rem !important;
+    font-size: 0.72rem !important;
     padding: 6px 8px !important;
   }
 
   .nh-btn-post {
-    font-size: 0.8rem !important;
+    font-size: 0.78rem !important;
     padding: 8px !important;
+  }
+
+  .hh-chat-action-btn {
+    font-size: 0.76rem !important;
+    padding: 8px 10px !important;
   }
 }
 
 /* ==========================================================================
-   21. DESKTOP PRESERVATION (>= 769px)
-   Strictly ensures mobile bottom tabbar and hamburger button stay hidden
-   and two-column layouts remain intact.
+   20. DESKTOP PRESERVATION (>= 769px)
+   Strictly ensures mobile bottom tabbar and hamburger button stay hidden,
+   body padding is reset, and two-column layouts remain intact.
    ========================================================================== */
 @media (min-width: 769px) {
+  body.hh-page-body,
+  body {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .hh-device-shell,
+  main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .hh-global-banner,
+  .nh-header {
+    position: sticky !important;
+    top: 0 !important;
+    padding: 14px 32px !important;
+  }
+
   .hh-bottom-tabbar {
     display: none !important;
   }

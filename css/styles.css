@@ -8124,12 +8124,18 @@ button {
 
   .hh-global-banner,
   .nh-header {
-    padding: 12px 16px !important;
-    position: sticky !important;
+    padding: 10px 14px !important;
+    position: fixed !important;
     top: 0 !important;
-    z-index: 1000 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 10000 !important;
     flex-wrap: wrap !important;
-    background: rgba(255, 255, 255, 0.98) !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
+    box-sizing: border-box !important;
   }
 
   .hh-hamburger-btn {
@@ -8242,11 +8248,20 @@ button {
     box-sizing: border-box !important;
   }
 
-  /* Shell padding on mobile */
-  .hh-device-shell {
-    padding: 16px 14px 72px !important;
+  /* Body & Shell padding on mobile: clear fixed header & bottom tabbar */
+  body.hh-page-body,
+  body {
+    padding-top: 68px !important;
+    padding-bottom: 84px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-device-shell,
+  main {
+    padding: 4px 14px 16px !important;
     max-width: 100% !important;
     width: 100% !important;
+    margin-top: 0 !important;
     overflow-x: clip !important;
     box-sizing: border-box !important;
   }
@@ -8729,7 +8744,7 @@ button {
   box-sizing: border-box !important;
 }
 
-@media (min-width: 861px) {
+@media (min-width: 769px) {
   .hh-bottom-tabbar {
     display: none !important;
   }
@@ -11007,12 +11022,16 @@ button {
 
 /* Responsive Concierge & Messages Dashboard */
 @media (max-width: 768px) {
-  body.hh-page-body {
-    padding-bottom: 96px !important;
+  body.hh-page-body,
+  body {
+    padding-top: 68px !important;
+    padding-bottom: 84px !important;
+    box-sizing: border-box !important;
   }
 
-  .hh-device-shell {
-    padding: 16px 12px 96px !important;
+  .hh-device-shell,
+  main {
+    padding: 4px 14px 16px !important;
     max-width: 100% !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -11020,48 +11039,53 @@ button {
   }
 
   .hh-concierge-wrap {
-    padding: 8px 0 24px !important;
+    padding: 2px 0 16px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .hh-concierge-head {
-    margin-bottom: 16px !important;
-    padding: 0 4px !important;
+    margin-bottom: 12px !important;
+    padding: 0 2px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .hh-concierge-head h1 {
-    font-size: 1.45rem !important;
+    font-size: 1.25rem !important;
     line-height: 1.25 !important;
-    letter-spacing: -0.4px !important;
+    letter-spacing: -0.3px !important;
+    margin: 0 0 4px !important;
     word-break: break-word !important;
   }
 
   .hh-concierge-head p {
-    font-size: 0.88rem !important;
-    line-height: 1.45 !important;
+    font-size: 0.82rem !important;
+    line-height: 1.4 !important;
+    color: #64748b !important;
+    margin: 0 !important;
   }
 
   /* Single-column mobile layout: NEVER squeeze two columns side-by-side */
   .hh-concierge-dashboard {
     display: flex !important;
     flex-direction: column !important;
-    grid-template-columns: none !important;
+    grid-template-columns: 1fr !important;
     height: auto !important;
     min-height: auto !important;
     border-radius: 16px !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
+    margin-bottom: 16px !important;
   }
 
-  /* Realtor list: FULL-WIDTH section at the top */
+  /* Realtor list: FULL-WIDTH section at the top, compact and non-overlapping */
   .hh-concierge-sidebar {
     width: 100% !important;
     max-width: 100% !important;
@@ -11069,6 +11093,7 @@ button {
     flex-direction: column !important;
     height: auto !important;
     max-height: none !important;
+    min-height: auto !important;
     border-right: none !important;
     border-bottom: 2px solid #e2e8f0 !important;
     background: #f8fafc !important;
@@ -11077,15 +11102,15 @@ button {
   }
 
   .hh-concierge-side-head {
-    padding: 14px 16px !important;
+    padding: 10px 12px 6px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
   .hh-concierge-side-head h2 {
-    font-size: 1rem !important;
+    font-size: 0.92rem !important;
     font-weight: 800 !important;
-    margin: 0 0 10px !important;
+    margin: 0 0 6px !important;
     color: #0f172a !important;
   }
 
@@ -11094,6 +11119,7 @@ button {
     max-width: 100% !important;
     box-sizing: border-box !important;
     min-width: 0 !important;
+    position: relative !important;
   }
 
   .hh-concierge-search input {
@@ -11102,17 +11128,27 @@ button {
     min-width: 0 !important;
     display: block !important;
     box-sizing: border-box !important;
-    font-size: 0.84rem !important;
-    padding: 10px 14px 10px 36px !important;
-    border-radius: 12px !important;
+    font-size: 0.8rem !important;
+    height: 36px !important;
+    padding: 6px 12px 6px 34px !important;
+    border-radius: 10px !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  .hh-concierge-search svg {
+    left: 10px !important;
+    width: 14px !important;
+    height: 14px !important;
   }
 
   .hh-conv-list {
-    max-height: 220px !important;
+    max-height: 130px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     overflow-y: auto !important;
-    padding: 4px 0 !important;
+    padding: 2px 0 6px !important;
+    list-style: none !important;
+    margin: 0 !important;
   }
 
   .hh-conv-item {
@@ -11194,11 +11230,11 @@ button {
   }
 
   .hh-chat-header {
-    padding: 14px 16px !important;
+    padding: 10px 12px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 12px !important;
+    gap: 8px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -11209,7 +11245,7 @@ button {
   .hh-chat-header-profile {
     display: flex !important;
     align-items: center !important;
-    gap: 12px !important;
+    gap: 10px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -11217,37 +11253,38 @@ button {
   }
 
   .hh-chat-header-profile img {
-    width: 44px !important;
-    height: 44px !important;
+    width: 38px !important;
+    height: 38px !important;
     border-radius: 50% !important;
     object-fit: cover !important;
     flex-shrink: 0 !important;
   }
 
   .hh-chat-header-title {
-    font-size: 0.95rem !important;
+    font-size: 0.88rem !important;
     font-weight: 800 !important;
     color: #0f172a !important;
     margin: 0 !important;
     display: flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    gap: 5px !important;
     word-break: break-word !important;
     overflow-wrap: break-word !important;
   }
 
   .hh-chat-header-subtitle {
-    font-size: 0.74rem !important;
+    font-size: 0.72rem !important;
     color: #10b981 !important;
     font-weight: 600 !important;
-    margin: 2px 0 0 !important;
+    margin: 1px 0 0 !important;
     word-break: break-word !important;
     line-height: 1.3 !important;
   }
 
   .hh-chat-header-actions {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
+    align-items: center !important;
     gap: 8px !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -11256,12 +11293,14 @@ button {
 
   .hh-chat-header-actions .hh-chat-action-btn,
   .hh-chat-header-actions .nh-btn-whatsapp {
+    flex: 1 1 auto !important;
     width: 100% !important;
     justify-content: center !important;
     text-align: center !important;
-    padding: 10px 14px !important;
+    padding: 9px 14px !important;
     font-size: 0.82rem !important;
-    border-radius: 12px !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
     box-sizing: border-box !important;
   }
 
@@ -11269,11 +11308,11 @@ button {
   .hh-chat-property-banner {
     background: #f8fafc !important;
     border-bottom: 1px solid #e2e8f0 !important;
-    padding: 12px 16px !important;
+    padding: 8px 12px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 8px !important;
+    gap: 4px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -11312,13 +11351,13 @@ button {
 
   .hh-chat-prop-link {
     display: inline-block !important;
-    font-size: 0.78rem !important;
-    color: #10b981 !important;
+    font-size: 0.75rem !important;
+    color: #008751 !important;
     font-weight: 700 !important;
     text-decoration: underline !important;
     word-break: break-word !important;
-    margin-left: 24px !important;
-    max-width: calc(100% - 24px) !important;
+    margin: 2px 0 0 !important;
+    max-width: 100% !important;
     box-sizing: border-box !important;
   }
 
@@ -11412,14 +11451,17 @@ button {
     flex-shrink: 0 !important;
   }
 
-  /* Floating "Ask Ariya AI" button above bottom navigation */
+  /* Floating "Ask Ariya AI" button safely above bottom navigation */
   .nh-ai-fab {
     position: fixed !important;
-    bottom: 76px !important;
-    right: 16px !important;
-    z-index: 9999 !important;
-    max-width: calc(100vw - 32px) !important;
+    bottom: 64px !important;
+    right: 12px !important;
+    z-index: 9990 !important;
+    max-width: calc(100vw - 24px) !important;
     box-sizing: border-box !important;
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+    border-radius: 20px !important;
   }
 }
 
@@ -11446,7 +11488,7 @@ button {
   }
 
   .nh-ai-fab {
-    bottom: 74px !important;
+    bottom: 60px !important;
     right: 10px !important;
     padding: 7px 12px !important;
     font-size: 0.78rem !important;
@@ -11469,7 +11511,7 @@ button {
   }
 
   .nh-ai-fab {
-    bottom: 72px !important;
+    bottom: 58px !important;
     right: 8px !important;
     padding: 6px 10px !important;
     font-size: 0.74rem !important;
