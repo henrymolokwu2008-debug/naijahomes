@@ -1,0 +1,812 @@
+/* ==========================================================================
+   NAIJAHOMES PRODUCTION RESPONSIVE STYLESHEET (responsive.css)
+   Target Viewports: 320px, 375px, 390px, 414px, 430px up to 768px (Mobile & Tablet)
+   Desktop layout (>= 769px) is strictly preserved.
+   ========================================================================== */
+
+/* 1. Global Box-Sizing & Viewport Boundary Resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 2. Responsive Containers */
+.container,
+.main-container,
+.page-container,
+.hh-device-shell {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* 3. Universal Media Elements Safety */
+img,
+video,
+iframe,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 4. Universal Form & Button Constraints */
+button,
+input,
+select,
+textarea,
+.btn,
+.nh-btn-post,
+.nh-form-submit,
+.hh-chat-action-btn {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   5. MOBILE BREAKPOINT RULES (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* --- Body & Container Safety --- */
+  html,
+  body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  body.hh-page-body,
+  body {
+    padding-bottom: 74px !important;
+  }
+
+  .container,
+  .main-container,
+  .page-container,
+  .hh-device-shell {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    box-sizing: border-box !important;
+    overflow-x: clip !important;
+  }
+
+  /* --- Production Header Banner & Hamburger Navigation --- */
+  .hh-global-banner,
+  .nh-header {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 14px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-brand-logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    max-width: calc(100% - 60px) !important;
+    flex-shrink: 0 !important;
+    text-decoration: none !important;
+  }
+
+  .hh-brand-title {
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+  }
+
+  .hh-hamburger-btn {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 5px !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 10px !important;
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    cursor: pointer !important;
+    padding: 8px !important;
+    margin-left: auto !important;
+    flex-shrink: 0 !important;
+    z-index: 1002 !important;
+  }
+
+  .hh-hamburger-bar {
+    width: 20px !important;
+    height: 2.2px !important;
+    background: #008751 !important;
+    border-radius: 2px !important;
+    transition: all 0.25s ease !important;
+  }
+
+  .hh-hamburger-btn.active .hh-hamburger-bar:nth-child(1) {
+    transform: translateY(7.2px) rotate(45deg) !important;
+  }
+
+  .hh-hamburger-btn.active .hh-hamburger-bar:nth-child(2) {
+    opacity: 0 !important;
+  }
+
+  .hh-hamburger-btn.active .hh-hamburger-bar:nth-child(3) {
+    transform: translateY(-7.2px) rotate(-45deg) !important;
+  }
+
+  /* Desktop links hidden by default on mobile */
+  .hh-main-nav,
+  .nh-header-nav {
+    display: none !important;
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    order: 3 !important;
+    padding-top: 14px !important;
+    margin-top: 10px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    max-height: calc(100vh - 140px) !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Header actions hidden by default on mobile */
+  .hh-nav-actions,
+  .nh-header-actions {
+    display: none !important;
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    order: 4 !important;
+    padding-top: 12px !important;
+    border-top: 1px dashed #e2e8f0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Expand drawer when active */
+  .hh-global-banner.mobile-menu-open .hh-main-nav,
+  .hh-global-banner.mobile-menu-open .hh-nav-actions,
+  .nh-header.mobile-menu-open .nh-header-nav,
+  .nh-header.mobile-menu-open .nh-header-actions {
+    display: flex !important;
+  }
+
+  .hh-nav-link,
+  .nh-nav-link {
+    width: 100% !important;
+    padding: 10px 14px !important;
+    font-size: 0.92rem !important;
+    border-radius: 10px !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+  }
+
+  .nh-currency-group,
+  .nh-currency-toggle {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .nh-currency-btn,
+  .nh-curr-btn {
+    flex: 1 !important;
+    text-align: center !important;
+    padding: 8px 12px !important;
+  }
+
+  .nh-btn-post {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .nh-auth-container {
+    width: 100% !important;
+    display: flex !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+    margin-top: 6px !important;
+    justify-content: center !important;
+  }
+
+  .nh-btn-login,
+  .nh-btn-signup {
+    flex: 1 !important;
+    text-align: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .nh-user-session-pill {
+    width: 100% !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
+
+  /* --- 6. Hero Section --- */
+  .hh-portal-hero {
+    padding: 28px 14px 40px !important;
+    border-radius: 18px !important;
+    margin: 12px 0 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+
+  .hh-portal-hero > div {
+    text-align: center !important;
+    max-width: 100% !important;
+  }
+
+  .hh-portal-hero h1 {
+    font-size: 1.55rem !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.5px !important;
+    word-break: break-word !important;
+    text-align: center !important;
+    margin: 0 auto 12px !important;
+    max-width: 100% !important;
+  }
+
+  .hh-portal-hero p {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+    text-align: center !important;
+    margin: 0 auto 20px !important;
+    max-width: 100% !important;
+  }
+
+  .hh-hero-badge {
+    display: inline-flex !important;
+    font-size: 0.72rem !important;
+    padding: 5px 10px !important;
+    margin-bottom: 14px !important;
+    text-align: center !important;
+    justify-content: center !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+  }
+
+  /* --- 7. Hero Search Box & Category Tabs --- */
+  .hh-hero-search-card {
+    padding: 8px 10px 14px !important;
+    border-radius: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #heroTabs,
+  #explorePurposeTabs,
+  #gridFilterChips {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 6px !important;
+    padding: 4px 2px 10px !important;
+  }
+
+  #heroTabs::-webkit-scrollbar,
+  #explorePurposeTabs::-webkit-scrollbar,
+  #gridFilterChips::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #heroTabs .hh-tab-btn,
+  #explorePurposeTabs .hh-tab-btn,
+  #gridFilterChips .hh-tab-btn {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    padding: 7px 14px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Single Column Search & Filter Grid Stacking */
+  .hh-hero-search-grid,
+  .hh-filter-dropdowns-grid,
+  .hh-search-box {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-hero-search-grid > div,
+  .hh-filter-dropdowns-grid > div {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-hero-search-grid select,
+  .hh-hero-search-grid input,
+  .hh-filter-dropdowns-grid select,
+  .hh-filter-dropdowns-grid input {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #heroSearchBtn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* --- 8. Prime Nigerian Corridors Grid --- */
+  .hh-corridors-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-corridor-card,
+  .hh-corridors-grid > div {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    padding: 12px 16px !important;
+    gap: 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-corridor-icon,
+  .hh-corridors-grid > div > div:first-child {
+    font-size: 1.8rem !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* --- 9. Features & Sell Banner --- */
+  .hh-sell-banner {
+    padding: 24px 16px !important;
+    border-radius: 18px !important;
+    margin-bottom: 36px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-sell-banner h2 {
+    font-size: 1.35rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .hh-sell-banner p {
+    font-size: 0.88rem !important;
+  }
+
+  .hh-sell-banner button,
+  .hh-sell-banner .nh-btn-post {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+  }
+
+  .hh-features-section {
+    padding: 24px 14px !important;
+    border-radius: 18px !important;
+    margin-bottom: 36px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-features-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-features-grid > div {
+    padding: 16px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+  /* --- 10. Universal Property Grid & Cards --- */
+  .property-grid,
+  .hh-properties-grid,
+  .hl-grid,
+  #naijaPropertyGrid,
+  #explorePropertiesGrid,
+  #savedPropertiesGrid,
+  .hh-trending-grid,
+  .hh-saved-list {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .property-card,
+  .hh-properties-grid > div,
+  .card,
+  .hl-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .card-specs,
+  .property-specs,
+  .hh-property-features {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .card-footer,
+  .property-card-footer {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* --- 11. Google Maps Page --- */
+  .gmap-page-wrapper,
+  .hh-map-container,
+  .hh-map-screen {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+  }
+
+  .gmap-side-panel {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 50vh !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  #gmapCanvas,
+  #map,
+  .leaflet-container {
+    width: 100% !important;
+    height: 380px !important;
+    min-height: 300px !important;
+    box-sizing: border-box !important;
+  }
+
+  .gmap-search-bar,
+  .gmap-directions-box {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 8px 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* --- 12. Messages & Concierge Page --- */
+  .hh-concierge-grid,
+  .nh-messages-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 16px !important;
+  }
+
+  .hh-realtor-list-col {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 340px !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-chat-window-col {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-realtor-card {
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+  .hh-realtor-card h4,
+  .hh-realtor-card p {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+
+  .hh-chat-msg {
+    max-width: 90% !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .hh-chat-action-buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+
+  .hh-chat-action-btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* --- 13. Profile Page --- */
+  .profile-layout,
+  .hh-profile-grid,
+  .hh-profile-pad {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 16px 12px !important;
+    box-sizing: border-box !important;
+    gap: 16px !important;
+  }
+
+  #portfolioMetrics {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* --- 14. Property Detail Page --- */
+  .hh-detail-grid,
+  .hh-detail-desktop-grid,
+  .property-detail-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-gallery-main,
+  .hh-detail-hero {
+    height: 240px !important;
+    border-radius: 14px !important;
+    width: 100% !important;
+  }
+
+  .hh-calc-result-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* --- 15. AI Floating Assistant FAB & Dialog Window --- */
+  .nh-ai-fab {
+    position: fixed !important;
+    bottom: 74px !important;
+    right: 12px !important;
+    max-width: calc(100vw - 24px) !important;
+    box-sizing: border-box !important;
+    z-index: 9990 !important;
+    font-size: 0.82rem !important;
+    padding: 9px 14px !important;
+  }
+
+  .nh-ai-window {
+    position: fixed !important;
+    bottom: 66px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: calc(100vw - 16px) !important;
+    max-width: 100% !important;
+    height: calc(100vh - 120px) !important;
+    max-height: 560px !important;
+    border-radius: 20px !important;
+    box-sizing: border-box !important;
+    z-index: 9995 !important;
+  }
+
+  /* --- 16. Mobile Bottom Navigation Tabbar --- */
+  .hh-bottom-tabbar {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 60px !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-top: 1px solid #e2e8f0 !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
+    z-index: 9998 !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding: 0 4px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hh-tab-item {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    color: #64748b !important;
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    padding: 4px 0 !important;
+    gap: 2px !important;
+    min-width: 0 !important;
+  }
+
+  .hh-tab-item.active {
+    color: #008751 !important;
+    font-weight: 800 !important;
+  }
+
+  .hh-tab-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* --- 17. Modal Dialogs on Mobile --- */
+  .nh-modal-card,
+  .nh-auth-modal-card,
+  .nh-edit-profile-modal-card,
+  .nh-terms-modal-card {
+    width: calc(100vw - 24px) !important;
+    max-width: 100% !important;
+    padding: 20px 16px !important;
+    border-radius: 18px !important;
+    box-sizing: border-box !important;
+    margin: 12px auto !important;
+  }
+
+  .nh-form-grid,
+  .nh-auth-grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* --- 18. Footer on Mobile --- */
+  .hh-footer-grid,
+  .nh-footer-container {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 32px 14px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* ==========================================================================
+   19. EXTRA COMPACT PHONES (<= 480px, e.g. iPhone Mini, SE, Samsung Galaxy)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .hh-portal-hero h1 {
+    font-size: 1.38rem !important;
+  }
+
+  .hh-portal-hero p {
+    font-size: 0.84rem !important;
+  }
+
+  #portfolioMetrics {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .hh-corridor-card,
+  .hh-corridors-grid > div {
+    padding: 10px 14px !important;
+  }
+
+  .hh-corridor-card h3 {
+    font-size: 0.92rem !important;
+  }
+
+  .hh-bottom-tabbar {
+    height: 56px !important;
+  }
+
+  .hh-tab-item {
+    font-size: 0.65rem !important;
+  }
+}
+
+/* ==========================================================================
+   20. ULTRA NARROW SCREENS (<= 360px, e.g. iPhone SE 1st Gen, Galaxy Fold)
+   ========================================================================== */
+@media (max-width: 360px) {
+  .hh-portal-hero h1 {
+    font-size: 1.22rem !important;
+  }
+
+  #portfolioMetrics {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hh-bottom-tabbar span {
+    font-size: 0.6rem !important;
+  }
+
+  .nh-currency-btn,
+  .nh-curr-btn {
+    font-size: 0.75rem !important;
+    padding: 6px 8px !important;
+  }
+
+  .nh-btn-post {
+    font-size: 0.8rem !important;
+    padding: 8px !important;
+  }
+}
+
+/* ==========================================================================
+   21. DESKTOP PRESERVATION (>= 769px)
+   Strictly ensures mobile bottom tabbar and hamburger button stay hidden
+   and two-column layouts remain intact.
+   ========================================================================== */
+@media (min-width: 769px) {
+  .hh-bottom-tabbar {
+    display: none !important;
+  }
+
+  .hh-hamburger-btn {
+    display: none !important;
+  }
+
+  .hh-main-nav,
+  .nh-header-nav {
+    display: flex !important;
+  }
+
+  .hh-nav-actions,
+  .nh-header-actions {
+    display: flex !important;
+  }
+}
