@@ -13,6 +13,25 @@
   <!-- Master Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/responsive.css">
+  <!-- Auth Entry Guard: Route unauthenticated visitors to Login/Signup first -->
+  <script>
+    (function() {
+      try {
+        const user = localStorage.getItem("naijahomes_current_user");
+        const isGuest = sessionStorage.getItem("naijahomes_guest_mode") === "true";
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("guest") === "true") {
+          sessionStorage.setItem("naijahomes_guest_mode", "true");
+          return;
+        }
+        if (!user && !isGuest) {
+          window.location.replace("signin.html");
+        }
+      } catch (e) {
+        console.error("Auth entry guard error:", e);
+      }
+    })();
+  </script>
 </head>
 <body class="hh-page-body">
 

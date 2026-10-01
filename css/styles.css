@@ -15666,3 +15666,795 @@ button {
   border: 1px solid #e2e8f0;
   border-radius: 12px;
 }
+
+/* ==========================================================================
+   NAIJAHOMES DEDICATED AUTHENTICATION & WELCOME SCREEN (Login & Sign Up First)
+   ========================================================================== */
+.nh-auth-page-shell {
+  min-height: 100vh;
+  background: linear-gradient(150deg, #06180e 0%, #0d2b1b 45%, #081d12 100%);
+  display: flex;
+  flex-direction: column;
+  color: #0f172a;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.nh-auth-page-shell::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -80px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(0, 135, 81, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.nh-auth-page-shell::after {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  left: -80px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.nh-auth-top-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  background: rgba(9, 26, 17, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nh-auth-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nh-auth-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 135, 81, 0.25);
+  border: 1px solid rgba(0, 135, 81, 0.5);
+  color: #a7f3d0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.nh-auth-top-guest-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nh-auth-top-guest-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.nh-auth-main-content {
+  flex: 1;
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px 48px;
+}
+
+.nh-auth-layout-grid {
+  width: 100%;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+/* Left Brand Showcase Column */
+.nh-auth-brand-showcase {
+  color: #ffffff;
+  padding: 16px;
+}
+
+.nh-auth-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 135, 81, 0.25);
+  border: 1px solid rgba(0, 135, 81, 0.5);
+  padding: 6px 14px;
+  border-radius: 24px;
+  color: #6ee7b7;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.nh-auth-hero-title {
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  margin: 0 0 16px;
+  color: #ffffff;
+}
+
+.nh-auth-hero-title span {
+  color: #10b981;
+}
+
+.nh-auth-hero-desc {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+  margin: 0 0 28px;
+  max-width: 480px;
+}
+
+.nh-auth-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.nh-auth-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.nh-auth-feature-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 135, 81, 0.25);
+  border: 1px solid rgba(0, 135, 81, 0.4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: #10b981;
+}
+
+.nh-auth-feature-text h4 {
+  margin: 0 0 2px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.nh-auth-feature-text p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.nh-auth-social-proof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nh-auth-avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.nh-auth-avatar-stack img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #0d2b1b;
+  margin-left: -10px;
+  object-fit: cover;
+}
+
+.nh-auth-avatar-stack img:first-child {
+  margin-left: 0;
+}
+
+.nh-auth-proof-text {
+  font-size: 0.8rem;
+  color: #e2e8f0;
+  line-height: 1.35;
+}
+
+.nh-auth-proof-text strong {
+  color: #ffffff;
+  display: block;
+}
+
+/* Right Auth Card Column */
+.nh-auth-card-wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.nh-auth-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px 28px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Dual Segmented Nav Tabs */
+.nh-auth-nav-tabs {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 14px;
+  padding: 5px;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.nh-auth-nav-tab {
+  flex: 1;
+  padding: 11px 12px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.nh-auth-nav-tab:hover:not(.active) {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.nh-auth-nav-tab.active {
+  background: #008751;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 135, 81, 0.28);
+}
+
+.nh-auth-nav-tab svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+/* Card Header */
+.nh-auth-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.nh-auth-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: #ecfdf5;
+  border-radius: 50%;
+  color: #008751;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(0, 135, 81, 0.15);
+}
+
+.nh-auth-card-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+  letter-spacing: -0.4px;
+}
+
+.nh-auth-card-subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Alerts */
+.nh-auth-alert-box {
+  padding: 11px 14px;
+  border-radius: 12px;
+  font-size: 0.84rem;
+  margin-bottom: 16px;
+  line-height: 1.45;
+  display: none;
+  animation: nhFadeSlide 0.2s ease-out;
+}
+
+@keyframes nhFadeSlide {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nh-auth-alert-box.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.nh-auth-alert-box.success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+/* Form Groups & Inputs */
+.nh-auth-form-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.nh-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.nh-input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nh-form-input-with-icon {
+  padding-left: 42px !important;
+  padding-right: 42px !important;
+}
+
+.nh-toggle-pass-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.nh-toggle-pass-btn:hover {
+  color: #008751;
+  background: #f1f5f9;
+}
+
+.nh-toggle-pass-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* Auth Primary Submit CTA */
+.nh-auth-submit-btn {
+  width: 100%;
+  padding: 13px 20px;
+  background: #008751;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 135, 81, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 4px;
+}
+
+.nh-auth-submit-btn:hover {
+  background: #006f42;
+  box-shadow: 0 6px 20px rgba(0, 135, 81, 0.4);
+  transform: translateY(-1px);
+}
+
+.nh-auth-submit-btn:active {
+  transform: translateY(0);
+}
+
+.nh-auth-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary Switcher Link */
+.nh-auth-switch-prompt {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 10px;
+}
+
+.nh-auth-switch-link {
+  color: #008751;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+/* Divider & Guest Access */
+.nh-auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 18px 0 14px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.nh-auth-divider::before,
+.nh-auth-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.nh-auth-divider span {
+  padding: 0 12px;
+}
+
+.nh-guest-browse-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 11px 16px;
+  color: #334155;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.nh-guest-browse-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.nh-auth-footer-note {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ==========================================================================
+   NAIJAHOMES 3D ANIMATION ENGINE & INTERACTIVE PERSPECTIVE STYLES
+   ========================================================================== */
+
+/* 3D Scene Container */
+.nh-3d-scene-wrap {
+  perspective: 1200px;
+  perspective-origin: center center;
+  transform-style: preserve-3d;
+}
+
+/* 3D Interactive Card with dynamic specular glare */
+.nh-3d-tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.nh-3d-tilt-card:hover {
+  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 135, 81, 0.2) !important;
+}
+
+.nh-3d-glare-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle 300px at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.18) 0%, transparent 80%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+}
+
+.nh-3d-tilt-card:hover .nh-3d-glare-overlay {
+  opacity: 1;
+}
+
+/* 3D Layer Elevations */
+.nh-3d-layer-base {
+  transform: translateZ(0);
+}
+
+.nh-3d-layer-mid {
+  transform: translateZ(18px);
+  transform-style: preserve-3d;
+}
+
+.nh-3d-layer-high {
+  transform: translateZ(36px);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
+}
+
+.nh-3d-layer-float {
+  transform: translateZ(52px);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 12px 24px rgba(0, 135, 81, 0.35));
+}
+
+/* 3D Floating Isometric Architectural Villa Showcase */
+.nh-3d-showcase-box {
+  position: relative;
+  width: 100%;
+  padding: 24px;
+  background: rgba(13, 43, 27, 0.65);
+  border: 1px solid rgba(0, 135, 81, 0.4);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  transform-style: preserve-3d;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  margin-top: 24px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.nh-3d-showcase-box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 65%);
+  pointer-events: none;
+  animation: nhPulse3DLight 8s ease-in-out infinite alternate;
+}
+
+@keyframes nhPulse3DLight {
+  0% { transform: scale(0.8) translate3d(-10px, -10px, 0); opacity: 0.5; }
+  100% { transform: scale(1.2) translate3d(10px, 10px, 0); opacity: 0.9; }
+}
+
+/* 3D Isometric Levitating Architectural House Visual */
+.nh-3d-isometric-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0 8px;
+  transform-style: preserve-3d;
+}
+
+.nh-3d-floating-house {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: float3DIsometric 6s ease-in-out infinite;
+}
+
+@keyframes float3DIsometric {
+  0% {
+    transform: translateY(0px) rotateX(14deg) rotateY(-18deg) rotateZ(2deg);
+  }
+  50% {
+    transform: translateY(-14px) rotateX(18deg) rotateY(-10deg) rotateZ(-2deg);
+  }
+  100% {
+    transform: translateY(0px) rotateX(14deg) rotateY(-18deg) rotateZ(2deg);
+  }
+}
+
+.nh-3d-house-shadow {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(60deg);
+  width: 70px;
+  height: 30px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.45) 0%, transparent 75%);
+  border-radius: 50%;
+  animation: shadow3DScale 6s ease-in-out infinite;
+}
+
+@keyframes shadow3DScale {
+  0% { transform: translateX(-50%) rotateX(60deg) scale(1); opacity: 0.6; }
+  50% { transform: translateX(-50%) rotateX(60deg) scale(0.75); opacity: 0.3; }
+  100% { transform: translateX(-50%) rotateX(60deg) scale(1); opacity: 0.6; }
+}
+
+/* 3D Isometric House SVG with 3D Depth */
+.nh-3d-house-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 16px rgba(0, 135, 81, 0.5));
+}
+
+/* 3D Real Dynamic Metric Cards */
+.nh-3d-real-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+  transform-style: preserve-3d;
+}
+
+.nh-3d-metric-tile {
+  background: rgba(6, 24, 14, 0.6);
+  border: 1px solid rgba(0, 135, 81, 0.35);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.nh-3d-metric-tile:hover {
+  transform: translateZ(12px) scale(1.02);
+  border-color: #10b981;
+  background: rgba(6, 24, 14, 0.85);
+}
+
+.nh-3d-metric-number {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+  letter-spacing: -0.5px;
+}
+
+.nh-3d-metric-number .nh-live-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px #10b981;
+  animation: nhPulseDot 2s infinite;
+}
+
+@keyframes nhPulseDot {
+  0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 4px #10b981; }
+  50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px #10b981; }
+  100% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 4px #10b981; }
+}
+
+.nh-3d-metric-label {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* 3D Ambient Background Orbiting Crystals */
+.nh-3d-crystal-1,
+.nh-3d-crystal-2 {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 135, 81, 0.3);
+  background: linear-gradient(135deg, rgba(0, 135, 81, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+  backdrop-filter: blur(6px);
+  z-index: 2;
+}
+
+.nh-3d-crystal-1 {
+  width: 60px;
+  height: 60px;
+  top: 10%;
+  left: 3%;
+  animation: orbit3DCrystal1 16s ease-in-out infinite;
+}
+
+.nh-3d-crystal-2 {
+  width: 48px;
+  height: 48px;
+  bottom: 12%;
+  right: 4%;
+  animation: orbit3DCrystal2 14s ease-in-out infinite reverse;
+}
+
+@keyframes orbit3DCrystal1 {
+  0% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  50% { transform: translate3d(20px, -24px, 40px) rotateX(180deg) rotateY(120deg) rotateZ(90deg); }
+  100% { transform: translate3d(0, 0, 0) rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes orbit3DCrystal2 {
+  0% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg); }
+  50% { transform: translate3d(-18px, 20px, 30px) rotateX(-160deg) rotateY(-140deg); }
+  100% { transform: translate3d(0, 0, 0) rotateX(-360deg) rotateY(-360deg); }
+}
+
+/* 3D Tactile Buttons & Controls */
+.nh-auth-submit-btn {
+  transform: translateZ(10px);
+  box-shadow: 0 4px 0 #005a36, 0 10px 22px rgba(0, 135, 81, 0.35) !important;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.nh-auth-submit-btn:hover {
+  transform: translateY(-2px) translateZ(14px) !important;
+  box-shadow: 0 6px 0 #005a36, 0 14px 28px rgba(0, 135, 81, 0.45) !important;
+}
+
+.nh-auth-submit-btn:active {
+  transform: translateY(3px) translateZ(4px) !important;
+  box-shadow: 0 1px 0 #005a36, 0 4px 10px rgba(0, 135, 81, 0.3) !important;
+}
+
+.nh-auth-nav-tab.active {
+  transform: translateZ(8px);
+  box-shadow: 0 4px 0 #005a36, 0 6px 14px rgba(0, 135, 81, 0.35) !important;
+}

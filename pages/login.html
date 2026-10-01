@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In &bull; NaijaHomes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Sign In &bull; Create Account &bull; NaijaHomes</title>
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,270 +14,474 @@
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/responsive.css">
 </head>
-<body class="hh-page-body">
+<body class="nh-auth-page-shell nh-3d-scene-wrap">
 
-  <!-- Global Header Banner -->
-  <header class="hh-global-banner">
-    <a href="../index.html" class="hh-brand-logo">
-      <div class="hh-logo-icon" style="background: #008751; color: #ffffff;">
+  <!-- 3D Ambient Background Orbiting Crystals -->
+  <div class="nh-3d-crystal-1" aria-hidden="true"></div>
+  <div class="nh-3d-crystal-2" aria-hidden="true"></div>
+
+  <!-- Production Top Header -->
+  <header class="nh-auth-top-header">
+    <a href="../index.html" class="nh-auth-brand-logo">
+      <div class="hh-logo-icon" style="background: #008751; color: #ffffff; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0, 135, 81, 0.4); transform: translateZ(10px);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
           <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
         </svg>
       </div>
-      <div>
-        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px;">NAIJA<span style="color: #008751;">HOMES</span></span>
+      <div style="display: flex; flex-direction: column;">
+        <span style="font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px; color: #ffffff;">
+          NAIJA<span style="color: #10b981;">HOMES</span>
+        </span>
       </div>
     </a>
 
-    <button class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span class="hh-hamburger-bar"></span>
-      <span class="hh-hamburger-bar"></span>
-      <span class="hh-hamburger-bar"></span>
-    </button>
-
-    <!-- Clean Navigation Links -->
-    <nav class="hh-main-nav" aria-label="Main Navigation">
-      <a href="../index.html" class="hh-nav-link">Home</a>
-      <a href="explore.html?purpose=sale" class="hh-nav-link">Buy</a>
-      <a href="explore.html?purpose=rent" class="hh-nav-link">Rent</a>
-      <a href="explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
-      <a href="explore.html?purpose=land" class="hh-nav-link">Land</a>
-      <a href="map.html" class="hh-nav-link">Google Maps</a>
-      <a href="messages.html" class="hh-nav-link">Chat</a>
-      <a href="saved.html" class="hh-nav-link">Saved <span class="hh-nav-badge hh-saved-counter-badge">0</span></a>
-    </nav>
-
-    <!-- Header Actions -->
-    <div class="hh-nav-actions" style="gap: 12px;">
-      <div class="nh-currency-group">
-        <button type="button" class="nh-currency-btn active" id="btnNgn">₦ NGN</button>
-        <button type="button" class="nh-currency-btn" id="btnUsd">$ USD</button>
-      </div>
-
-      <button type="button" class="nh-btn-post" id="btnOpenSell">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="../index.html?guest=true" id="topBtnGuest" class="nh-auth-top-guest-link">
+        <span>Explore as Guest</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
-        Post a Property
-      </button>
-
-      <div class="nh-auth-container" id="nhAuthContainer"></div>
+      </a>
     </div>
   </header>
 
-  <!-- Full-Width Responsive Container -->
-  <main class="hh-device-shell" role="region" aria-label="Sign In to NaijaHomes">
-    <div class="hh-page-content-wrapper" style="max-width: 500px; margin: 0 auto; padding: 24px 16px 40px;">
+  <!-- Main Responsive Auth Layout -->
+  <main class="nh-auth-main-content" role="region" aria-label="Sign In or Create Account">
+    <div class="nh-auth-layout-grid">
 
-      <!-- Sign In Card -->
-      <div class="nh-auth-modal-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; border-radius: 20px; padding: 28px 24px; background: #ffffff;">
-        
-        <div style="text-align: center; margin-bottom: 20px;">
-          <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: #ecfdf5; border-radius: 50%; color: #008751; font-size: 1.6rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0, 135, 81, 0.15);">
-            🏡
-          </div>
-          <h1 id="standaloneAuthTitle" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin: 0 0 6px; letter-spacing: -0.02em;">Sign in to your Account</h1>
-          <p id="standaloneAuthSubtitle" style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.45;">Access your verified Nigerian properties, inspection appointments, and advisor chats.</p>
+      <!-- Left Column: Real Nigerian Brand & 3D Interactive Showcase -->
+      <section class="nh-auth-brand-showcase">
+        <div class="nh-auth-hero-pill">
+          <span>🇳🇬</span>
+          <span>Nigeria Verified Property Marketplace</span>
         </div>
 
-        <div id="standaloneAuthAlert" style="display: none; padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; margin-bottom: 16px; line-height: 1.4;"></div>
+        <h1 class="nh-auth-hero-title">
+          Find &amp; Secure Verified Properties with <span>Confidence</span>
+        </h1>
 
-        <!-- Standalone Log In Form -->
-        <form id="standaloneLoginForm">
-          <div style="display: flex; flex-direction: column; gap: 14px;">
+        <p class="nh-auth-hero-desc">
+          Direct access to verified residential and commercial properties in Lagos, Abuja, and Port Harcourt with genuine Land Bureau documentation.
+        </p>
+
+        <div class="nh-auth-features-list">
+          <div class="nh-auth-feature-item">
+            <div class="nh-auth-feature-icon">📜</div>
+            <div class="nh-auth-feature-text">
+              <h4>100% Verified Title Documents</h4>
+              <p>Certificate of Occupancy (C of O), Governor's Consent, Gazette, and Registered Survey.</p>
+            </div>
+          </div>
+
+          <div class="nh-auth-feature-item">
+            <div class="nh-auth-feature-icon">🛡️</div>
+            <div class="nh-auth-feature-text">
+              <h4>Zero Upfront Inspection Fees</h4>
+              <p>Strict anti-fraud protection &amp; free physical property inspections before payment.</p>
+            </div>
+          </div>
+
+          <div class="nh-auth-feature-item">
+            <div class="nh-auth-feature-icon">💬</div>
+            <div class="nh-auth-feature-text">
+              <h4>Direct WhatsApp &amp; In-App Chat</h4>
+              <p>Connect directly with registered realtors, landlords, and property developers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Showcase Card with Real Dynamic Data -->
+        <div class="nh-3d-showcase-box nh-3d-tilt-card" id="showcaseTiltCard">
+          <div class="nh-3d-glare-overlay"></div>
+
+          <!-- 3D Floating Isometric Architectural Villa Emblem -->
+          <div class="nh-3d-isometric-stage">
+            <div class="nh-3d-floating-house">
+              <svg class="nh-3d-house-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 3D Isometric Roof & Walls -->
+                <path d="M50 12L85 30L50 48L15 30L50 12Z" fill="url(#roofGrad)" stroke="#10b981" stroke-width="1.5"/>
+                <path d="M15 30L50 48V88L15 70V30Z" fill="url(#wallLeftGrad)" stroke="#059669" stroke-width="1.5"/>
+                <path d="M85 30L50 48V88L85 70V30Z" fill="url(#wallRightGrad)" stroke="#047857" stroke-width="1.5"/>
+                <!-- Windows and Door -->
+                <path d="M30 52L42 58V72L30 66V52Z" fill="#a7f3d0" opacity="0.9"/>
+                <path d="M58 58L70 52V66L58 72V58Z" fill="#6ee7b7" opacity="0.9"/>
+                <path d="M46 64L54 68V86L46 82V64Z" fill="#064e3b"/>
+                <defs>
+                  <linearGradient id="roofGrad" x1="15" y1="12" x2="85" y2="48" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#34d399"/>
+                    <stop offset="1" stop-color="#059669"/>
+                  </linearGradient>
+                  <linearGradient id="wallLeftGrad" x1="15" y1="30" x2="50" y2="88" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#047857"/>
+                    <stop offset="1" stop-color="#064e3b"/>
+                  </linearGradient>
+                  <linearGradient id="wallRightGrad" x1="85" y1="30" x2="50" y2="88" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#065f46"/>
+                    <stop offset="1" stop-color="#022c22"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="nh-3d-house-shadow"></div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 8px;">
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 135, 81, 0.3); border: 1px solid rgba(16, 185, 129, 0.5); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: #a7f3d0; text-transform: uppercase; letter-spacing: 0.5px;">
+              <span class="nh-live-dot" style="width: 7px; height: 7px; background: #10b981; border-radius: 50%; display: inline-block;"></span>
+              <span>Live Platform Status</span>
+            </div>
+          </div>
+
+          <!-- Real Platform Metrics from data store -->
+          <div class="nh-3d-real-metrics-grid">
+            <div class="nh-3d-metric-tile">
+              <div class="nh-3d-metric-number">
+                <span id="realPropsCount">0</span>
+                <span class="nh-live-dot"></span>
+              </div>
+              <div class="nh-3d-metric-label">Active Properties Listed</div>
+            </div>
+
+            <div class="nh-3d-metric-tile">
+              <div class="nh-3d-metric-number">
+                <span>₦0</span>
+              </div>
+              <div class="nh-3d-metric-label">Upfront Inspection Fees</div>
+            </div>
+
+            <div class="nh-3d-metric-tile">
+              <div class="nh-3d-metric-number">
+                <span style="font-size: 1.15rem;">C of O</span>
+              </div>
+              <div class="nh-3d-metric-label">Govt Consent &amp; Gazette</div>
+            </div>
+
+            <div class="nh-3d-metric-tile">
+              <div class="nh-3d-metric-number">
+                <span style="font-size: 1.15rem;">4 Corridors</span>
+              </div>
+              <div class="nh-3d-metric-label">Lagos, Abuja, PH, Ibadan</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Interactive 3D Tabbed Auth Card -->
+      <section class="nh-auth-card-wrapper">
+        <div class="nh-auth-card nh-3d-tilt-card" id="authMainCard">
+          <div class="nh-3d-glare-overlay"></div>
+
+          <!-- Segmented Tab Navigation: Sign In / Create Account -->
+          <div class="nh-auth-nav-tabs" role="tablist" id="authTabsContainer">
+            <button type="button" class="nh-auth-nav-tab active" id="tabSignIn" role="tab" aria-selected="true" aria-controls="formSignIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+              </svg>
+              <span>Sign In</span>
+            </button>
+
+            <button type="button" class="nh-auth-nav-tab" id="tabSignUp" role="tab" aria-selected="false" aria-controls="formSignUp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+              </svg>
+              <span>Create Account</span>
+            </button>
+          </div>
+
+          <!-- Card Header & Contextual Greeting -->
+          <div class="nh-auth-header">
+            <div class="nh-auth-icon-badge">🏡</div>
+            <h2 id="authCardTitle" class="nh-auth-card-title">Sign In to Your Account</h2>
+            <p id="authCardSubtitle" class="nh-auth-card-subtitle">Access your verified Nigerian properties, inspections, and advisor chats.</p>
+          </div>
+
+          <!-- Dynamic Alert Box -->
+          <div id="authAlertBox" class="nh-auth-alert-box" role="alert"></div>
+
+          <!-- TAB 1: SIGN IN FORM -->
+          <form id="formSignIn" class="nh-auth-form-flow" novalidate>
             <div class="nh-form-group">
-              <label class="nh-form-label" for="pageLoginIdentifier">Email Address or Username *</label>
-              <input type="text" id="pageLoginIdentifier" class="nh-form-input" placeholder="e.g. name@example.com or username" required autocomplete="username">
+              <label class="nh-form-label" for="loginIdentifier">Email Address, Phone, or Username *</label>
+              <div class="nh-input-wrap">
+                <span class="nh-input-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </span>
+                <input type="text" id="loginIdentifier" class="nh-form-input nh-form-input-with-icon" placeholder="e.g. name@example.com or 08012345678" required autocomplete="username">
+              </div>
             </div>
 
             <div class="nh-form-group">
-              <label class="nh-form-label" for="pageLoginPassword" style="margin-bottom: 4px;">Password *</label>
-              <input type="password" id="pageLoginPassword" class="nh-form-input" placeholder="Enter your password" required autocomplete="current-password">
+              <label class="nh-form-label" for="loginPassword">Password *</label>
+              <div class="nh-input-wrap">
+                <span class="nh-input-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </span>
+                <input type="password" id="loginPassword" class="nh-form-input nh-form-input-with-icon" placeholder="Enter your password" required autocomplete="current-password">
+                <button type="button" class="nh-toggle-pass-btn" id="btnToggleLoginPass" aria-label="Toggle password visibility">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: -2px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: -4px;">
               <label style="display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: #475569; cursor: pointer; user-select: none;">
                 <input type="checkbox" id="pageLoginRememberMe" checked style="width: 16px; height: 16px; accent-color: #008751; cursor: pointer; border-radius: 4px;">
                 <span>Remember me</span>
               </label>
-              <a href="javascript:void(0)" id="pageLinkForgotPassword" class="nh-forgot-password-link" style="color: #008751; font-size: 0.82rem; font-weight: 700; text-decoration: none; cursor: pointer;">Forgot Password?</a>
+              <a href="javascript:void(0)" id="linkForgotPassword" style="color: #008751; font-size: 0.82rem; font-weight: 700; text-decoration: none; cursor: pointer;">Forgot Password?</a>
             </div>
 
-            <button type="submit" id="pageBtnLoginSubmit" class="nh-form-submit" style="margin-top: 6px; padding: 12px 18px; font-size: 0.95rem;">Log In to Account &rarr;</button>
+            <button type="submit" id="btnLoginSubmit" class="nh-auth-submit-btn">
+              <span>Sign In to Account</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
 
-            <div style="text-align: center; margin-top: 10px; font-size: 0.85rem; color: #64748b;">
+            <div class="nh-auth-switch-prompt">
               Don't have an account? 
-              <a href="javascript:void(0)" id="pageBtnOpenSignup" style="color: #008751; font-weight: 800; text-decoration: underline; margin-left: 4px;">Sign Up Free</a>
-            </div>
-          </div>
-        </form>
-
-        <!-- Standalone Forgot Password Form -->
-        <form id="standaloneForgotForm" style="display: none;">
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div style="text-align: left; margin-bottom: 4px;">
-              <a href="javascript:void(0)" id="pageLinkBackToLogin" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 700; color: #008751; text-decoration: none; margin-bottom: 10px; cursor: pointer;">
-                &larr; Back to Sign In
-              </a>
-              <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0 0 4px;">Reset Your Password</h3>
-              <p style="font-size: 0.82rem; color: #64748b; margin: 0; line-height: 1.45;">Enter your registered Nigerian email, phone number, or username to recover your account credentials.</p>
+              <a href="javascript:void(0)" id="linkSwitchToSignup" class="nh-auth-switch-link">Create Account Free &rarr;</a>
             </div>
 
-            <div id="pageForgotStep1">
+            <div class="nh-auth-divider">
+              <span>OR EXPLORE FIRST</span>
+            </div>
+
+            <button type="button" id="btnGuestSignIn" class="nh-guest-browse-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>Continue as Guest &bull; Browse Properties</span>
+            </button>
+          </form>
+
+          <!-- TAB 2: CREATE ACCOUNT FORM -->
+          <form id="formSignUp" class="nh-auth-form-flow" style="display: none;" novalidate>
+            <div class="nh-auth-grid-2">
               <div class="nh-form-group">
-                <label class="nh-form-label" for="pageForgotIdentifier">Email, Phone, or Username *</label>
-                <input type="text" id="pageForgotIdentifier" class="nh-form-input" placeholder="e.g. name@example.com or username" autocomplete="username">
+                <label class="nh-form-label" for="signupFullName">Full Name *</label>
+                <input type="text" id="signupFullName" class="nh-form-input" placeholder="e.g. Babatunde Adeleke" required autocomplete="name">
               </div>
-              <button type="button" id="pageBtnVerifyAccount" class="nh-form-submit" style="margin-top: 10px; padding: 12px 18px; font-size: 0.92rem;">Find Account &rarr;</button>
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="signupUsername">Username *</label>
+                <input type="text" id="signupUsername" class="nh-form-input" placeholder="e.g. babatunde24" required autocomplete="username">
+              </div>
             </div>
 
-            <div id="pageForgotStep2" style="display: none;">
-              <div id="pageForgotUserInfo" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: #166534; margin-bottom: 12px;">
-                Account verified: <strong id="pageForgotFoundName">User</strong>
+            <div class="nh-auth-grid-2">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="signupEmail">Email Address *</label>
+                <input type="email" id="signupEmail" class="nh-form-input" placeholder="name@example.com" required autocomplete="email">
               </div>
-              <div class="nh-form-group" style="margin-bottom: 12px;">
-                <label class="nh-form-label" for="pageForgotNewPassword">New Password *</label>
-                <input type="password" id="pageForgotNewPassword" class="nh-form-input" placeholder="Min 6 characters" minlength="6" autocomplete="new-password">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="signupPhone">Phone Number *</label>
+                <input type="tel" id="signupPhone" class="nh-form-input" placeholder="+234 802 345 6789" required autocomplete="tel">
               </div>
-              <div class="nh-form-group" style="margin-bottom: 12px;">
-                <label class="nh-form-label" for="pageForgotConfirmPassword">Confirm New Password *</label>
-                <input type="password" id="pageForgotConfirmPassword" class="nh-form-input" placeholder="Repeat new password" minlength="6" autocomplete="new-password">
-              </div>
-              <button type="submit" id="pageBtnSubmitReset" class="nh-form-submit" style="margin-top: 6px; padding: 12px 18px; font-size: 0.92rem;">Reset Password &amp; Log In &rarr;</button>
             </div>
-          </div>
-        </form>
 
-      </div>
-    </div>
-  </main>
+            <div class="nh-form-group">
+              <label class="nh-form-label" for="signupAccountType">Account Type *</label>
+              <select id="signupAccountType" class="nh-form-select" required>
+                <option value="Buyer">Buyer / Real Estate Investor</option>
+                <option value="Tenant">Tenant / Home Renter</option>
+                <option value="Agent">Real Estate Agent / Broker</option>
+                <option value="Property Owner">Property Owner / Developer</option>
+              </select>
+            </div>
 
-  <!-- MODAL: POST A PROPERTY -->
-  <div class="nh-modal-overlay" id="nhSellModal">
-    <div class="nh-modal-card">
-      <button type="button" class="nh-modal-close" id="closeSellModal">&times;</button>
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-        <span style="font-size: 1.4rem;">🏡</span>
-        <h2 class="nh-modal-title">Post a Property on NaijaHomes</h2>
-      </div>
-      <p class="nh-modal-desc">List your Nigerian home, apartment, or land for sale, rent, or shortlet to verified buyers.</p>
+            <!-- Conditional Agent & Owner Fields -->
+            <div id="signupAgentSection" class="nh-conditional-fields-card" style="display: none;">
+              <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 12px;">
+                <span style="font-size: 1.1rem;">💼</span>
+                <span style="font-size: 0.82rem; font-weight: 800; color: #008751; text-transform: uppercase; letter-spacing: 0.5px;">Realtor / Developer Credentials</span>
+              </div>
+              <div class="nh-auth-grid-2">
+                <div class="nh-form-group">
+                  <label class="nh-form-label" for="signupAgencyName">Agency / Brand Name</label>
+                  <input type="text" id="signupAgencyName" class="nh-form-input" placeholder="e.g. Prime Vantage Realty">
+                </div>
+                <div class="nh-form-group">
+                  <label class="nh-form-label" for="signupExperience">Years of Experience</label>
+                  <input type="number" id="signupExperience" class="nh-form-input" placeholder="e.g. 5" min="0" max="60">
+                </div>
+              </div>
+              <div class="nh-form-group" style="margin-top: 10px;">
+                <label class="nh-form-label" for="signupWhatsapp">WhatsApp Business Number</label>
+                <input type="tel" id="signupWhatsapp" class="nh-form-input" placeholder="e.g. +234 802 345 6789">
+              </div>
+              <div class="nh-form-group" style="margin-top: 10px;">
+                <label class="nh-form-label" for="signupBio">Professional Bio</label>
+                <textarea id="signupBio" class="nh-form-input" rows="2" style="resize: vertical; font-family: inherit;" placeholder="Overview of your property portfolio, corridor specialties, and experience..."></textarea>
+              </div>
+            </div>
 
-      <form id="nhSellForm">
-        <div class="nh-form-grid">
-          <div class="nh-form-group full">
-            <label class="nh-form-label">Property Title *</label>
-            <input type="text" id="sellTitle" class="nh-form-input" placeholder="Enter property title" required>
-          </div>
+            <div class="nh-auth-grid-2">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="signupState">State *</label>
+                <select id="signupState" class="nh-form-select" required>
+                  <option value="Lagos State" selected>Lagos State</option>
+                  <option value="Abuja FCT">Abuja FCT</option>
+                  <option value="Rivers State">Rivers State (Port Harcourt)</option>
+                  <option value="Oyo State">Oyo State (Ibadan)</option>
+                  <option value="Ogun State">Ogun State</option>
+                  <option value="Enugu State">Enugu State</option>
+                  <option value="Delta State">Delta State</option>
+                </select>
+              </div>
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="signupCity">City / Neighborhood *</label>
+                <input type="text" id="signupCity" class="nh-form-input" placeholder="e.g. Lekki Phase 1" value="Lekki" required>
+              </div>
+            </div>
 
-          <div class="nh-form-group">
-            <label class="nh-form-label">Purpose *</label>
-            <select id="sellPurpose" class="nh-form-select" required>
-              <option value="sale">For Sale</option>
-              <option value="rent">For Rent (Annual)</option>
-              <option value="shortlet">Short Let (Daily)</option>
-              <option value="land">Land / Plot</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Property Type *</label>
-            <select id="sellType" class="nh-form-select" required>
-              <option value="duplex">Detached Duplex</option>
-              <option value="terrace">Terraced Duplex</option>
-              <option value="penthouse">Penthouse</option>
-              <option value="apartment">Serviced Flat / Apartment</option>
-              <option value="land">Residential Land</option>
-              <option value="commercial">Commercial Property</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">State *</label>
-            <select id="sellState" class="nh-form-select" required>
-              <option value="Lagos">Lagos State</option>
-              <option value="Abuja">Abuja FCT</option>
-              <option value="Rivers">Rivers (Port Harcourt)</option>
-              <option value="Oyo">Oyo (Ibadan)</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Location / Neighborhood *</label>
-            <input type="text" id="sellLocation" class="nh-form-input" placeholder="Enter neighborhood or city" required>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Price in Naira (₦) *</label>
-            <input type="number" id="sellPrice" class="nh-form-input" placeholder="Enter price in Naira" min="10000" required>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Title Document *</label>
-            <select id="sellTitleDoc" class="nh-form-select" required>
-              <option value="Governor's Consent">Governor's Consent</option>
-              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
-              <option value="Gazette & Registered Survey">Gazette &amp; Registered Survey</option>
-              <option value="Deed of Assignment">Deed of Assignment</option>
-            </select>
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Bedrooms</label>
-            <input type="number" id="sellBeds" class="nh-form-input" placeholder="Number of bedrooms" min="0">
-          </div>
-
-          <div class="nh-form-group">
-            <label class="nh-form-label">Bathrooms</label>
-            <input type="number" id="sellBaths" class="nh-form-input" placeholder="Number of bathrooms" min="0">
-          </div>
-
-          <div class="nh-form-group full">
-            <label class="nh-form-label" for="sellImageFile">Upload Picture</label>
-            <div class="nh-upload-picture-box">
-              <input type="file" id="sellImageFile" accept="image/*" class="nh-form-input nh-file-input" style="padding: 7px 10px; font-size: 0.85rem; cursor: pointer;">
-              <input type="hidden" id="sellImageUrl">
-              <div id="sellImagePreviewWrap" class="nh-image-preview-wrap" style="display: none; align-items: center; gap: 12px; margin-top: 10px; padding: 10px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px;">
-                <img id="sellImagePreview" src="" alt="Property Preview" style="width: 72px; height: 54px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <div style="flex: 1; min-width: 0;">
-                  <div id="sellImageFileName" style="font-size: 0.82rem; font-weight: 700; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">property-photo.jpg</div>
-                  <button type="button" id="btnRemoveSellImage" style="background: none; border: none; color: #ef4444; font-size: 0.75rem; font-weight: 700; cursor: pointer; padding: 0; margin-top: 2px;">✕ Remove Picture</button>
+            <div class="nh-auth-grid-2">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="signupPassword">Password *</label>
+                <div class="nh-input-wrap">
+                  <input type="password" id="signupPassword" class="nh-form-input" style="padding-right: 40px;" placeholder="Min 6 characters" minlength="6" required autocomplete="new-password">
+                  <button type="button" class="nh-toggle-pass-btn" id="btnToggleSignupPass" aria-label="Toggle password visibility">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="signupConfirmPassword">Confirm Password *</label>
+                <div class="nh-input-wrap">
+                  <input type="password" id="signupConfirmPassword" class="nh-form-input" style="padding-right: 40px;" placeholder="Repeat password" minlength="6" required autocomplete="new-password">
+                  <button type="button" class="nh-toggle-pass-btn" id="btnToggleSignupConfirmPass" aria-label="Toggle password visibility">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="nh-form-group full">
-            <button type="submit" class="nh-form-submit">Publish Property Listing Live &rarr;</button>
-          </div>
+            <!-- Profile Picture Upload -->
+            <div class="nh-form-group">
+              <div class="nh-avatar-uploader-box">
+                <img id="signupPhotoPreview" class="nh-avatar-preview-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2e8f0'/><circle cx='50' cy='40' r='18' fill='%2394a3b8'/><path d='M22 84 C26 62 40 60 50 60 C60 60 74 62 78 84 Z' fill='%2394a3b8'/></svg>" alt="Avatar Preview">
+                <div style="flex: 1; min-width: 0;">
+                  <label class="nh-form-label" for="signupPhotoFile" style="margin-bottom: 2px;">Profile Picture (Optional)</label>
+                  <input type="file" id="signupPhotoFile" accept="image/*" class="nh-form-input" style="padding: 4px 8px; font-size: 0.8rem; cursor: pointer;">
+                  <button type="button" id="btnRemoveSignupPhoto" style="display: none; background: none; border: none; color: #ef4444; font-size: 0.75rem; cursor: pointer; font-weight: 700; margin-top: 4px; padding: 0;">✕ Remove Photo</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms & Conditions Checkbox -->
+            <div class="nh-form-group" style="margin: 4px 0 2px;">
+              <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; color: #475569; cursor: pointer; line-height: 1.45;">
+                <input type="checkbox" id="signupAgreeTerms" required style="margin-top: 2px; accent-color: #008751; cursor: pointer; width: 17px; height: 17px; flex-shrink: 0;">
+                <span>I agree to the <a href="javascript:void(0)" id="linkViewTerms" style="color: #008751; font-weight: 700; text-decoration: underline;">Terms &amp; Conditions</a> and <a href="javascript:void(0)" id="linkViewPrivacy" style="color: #008751; font-weight: 700; text-decoration: underline;">Privacy Policy</a> of NaijaHomes.</span>
+              </label>
+            </div>
+
+            <button type="submit" id="btnSignupSubmit" class="nh-auth-submit-btn">
+              <span>Create Free Account</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+
+            <div class="nh-auth-switch-prompt">
+              Already have an account? 
+              <a href="javascript:void(0)" id="linkSwitchToLogin" class="nh-auth-switch-link">Sign In &rarr;</a>
+            </div>
+
+            <div class="nh-auth-divider">
+              <span>OR EXPLORE FIRST</span>
+            </div>
+
+            <button type="button" id="btnGuestSignUp" class="nh-guest-browse-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>Continue as Guest &bull; Browse Properties</span>
+            </button>
+          </form>
+
+          <!-- VIEW 3: FORGOT PASSWORD FLOW -->
+          <form id="formForgot" class="nh-auth-form-flow" style="display: none;" novalidate>
+            <div style="text-align: left; margin-bottom: 2px;">
+              <a href="javascript:void(0)" id="linkBackToLogin" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.84rem; font-weight: 700; color: #008751; text-decoration: none; margin-bottom: 8px; cursor: pointer;">
+                &larr; Back to Sign In
+              </a>
+            </div>
+
+            <!-- Step 1: Identifier Entry -->
+            <div id="forgotStep1">
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="forgotIdentifier">Email, Phone, or Username *</label>
+                <div class="nh-input-wrap">
+                  <span class="nh-input-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </span>
+                  <input type="text" id="forgotIdentifier" class="nh-form-input nh-form-input-with-icon" placeholder="e.g. name@example.com or 08012345678" autocomplete="username">
+                </div>
+              </div>
+              <button type="button" id="btnForgotVerify" class="nh-auth-submit-btn" style="margin-top: 10px;">
+                <span>Find Account &rarr;</span>
+              </button>
+            </div>
+
+            <!-- Step 2: Set New Password -->
+            <div id="forgotStep2" style="display: none;">
+              <div id="forgotFoundInfo" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 12px 14px; font-size: 0.84rem; color: #166534; margin-bottom: 12px;">
+                Account verified: <strong id="forgotFoundName">User</strong>
+              </div>
+
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="forgotNewPassword">New Password *</label>
+                <input type="password" id="forgotNewPassword" class="nh-form-input" placeholder="Min 6 characters" minlength="6" autocomplete="new-password">
+              </div>
+
+              <div class="nh-form-group">
+                <label class="nh-form-label" for="forgotConfirmPassword">Confirm New Password *</label>
+                <input type="password" id="forgotConfirmPassword" class="nh-form-input" placeholder="Repeat new password" minlength="6" autocomplete="new-password">
+              </div>
+
+              <button type="submit" id="btnForgotSubmit" class="nh-auth-submit-btn" style="margin-top: 8px;">
+                <span>Reset Password &amp; Log In &rarr;</span>
+              </button>
+            </div>
+          </form>
+
         </div>
-      </form>
-    </div>
-  </div>
 
-  <!-- Persistent Mobile Bottom Tab Bar -->
-  <nav class="hh-bottom-tabbar" aria-label="Mobile Navigation">
-    <a href="../index.html" class="hh-tab-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
-      <span>Home</span>
-    </a>
-    <a href="../explore.html" class="hh-tab-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>Search</span>
-    </a>
-    <a href="saved.html" class="hh-tab-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-      <span>Saved</span>
-    </a>
-    <a href="messages.html" class="hh-tab-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span>Chat</span>
-    </a>
-    <a href="profile.html" class="hh-tab-item active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>Profile</span>
-    </a>
-  </nav>
+        <div class="nh-auth-footer-note">
+          &copy; 2026 NaijaHomes Portal &bull; Verified Nigerian Real Estate &bull; NDPA Compliant
+        </div>
+      </section>
+
+    </div>
+  </main>
 
   <!-- Core Scripts -->
   <script src="../js/data.js"></script>
@@ -285,49 +489,135 @@
   <script src="../js/ai-assistant.js"></script>
   <script src="../js/homehaven.js"></script>
 
-  <!-- Page Controller Script -->
+  <!-- Page Controller Script with 3D Physics Engine -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const loginForm = document.getElementById("standaloneLoginForm");
-      const forgotForm = document.getElementById("standaloneForgotForm");
-      const alertBox = document.getElementById("standaloneAuthAlert");
-      const titleEl = document.getElementById("standaloneAuthTitle");
-      const subtitleEl = document.getElementById("standaloneAuthSubtitle");
-      const linkForgot = document.getElementById("pageLinkForgotPassword");
-      const linkBack = document.getElementById("pageLinkBackToLogin");
-      const btnOpenSignup = document.getElementById("pageBtnOpenSignup");
-      const btnVerifyAccount = document.getElementById("pageBtnVerifyAccount");
-      const forgotIdInput = document.getElementById("pageForgotIdentifier");
-      const forgotStep1 = document.getElementById("pageForgotStep1");
-      const forgotStep2 = document.getElementById("pageForgotStep2");
-      const forgotFoundName = document.getElementById("pageForgotFoundName");
-      // Auto-fill remembered login details
-      try {
-        const savedId = localStorage.getItem("naijahomes_remembered_identifier") || "";
-        const savedPass = localStorage.getItem("naijahomes_remembered_password") || "";
-        const savedRem = localStorage.getItem("naijahomes_remember_me") !== "false";
-        const idInput = document.getElementById("pageLoginIdentifier");
-        const passInput = document.getElementById("pageLoginPassword");
-        const remCheckbox = document.getElementById("pageLoginRememberMe");
-        if (idInput && savedId) idInput.value = savedId;
-        if (passInput && savedPass) passInput.value = savedPass;
-        if (remCheckbox) remCheckbox.checked = savedRem;
-      } catch (e) {}
-      const pagePrefix = "../";
+      const pageIndexUrl = "../index.html";
+      const pageProfileUrl = "profile.html";
 
-      // If user is already logged in, redirect to profile
-      if (typeof getCurrentUser === "function" && getCurrentUser()) {
-        window.location.href = pagePrefix + "profile.html";
-        return;
+      // 1. If user is already logged in, redirect straight to index dashboard
+      try {
+        if (typeof getCurrentUser === "function" && getCurrentUser()) {
+          window.location.replace(pageIndexUrl);
+          return;
+        }
+      } catch (e) {}
+
+      // 2. Real dynamic property counts from data store
+      try {
+        const realProps = (typeof getAllNaijaProperties === "function") 
+          ? getAllNaijaProperties() 
+          : JSON.parse(localStorage.getItem("naijahomes_user_listings") || "[]");
+        const realCountEl = document.getElementById("realPropsCount");
+        if (realCountEl) {
+          realCountEl.textContent = (realProps && realProps.length) ? realProps.length : 0;
+        }
+      } catch (e) {}
+
+      // 3. Interactive 3D Perspective Tilt Physics Engine
+      function setup3DTilt(elementId) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+
+        let bounds;
+        function updateBounds() {
+          bounds = el.getBoundingClientRect();
+        }
+        updateBounds();
+        window.addEventListener('resize', updateBounds);
+
+        el.addEventListener('mousemove', (e) => {
+          if (!bounds) updateBounds();
+          const mouseX = e.clientX - bounds.left;
+          const mouseY = e.clientY - bounds.top;
+
+          const percentX = (mouseX / bounds.width - 0.5) * 2; // -1 to +1
+          const percentY = (mouseY / bounds.height - 0.5) * 2; // -1 to +1
+
+          const maxTilt = 8; // degrees
+          const tiltX = -percentY * maxTilt;
+          const tiltY = percentX * maxTilt;
+
+          el.style.transform = "perspective(1000px) rotateX(" + tiltX.toFixed(2) + "deg) rotateY(" + tiltY.toFixed(2) + "deg) translateZ(8px)";
+          el.style.setProperty('--glare-x', (mouseX / bounds.width * 100).toFixed(1) + "%");
+          el.style.setProperty('--glare-y', (mouseY / bounds.height * 100).toFixed(1) + "%");
+        });
+
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+        });
       }
 
+      setup3DTilt('authMainCard');
+      setup3DTilt('showcaseTiltCard');
+
+      // Elements
+      const tabsContainer = document.getElementById("authTabsContainer");
+      const tabSignIn = document.getElementById("tabSignIn");
+      const tabSignUp = document.getElementById("tabSignUp");
+      const formSignIn = document.getElementById("formSignIn");
+      const formSignUp = document.getElementById("formSignUp");
+      const formForgot = document.getElementById("formForgot");
+
+      const cardTitle = document.getElementById("authCardTitle");
+      const cardSubtitle = document.getElementById("authCardSubtitle");
+      const alertBox = document.getElementById("authAlertBox");
+
+      const linkSwitchToSignup = document.getElementById("linkSwitchToSignup");
+      const linkSwitchToLogin = document.getElementById("linkSwitchToLogin");
+      const linkForgotPassword = document.getElementById("linkForgotPassword");
+      const linkBackToLogin = document.getElementById("linkBackToLogin");
+
+      const btnGuestSignIn = document.getElementById("btnGuestSignIn");
+      const btnGuestSignUp = document.getElementById("btnGuestSignUp");
+      const topBtnGuest = document.getElementById("topBtnGuest");
+
+      // Password Toggles
+      setupPasswordToggle("btnToggleLoginPass", "loginPassword");
+      setupPasswordToggle("btnToggleSignupPass", "signupPassword");
+      setupPasswordToggle("btnToggleSignupConfirmPass", "signupConfirmPassword");
+
+      function setupPasswordToggle(btnId, inputId) {
+        const btn = document.getElementById(btnId);
+        const input = document.getElementById(inputId);
+        if (!btn || !input) return;
+        btn.addEventListener("click", () => {
+          const isPass = input.type === "password";
+          input.type = isPass ? "text" : "password";
+          btn.innerHTML = isPass ? `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+          ` : `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          `;
+        });
+      }
+
+      // Guest mode action
+      function continueAsGuest(e) {
+        if (e) e.preventDefault();
+        try {
+          sessionStorage.setItem("naijahomes_guest_mode", "true");
+        } catch (err) {}
+        window.location.href = pageIndexUrl + "?guest=true";
+      }
+
+      if (btnGuestSignIn) btnGuestSignIn.addEventListener("click", continueAsGuest);
+      if (btnGuestSignUp) btnGuestSignUp.addEventListener("click", continueAsGuest);
+      if (topBtnGuest) topBtnGuest.addEventListener("click", continueAsGuest);
+
+      // Alert helper
       function showAlert(msg, isSuccess = false) {
         if (!alertBox) return;
         alertBox.style.display = "block";
-        alertBox.style.background = isSuccess ? "#ecfdf5" : "#fef2f2";
-        alertBox.style.color = isSuccess ? "#065f46" : "#991b1b";
-        alertBox.style.border = "1px solid " + (isSuccess ? "#a7f3d0" : "#fecaca");
+        alertBox.className = "nh-auth-alert-box " + (isSuccess ? "success" : "error");
         alertBox.textContent = msg;
+        alertBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
 
       function clearAlert() {
@@ -336,88 +626,280 @@
         alertBox.textContent = "";
       }
 
-      // Check query parameter (?action=forgot)
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("action") === "forgot") {
-        showForgotView();
+      // Tab Switchers
+      function showSignInTab() {
+        clearAlert();
+        if (tabsContainer) tabsContainer.style.display = "flex";
+        tabSignIn.classList.add("active");
+        tabSignUp.classList.remove("active");
+        tabSignIn.setAttribute("aria-selected", "true");
+        tabSignUp.setAttribute("aria-selected", "false");
+
+        formSignIn.style.display = "flex";
+        formSignUp.style.display = "none";
+        formForgot.style.display = "none";
+
+        cardTitle.textContent = "Sign In to Your Account";
+        cardSubtitle.textContent = "Access your verified Nigerian properties, inspections, and advisor chats.";
+
+        const idEl = document.getElementById("loginIdentifier");
+        if (idEl && !idEl.value) idEl.focus();
+      }
+
+      function showSignUpTab() {
+        clearAlert();
+        if (tabsContainer) tabsContainer.style.display = "flex";
+        tabSignUp.classList.add("active");
+        tabSignIn.classList.remove("active");
+        tabSignUp.setAttribute("aria-selected", "true");
+        tabSignIn.setAttribute("aria-selected", "false");
+
+        formSignUp.style.display = "flex";
+        formSignIn.style.display = "none";
+        formForgot.style.display = "none";
+
+        cardTitle.textContent = "Create Free Account";
+        cardSubtitle.textContent = "Find, buy, rent, or list verified properties across Nigeria.";
+
+        const nameEl = document.getElementById("signupFullName");
+        if (nameEl) nameEl.focus();
       }
 
       function showForgotView() {
         clearAlert();
-        loginForm.style.display = "none";
-        forgotForm.style.display = "block";
-        if (titleEl) titleEl.textContent = "Reset Your Password";
-        if (subtitleEl) subtitleEl.textContent = "Recover your NaijaHomes account credentials";
-        if (forgotStep1) forgotStep1.style.display = "block";
-        if (forgotStep2) forgotStep2.style.display = "none";
-        if (forgotIdInput) forgotIdInput.focus();
+        if (tabsContainer) tabsContainer.style.display = "none";
+        formSignIn.style.display = "none";
+        formSignUp.style.display = "none";
+        formForgot.style.display = "flex";
+
+        cardTitle.textContent = "Reset Your Password";
+        cardSubtitle.textContent = "Enter your registered email, phone number, or username.";
+
+        const fStep1 = document.getElementById("forgotStep1");
+        const fStep2 = document.getElementById("forgotStep2");
+        if (fStep1) fStep1.style.display = "block";
+        if (fStep2) fStep2.style.display = "none";
+
+        const fInput = document.getElementById("forgotIdentifier");
+        const lInput = document.getElementById("loginIdentifier");
+        if (fInput) {
+          if (lInput && lInput.value) fInput.value = lInput.value;
+          fInput.focus();
+        }
       }
 
-      function showLoginView() {
-        clearAlert();
-        forgotForm.style.display = "none";
-        loginForm.style.display = "block";
-        if (titleEl) titleEl.textContent = "Sign in to your Account";
-        if (subtitleEl) subtitleEl.textContent = "Access your verified Nigerian properties, inspection appointments, and advisor chats.";
+      if (tabSignIn) tabSignIn.addEventListener("click", showSignInTab);
+      if (tabSignUp) tabSignUp.addEventListener("click", showSignUpTab);
+      if (linkSwitchToSignup) linkSwitchToSignup.addEventListener("click", showSignUpTab);
+      if (linkSwitchToLogin) linkSwitchToLogin.addEventListener("click", showSignInTab);
+      if (linkForgotPassword) linkForgotPassword.addEventListener("click", showForgotView);
+      if (linkBackToLogin) linkBackToLogin.addEventListener("click", showSignInTab);
+
+      // Account type change -> toggle Agent section
+      const selectAccountType = document.getElementById("signupAccountType");
+      const agentSection = document.getElementById("signupAgentSection");
+      if (selectAccountType && agentSection) {
+        selectAccountType.addEventListener("change", () => {
+          const val = selectAccountType.value;
+          agentSection.style.display = (val === "Agent" || val === "Property Owner") ? "block" : "none";
+        });
       }
 
-      if (linkForgot) linkForgot.addEventListener("click", showForgotView);
-      if (linkBack) linkBack.addEventListener("click", showLoginView);
+      // Profile photo upload preview
+      let signupPhotoDataUrl = "";
+      const photoFileInput = document.getElementById("signupPhotoFile");
+      const photoPreview = document.getElementById("signupPhotoPreview");
+      const btnRemovePhoto = document.getElementById("btnRemoveSignupPhoto");
+      const defaultAvatarSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23e2e8f0'/><circle cx='50' cy='40' r='18' fill='%2394a3b8'/><path d='M22 84 C26 62 40 60 50 60 C60 60 74 62 78 84 Z' fill='%2394a3b8'/></svg>";
 
-      if (btnOpenSignup) {
-        btnOpenSignup.addEventListener("click", () => {
-          if (typeof openAuthModal === "function") {
-            openAuthModal("signup");
+      if (photoFileInput && photoPreview) {
+        photoFileInput.addEventListener("change", (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+              showAlert("Photo size is too large (maximum 2MB). Please select a smaller photo.");
+              photoFileInput.value = "";
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+              signupPhotoDataUrl = evt.target.result;
+              photoPreview.src = signupPhotoDataUrl;
+              if (btnRemovePhoto) btnRemovePhoto.style.display = "inline-block";
+            };
+            reader.readAsDataURL(file);
           }
         });
       }
 
-      // 1. Submit Sign In Form
-      if (loginForm) {
-        loginForm.addEventListener("submit", async (e) => {
+      if (btnRemovePhoto && photoPreview && photoFileInput) {
+        btnRemovePhoto.addEventListener("click", () => {
+          signupPhotoDataUrl = "";
+          photoFileInput.value = "";
+          photoPreview.src = defaultAvatarSvg;
+          btnRemovePhoto.style.display = "none";
+        });
+      }
+
+      // Terms & Conditions trigger
+      const linkTerms = document.getElementById("linkViewTerms");
+      const linkPrivacy = document.getElementById("linkViewPrivacy");
+      if (linkTerms) linkTerms.addEventListener("click", (e) => { e.preventDefault(); if (typeof openTermsModal === "function") openTermsModal(); });
+      if (linkPrivacy) linkPrivacy.addEventListener("click", (e) => { e.preventDefault(); if (typeof openTermsModal === "function") openTermsModal(); });
+
+      // Auto-fill Remembered Details
+      try {
+        const savedId = localStorage.getItem("naijahomes_remembered_identifier") || "";
+        const savedPass = localStorage.getItem("naijahomes_remembered_password") || "";
+        const savedRem = localStorage.getItem("naijahomes_remember_me") !== "false";
+        const loginIdEl = document.getElementById("loginIdentifier");
+        const loginPassEl = document.getElementById("loginPassword");
+        const loginRemEl = document.getElementById("pageLoginRememberMe") || document.getElementById("loginRememberMe");
+        if (loginIdEl && savedId) loginIdEl.value = savedId;
+        if (loginPassEl && savedPass) loginPassEl.value = savedPass;
+        if (loginRemEl) loginRemEl.checked = savedRem;
+      } catch (e) {}
+
+      // URL parameters: ?tab=signup or ?action=forgot
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("tab") === "signup") {
+        showSignUpTab();
+      } else if (urlParams.get("action") === "forgot") {
+        showForgotView();
+      }
+
+      // ==========================================
+      // SUBMIT 1: SIGN IN
+      // ==========================================
+      if (formSignIn) {
+        formSignIn.addEventListener("submit", async (e) => {
           e.preventDefault();
           clearAlert();
-          const submitBtn = document.getElementById("pageBtnLoginSubmit");
-          const origText = submitBtn.textContent;
+
+          const submitBtn = document.getElementById("btnLoginSubmit");
+          const origText = submitBtn.innerHTML;
           submitBtn.disabled = true;
-          submitBtn.textContent = "Signing In...";
+          submitBtn.innerHTML = "<span>Signing In...</span>";
 
           try {
-            const idVal = document.getElementById("pageLoginIdentifier").value.trim();
-            const passVal = document.getElementById("pageLoginPassword").value;
-            const remBox = document.getElementById("pageLoginRememberMe");
-            const shouldRem = remBox ? remBox.checked : true;
+            const identifier = document.getElementById("loginIdentifier").value.trim();
+            const idVal = identifier;
+            const pass = document.getElementById("loginPassword").value;
+            const remBox = document.getElementById("pageLoginRememberMe") || document.getElementById("loginRememberMe");
+            const shouldRemember = remBox ? remBox.checked : true;
 
-            const res = await loginUser(idVal, passVal);
+            const res = await loginUser(identifier, pass);
             if (res.success) {
-              try {
-                if (shouldRem) {
+              if (shouldRemember) {
+                try {
                   localStorage.setItem("naijahomes_remembered_identifier", idVal);
-                  localStorage.setItem("naijahomes_remembered_password", passVal);
+                  localStorage.setItem("naijahomes_remembered_password", pass);
                   localStorage.setItem("naijahomes_remember_me", "true");
-                } else {
+                } catch (err) {}
+              } else {
+                try {
                   localStorage.removeItem("naijahomes_remembered_identifier");
                   localStorage.removeItem("naijahomes_remembered_password");
                   localStorage.setItem("naijahomes_remember_me", "false");
-                }
-              } catch (e) {}
+                } catch (err) {}
+              }
+
               if (typeof showNaijaToast === "function") {
                 showNaijaToast("Welcome back, " + res.user.name + "!", "👋");
               }
+
               setTimeout(() => {
-                window.location.href = pagePrefix + "profile.html";
+                window.location.href = pageIndexUrl;
               }, 400);
             } else {
               showAlert(res.message || "Invalid credentials.");
             }
           } catch (err) {
-            showAlert(err.message || "An error occurred during sign in.");
+            showAlert(err.message || "An unexpected error occurred during sign in.");
           } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = origText;
+            submitBtn.innerHTML = origText;
           }
         });
       }
+
+      // ==========================================
+      // SUBMIT 2: CREATE ACCOUNT
+      // ==========================================
+      if (formSignUp) {
+        formSignUp.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          clearAlert();
+
+          const agreeBox = document.getElementById("signupAgreeTerms");
+          if (agreeBox && !agreeBox.checked) {
+            showAlert("You must agree to the Terms & Conditions and Privacy Policy to create an account.");
+            return;
+          }
+
+          const submitBtn = document.getElementById("btnSignupSubmit");
+          const origText = submitBtn.innerHTML;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = "<span>Creating Account...</span>";
+
+          try {
+            const signupData = {
+              name: document.getElementById("signupFullName").value.trim(),
+              username: document.getElementById("signupUsername").value.trim(),
+              email: document.getElementById("signupEmail").value.trim(),
+              phone: document.getElementById("signupPhone").value.trim(),
+              accountType: document.getElementById("signupAccountType").value,
+              city: document.getElementById("signupCity").value.trim(),
+              state: document.getElementById("signupState").value,
+              password: document.getElementById("signupPassword").value,
+              confirmPassword: document.getElementById("signupConfirmPassword").value,
+              photo: signupPhotoDataUrl,
+              agencyName: document.getElementById("signupAgencyName") ? document.getElementById("signupAgencyName").value.trim() : "",
+              yearsExperience: document.getElementById("signupExperience") ? document.getElementById("signupExperience").value.trim() : "",
+              whatsappNumber: document.getElementById("signupWhatsapp") ? document.getElementById("signupWhatsapp").value.trim() : "",
+              bio: document.getElementById("signupBio") ? document.getElementById("signupBio").value.trim() : "",
+              agreeTerms: agreeBox ? agreeBox.checked : true
+            };
+
+            const res = await registerUser(signupData);
+            if (res.success) {
+              const regId = signupData.email || signupData.username || signupData.phone;
+              try {
+                localStorage.setItem("naijahomes_remembered_identifier", regId);
+                if (signupData.password) {
+                  localStorage.setItem("naijahomes_remembered_password", signupData.password);
+                }
+                localStorage.setItem("naijahomes_remember_me", "true");
+              } catch (err) {}
+
+              if (typeof showNaijaToast === "function") {
+                showNaijaToast("Welcome to NaijaHomes, " + res.user.name + "!", "🎉");
+              }
+
+              setTimeout(() => {
+                window.location.href = pageIndexUrl;
+              }, 500);
+            } else {
+              showAlert(res.message || "Registration failed. Please check the details provided.");
+            }
+          } catch (err) {
+            showAlert(err.message || "An error occurred during account creation.");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = origText;
+          }
+        });
+      }
+
+      // ==========================================
+      // SUBMIT 3: FORGOT PASSWORD
+      // ==========================================
+      const btnForgotVerify = document.getElementById("btnForgotVerify");
+      const btnVerifyAccount = btnForgotVerify;
+      const forgotIdInput = document.getElementById("forgotIdentifier");
+      const forgotStep1 = document.getElementById("forgotStep1");
+      const forgotStep2 = document.getElementById("forgotStep2");
+      const forgotFoundName = document.getElementById("forgotFoundName");
 
       if (forgotIdInput) {
         forgotIdInput.addEventListener("keydown", (e) => {
@@ -428,14 +910,13 @@
         });
       }
 
-      // 2. Verify Account for Password Reset
-      if (btnVerifyAccount) {
-        btnVerifyAccount.addEventListener("click", () => {
+      if (btnForgotVerify) {
+        btnForgotVerify.addEventListener("click", () => {
           clearAlert();
           const idVal = forgotIdInput ? forgotIdInput.value.trim().toLowerCase() : "";
           if (!idVal) {
             showAlert("Please enter your registered email address, phone number, or username.");
-            forgotIdInput.focus();
+            if (forgotIdInput) forgotIdInput.focus();
             return;
           }
 
@@ -449,13 +930,13 @@
 
           if (!matched) {
             if (typeof window.NaijaHomesSupabase !== "undefined" && window.NaijaHomesSupabase.isConfigured() && idVal.includes("@")) {
-              btnVerifyAccount.disabled = true;
-              btnVerifyAccount.textContent = "Sending Reset Link...";
+              btnForgotVerify.disabled = true;
+              btnForgotVerify.textContent = "Sending Reset Link...";
               window.NaijaHomesSupabase.resetPassword(idVal).then(res => {
-                btnVerifyAccount.disabled = false;
-                btnVerifyAccount.textContent = "Find Account →";
+                btnForgotVerify.disabled = false;
+                btnForgotVerify.textContent = "Find Account →";
                 if (res.success) {
-                  showAlert("Password reset link sent to " + idVal + "! Check your inbox.", true);
+                  showAlert("Password reset email sent to " + idVal + "! Check your inbox.", true);
                 } else {
                   showAlert(res.message || "No account found with this email. Please check spelling or sign up.", false);
                 }
@@ -471,26 +952,24 @@
           }
           if (forgotStep1) forgotStep1.style.display = "none";
           if (forgotStep2) forgotStep2.style.display = "block";
-          const newPass = document.getElementById("pageForgotNewPassword");
+          const newPass = document.getElementById("forgotNewPassword");
           if (newPass) newPass.focus();
         });
       }
 
-      // 3. Submit New Password
-      if (forgotForm) {
-        forgotForm.addEventListener("submit", (e) => {
+      if (formForgot) {
+        formForgot.addEventListener("submit", (e) => {
           e.preventDefault();
           clearAlert();
 
-          // If on step 1 and Enter was pressed, trigger verify button
           if (forgotStep1 && forgotStep1.style.display !== "none") {
             if (btnVerifyAccount) btnVerifyAccount.click();
             return;
           }
 
           const idVal = forgotIdInput ? forgotIdInput.value.trim() : "";
-          const newPass = document.getElementById("pageForgotNewPassword").value;
-          const confirmPass = document.getElementById("pageForgotConfirmPassword").value;
+          const newPass = document.getElementById("forgotNewPassword").value;
+          const confirmPass = document.getElementById("forgotConfirmPassword").value;
 
           if (!newPass || newPass.length < 6) {
             showAlert("New password must be at least 6 characters long.");
@@ -506,10 +985,10 @@
             if (typeof showNaijaToast === "function") {
               showNaijaToast("Password updated successfully! Welcome back!", "🎉");
             }
-            showAlert("Password reset successfully! Redirecting to profile...", true);
+            showAlert("Password reset successfully! Redirecting...", true);
             setTimeout(() => {
-              window.location.href = pagePrefix + "profile.html";
-            }, 800);
+              window.location.href = pageIndexUrl;
+            }, 600);
           } else {
             showAlert(res.message);
           }
