@@ -1459,3 +1459,40 @@ textarea,
     font-size: 0.76rem !important;
   }
 }
+
+/* ==========================================================================
+   3D SCROLL MOBILE OPTIMIZATIONS
+   ========================================================================== */
+@media (max-width: 768px) {
+  .nh-scroll-3d-reveal {
+    transform: perspective(600px) translateY(18px) translateZ(-10px);
+    transition: transform 0.45s ease, opacity 0.45s ease;
+  }
+
+  .nh-scroll-3d-reveal.nh-3d-in-view {
+    transform: perspective(600px) translateY(0) translateZ(0);
+  }
+
+  .hh-prop-card,
+  .nh-property-card {
+    transform-style: flat !important;
+  }
+
+  .nh-3d-orb {
+    filter: blur(35px);
+    opacity: 0.09;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nh-scroll-3d-reveal,
+  .nh-scroll-3d-reveal.nh-3d-in-view,
+  .hh-prop-card,
+  .nh-property-card,
+  .nh-3d-floating-house {
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+  }
+}

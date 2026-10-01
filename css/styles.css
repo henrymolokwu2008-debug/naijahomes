@@ -16458,3 +16458,129 @@ button {
   transform: translateZ(8px);
   box-shadow: 0 4px 0 #005a36, 0 6px 14px rgba(0, 135, 81, 0.35) !important;
 }
+
+/* ==========================================================================
+   NAIJAHOMES 3D SCROLL ANIMATION & VELOCITY INERTIA STYLES
+   ========================================================================== */
+
+:root {
+  --scroll-pitch: 0deg;
+  --scroll-velocity: 0px;
+  --scroll-y: 0px;
+}
+
+/* 3D Perspective Scroll Reveal Transition */
+.nh-scroll-3d-reveal {
+  transform: perspective(1000px) rotateX(8deg) translateY(28px) translateZ(-25px);
+  opacity: 0;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+.nh-scroll-3d-reveal.nh-3d-in-view {
+  transform: perspective(1000px) rotateX(var(--scroll-pitch, 0deg)) translateY(0) translateZ(0);
+  opacity: 1;
+}
+
+/* Property Cards 3D Interactive Tilt & Specular Glare */
+.hh-prop-card,
+.nh-property-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.hh-prop-card:hover,
+.nh-property-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.22), 0 0 25px rgba(0, 135, 81, 0.18) !important;
+}
+
+.nh-card-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle 260px at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.18) 0%, transparent 75%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 10;
+}
+
+.hh-prop-card:hover .nh-card-glare,
+.nh-property-card:hover .nh-card-glare {
+  opacity: 1;
+}
+
+.hh-prop-card:hover .hh-badge,
+.nh-property-card:hover .hh-badge {
+  transform: translateZ(22px);
+  transition: transform 0.2s ease;
+}
+
+.hh-prop-card:hover .hh-price,
+.nh-property-card:hover .hh-price {
+  transform: translateZ(18px);
+  transition: transform 0.2s ease;
+}
+
+/* Ambient 3D Stage */
+.nh-ambient-3d-stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.nh-3d-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.nh-3d-orb-1 {
+  width: 440px;
+  height: 440px;
+  background: #008751;
+  top: 15%;
+  right: -100px;
+  animation: orbFloat1 20s ease-in-out infinite alternate;
+}
+
+.nh-3d-orb-2 {
+  width: 380px;
+  height: 380px;
+  background: #10b981;
+  top: 65%;
+  left: -120px;
+  animation: orbFloat2 24s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat1 {
+  0% { transform: translate3d(0, 0, -100px) scale(1); }
+  100% { transform: translate3d(-60px, 80px, -60px) scale(1.15); }
+}
+
+@keyframes orbFloat2 {
+  0% { transform: translate3d(0, 0, -120px) scale(1.1); }
+  100% { transform: translate3d(80px, -60px, -80px) scale(0.95); }
+}
+
+/* 3D Scroll Progress Line at top of viewport */
+.nh-3d-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #008751 0%, #10b981 50%, #34d399 100%);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+  z-index: 10001;
+  transform-origin: left center;
+  pointer-events: none;
+}
