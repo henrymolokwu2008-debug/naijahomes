@@ -1766,11 +1766,29 @@ function initNaijaHomesEngine() {
       const name = document.getElementById("inspName").value;
       const phone = document.getElementById("inspPhone").value;
       const date = document.getElementById("inspDate").value;
+      const propTitle = document.getElementById("inspPropertyTitle") ? document.getElementById("inspPropertyTitle").textContent : "Selected Nigerian Property";
+
+      try {
+        const inspections = JSON.parse(localStorage.getItem("naijahomes_inspections") || "[]");
+        inspections.unshift({
+          id: `insp-${Date.now()}`,
+          name,
+          phone,
+          date,
+          property: propTitle,
+          status: "Confirmed",
+          coordinator: "Engr. Babatunde Alabi (Lead Inspection Coordinator)",
+          createdAt: new Date().toISOString()
+        });
+        localStorage.setItem("naijahomes_inspections", JSON.stringify(inspections));
+      } catch (err) {
+        console.warn("Storage error for inspection:", err);
+      }
 
       inspModal.style.display = "none";
       inspForm.reset();
 
-      showNaijaToast(`Inspection booking submitted for ${name} on ${date}.`, "📅");
+      showNaijaToast(`Free inspection confirmed for ${name} on ${date}! Coordinator assigned.`, "📅");
     });
   }
 
@@ -1798,6 +1816,156 @@ function initNaijaHomesEngine() {
     window.open(`https://wa.me/${cleanPhone}?text=${msg}`, "_blank");
   }
   window.chatWhatsApp = chatWhatsApp;
+
+  // 8. Authentic Nigerian Land & Property Title Verification Guide Engine
+  const TITLE_GUIDES = {
+    "consent": {
+      title: "Governor's Consent Verification Guide",
+      docName: "Governor's Consent",
+      badge: "SECTION 22, NIGERIAN LAND USE ACT 1978",
+      legalSummary: "Under Section 22 of the Land Use Act of 1978, whenever a property with an existing Certificate of Occupancy or recognized root title is assigned, sold, or transferred to a new buyer, the formal consent of the State Governor is legally mandatory to validate the transaction.",
+      whyItMatters: "Without Governor's Consent, the transfer remains inchoate in law. A verified Governor's Consent confers indisputable legal title, allows clean registration at the Lands Registry, and makes the property 100% eligible for commercial bank mortgages and institutional financing.",
+      checklist: [
+        "Deed of Assignment Review: Confirms the assignor has valid root title and legal capacity to convey.",
+        "Charting at Lagos Lands Bureau (Alausa): GPS beacons are charted to confirm the parcel is outside committed government acquisition.",
+        "Directorate of Land Services Assessment: Official stamp duties and capital gains taxes assessed and paid into state treasury.",
+        "Official Registry Endorsement: Endorsement stamp, volume number, and page archived in the state land records."
+      ],
+      filterQuery: "Governor's Consent"
+    },
+    "c-of-o": {
+      title: "Certificate of Occupancy (C of O) Guide",
+      docName: "Certificate of Occupancy",
+      badge: "PRIMARY 99-YEAR STATUTORY TITLE",
+      legalSummary: "A Certificate of Occupancy (C of O) is the primary root title issued directly by a State Governor (or the Minister of the FCT in Abuja), granting statutory right of occupancy for a 99-year term to the named individual, family, or corporation.",
+      whyItMatters: "A C of O is one of the highest and cleanest land documents in Nigeria. It supersedes traditional customary claims, preventing disputes with original landowners ('Omo-Onile').",
+      checklist: [
+        "Docket Registry Search: Pulling the physical and electronic land docket at Alausa (Lagos) or AGIS (Abuja).",
+        "Survey Beacon Validation: Matching beacon coordinates on the survey against the master cadastral grid to prevent overlapping allocations.",
+        "Gazette Publication Cross-Check: Confirming that the original acquisition and excision were legally gazetted.",
+        "Non-Revocation Certification: Verifying that the C of O has never been revoked for public overriding interest or non-compliance."
+      ],
+      filterQuery: "C of O"
+    },
+    "charting": {
+      title: "Lagos Lands Bureau (Alausa) Charting Guide",
+      docName: "Land Charting & Cadastral Verification",
+      badge: "SURVEYOR GENERAL'S OFFICE • GEOSPATIAL VALIDATION",
+      legalSummary: "Land Charting is the technical verification process where a registered surveyor's GPS coordinates are plotted onto the official Lagos State Cadastral Composite Map at the Surveyor General's Office in Alausa, Ikeja.",
+      whyItMatters: "Charting determines whether land is 'Free' or 'Committed Acquisition' (earmarked for expressways, drainage canals, high-tension right-of-way, or agricultural reserves). Buying unchartered land carries high risk of government demolition.",
+      checklist: [
+        "High-Precision GNSS Coordinates: Capturing 4-point GPS beacon coordinates on-site with certified surveying instruments.",
+        "Alausa LIS Database Plotting: Plotting coordinates into the Lagos Information System database.",
+        "Information Certificate: Issuance of an official charting report confirming excision, scheme approval, or free status.",
+        "Red Line Buffer Checks: Confirming required setbacks from coastal routes, water bodies, and state infrastructure corridors."
+      ],
+      filterQuery: "all"
+    },
+    "agis": {
+      title: "AGIS Abuja (FCDA) Cadastral Verification Guide",
+      docName: "AGIS Abuja Search",
+      badge: "FEDERAL CAPITAL TERRITORY CADASTRAL ARCHIVE",
+      legalSummary: "Abuja Geographic Information Systems (AGIS) is the centralized computerized repository for all spatial, legal, and title records pertaining to real estate in the Federal Capital Territory (Abuja FCT).",
+      whyItMatters: "In Abuja, transactions without an AGIS legal search expose buyers to counterfeit allocation letters or irregular area council papers. A certified AGIS search guarantees the FCDA file is authentic, active, and free from litigation.",
+      checklist: [
+        "Formal Legal Search: Submitting an attorney-backed search application at AGIS Peace House, Cadastral Zone, Abuja.",
+        "File & Allocation Audit: Inspecting the original allocation file, Right of Occupancy (R of O), and ministerial consent.",
+        "Statutory Dues Verification: Confirming all ground rents, development levies, and AGIS processing charges are fully up to date.",
+        "Encumbrance Status: Ensuring no registered mortgages, lis pendens (court lawsuits), or caveats exist on the plot."
+      ],
+      filterQuery: "C of O"
+    },
+    "gazette": {
+      title: "Excision & Official Gazette Verification Guide",
+      docName: "Excision & Official Gazette",
+      badge: "COMMUNITY LAND EXCISION • 100% FREE FROM OMO-ONILE HASSLES",
+      legalSummary: "An Excision is an official government proclamation releasing a portion of customary land back to an indigenous host community. When approved by the state executive council, it is legally published in the State Government Official Gazette.",
+      whyItMatters: "Gazetted land is 100% legal, documented by the state government, and permanently immune from family ownership disputes ('Omo-Onile'). Buyers of gazetted land can safely proceed to obtain Governor's Consent directly.",
+      checklist: [
+        "Gazette Publication Audit: Verifying the specific Gazette Volume, Number, and Page in the government archives.",
+        "Perimeter Survey Reconciliation: Confirming the exact plot boundary falls squarely inside the excised coordinates.",
+        "Accredited Family Signatures: Verifying the executing community leaders (Baale, accredited elders) have registered power of attorney.",
+        "Physical Beacon Allocation: Ensuring immediate physical allocation with numbered, registered survey beacons."
+      ],
+      filterQuery: "Gazette"
+    }
+  };
+
+  function openTitleGuide(guideKey) {
+    const key = guideKey || "consent";
+    const data = TITLE_GUIDES[key] || TITLE_GUIDES["consent"];
+
+    let modal = document.getElementById("nhTitleGuideModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "nhTitleGuideModal";
+      modal.className = "nh-modal-overlay";
+      modal.style.cssText = "display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); z-index: 99999; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(4px);";
+      document.body.appendChild(modal);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.style.display = "none";
+      });
+    }
+
+    const isSub = window.location.pathname.includes("/pages/");
+    const expUrl = isSub ? "explore.html" : "explore.html";
+
+    modal.innerHTML = `
+      <div class="nh-modal-card" style="max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; background: #ffffff; border-radius: 24px; padding: 32px 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.25); position: relative; border: 1px solid #e2e8f0;">
+        <button type="button" class="nh-modal-close" style="position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #475569;" onclick="document.getElementById('nhTitleGuideModal').style.display='none';">&times;</button>
+        
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <span style="font-size: 1.4rem;">📜</span>
+          <span style="background: #ecfdf5; color: #008751; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.05em;">${data.badge}</span>
+        </div>
+
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0 0 16px;">${data.title}</h2>
+
+        <!-- Interactive Tabs -->
+        <div style="display: flex; gap: 6px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0;">
+          <button type="button" onclick="openTitleGuide('consent')" style="padding: 6px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer; ${key === 'consent' ? 'background: #008751; color: #ffffff;' : 'background: #f1f5f9; color: #475569;'}">Governor's Consent</button>
+          <button type="button" onclick="openTitleGuide('c-of-o')" style="padding: 6px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer; ${key === 'c-of-o' ? 'background: #008751; color: #ffffff;' : 'background: #f1f5f9; color: #475569;'}">C of O</button>
+          <button type="button" onclick="openTitleGuide('charting')" style="padding: 6px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer; ${key === 'charting' ? 'background: #008751; color: #ffffff;' : 'background: #f1f5f9; color: #475569;'}">Alausa Charting</button>
+          <button type="button" onclick="openTitleGuide('agis')" style="padding: 6px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer; ${key === 'agis' ? 'background: #008751; color: #ffffff;' : 'background: #f1f5f9; color: #475569;'}">AGIS Abuja</button>
+          <button type="button" onclick="openTitleGuide('gazette')" style="padding: 6px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer; ${key === 'gazette' ? 'background: #008751; color: #ffffff;' : 'background: #f1f5f9; color: #475569;'}">Excision & Gazette</button>
+        </div>
+
+        <!-- Guide Body -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-size: 0.9rem; font-weight: 800; color: #008751; text-transform: uppercase; margin: 0 0 6px;">Legal Framework & Background</h4>
+          <p style="font-size: 0.9rem; color: #334155; line-height: 1.6; margin: 0 0 14px;">${data.legalSummary}</p>
+
+          <h4 style="font-size: 0.9rem; font-weight: 800; color: #008751; text-transform: uppercase; margin: 0 0 6px;">Why This Title Matters to Buyers & Diaspora</h4>
+          <p style="font-size: 0.9rem; color: #334155; line-height: 1.6; margin: 0 0 18px;">${data.whyItMatters}</p>
+
+          <h4 style="font-size: 0.9rem; font-weight: 800; color: #0f172a; margin: 0 0 10px;">NaijaHomes 4-Step Verification Checklist:</h4>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px 18px; margin-bottom: 24px;">
+            ${data.checklist.map(item => `
+              <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 0.85rem; color: #475569; line-height: 1.5;">
+                <span style="color: #008751; font-weight: 800; flex-shrink: 0;">✓</span>
+                <span>${item}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="${expUrl}?titleDoc=${encodeURIComponent(data.filterQuery)}" style="flex: 1; text-align: center; background: #008751; color: #ffffff; padding: 12px 20px; border-radius: 12px; font-weight: 800; text-decoration: none; font-size: 0.88rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>Browse ${data.docName} Listings</span> &rarr;
+            </a>
+            <button type="button" onclick="chatWhatsApp('2348032458891', 'Legal Verification Inquiry regarding ' + '${data.docName}')" style="background: #25d366; color: #ffffff; border: none; padding: 12px 18px; border-radius: 12px; font-weight: 800; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+              <span>💬 Free Legal Consultation</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    modal.style.display = "flex";
+  }
+  window.openTitleGuide = openTitleGuide;
+
 
   // 7. Interactive Corridor Map Logic
   const mapMarkers = document.querySelectorAll(".hh-map-pin");

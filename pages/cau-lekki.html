@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Residential Development, Lekki Phase 1 | CAU Properties Limited</title>
+  <meta name="description" content="A thoughtfully designed 5-floor residential development by CAU Properties Limited at No. 10 Ayo Jagun Street, Lekki Phase 1, Lagos. 27 parking spaces, swimming pool, private gym, and contemporary architecture.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+  <style>
+    :root {
+      --cau-gold: #c5a059;
+      --cau-gold-light: #e6ca85;
+      --cau-dark: #0a0f0d;
+      --cau-dark-card: #121815;
+      --cau-accent: #008751;
+      --cau-border: rgba(197, 160, 89, 0.25);
+    }
+
+    body.cau-project-body {
+      background: #090e0c;
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* Top Developer Bar */
+    .cau-top-strip {
+      background: #060a08;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 24px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cau-top-strip a {
+      color: var(--cau-gold-light);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .cau-top-strip a:hover {
+      color: #ffffff;
+    }
+
+    /* Hero Section */
+    .cau-hero-section {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 24px 80px;
+      box-sizing: border-box;
+      background: #0a0f0d;
+      overflow: hidden;
+    }
+
+    .cau-hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .cau-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.85);
+      transform: scale(1.02);
+      transition: transform 12s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cau-hero-section:hover .cau-hero-bg img {
+      transform: scale(1.06);
+    }
+
+    .cau-hero-gradient {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(
+        180deg,
+        rgba(9, 14, 12, 0.4) 0%,
+        rgba(9, 14, 12, 0.6) 40%,
+        rgba(9, 14, 12, 0.96) 95%,
+        #090e0c 100%
+      );
+    }
+
+    .cau-hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 1180px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .cau-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(197, 160, 89, 0.15);
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      color: #fce7b0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .cau-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+      margin: 0 0 20px;
+      max-width: 900px;
+      letter-spacing: -0.5px;
+    }
+
+    .cau-hero-subtitle {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      max-width: 820px;
+      line-height: 1.6;
+      margin: 0 0 36px;
+      font-weight: 400;
+    }
+
+    .cau-cta-group {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .cau-btn-primary {
+      background: linear-gradient(135deg, #c5a059 0%, #a47d33 100%);
+      color: #000000 !important;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(197, 160, 89, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .cau-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(197, 160, 89, 0.5);
+      filter: brightness(1.08);
+    }
+
+    .cau-btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff !important;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 16px 28px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+    }
+
+    .cau-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .cau-btn-outline-gold {
+      background: transparent;
+      color: var(--cau-gold-light) !important;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 16px 28px;
+      border-radius: 12px;
+      border: 1px solid var(--cau-gold);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .cau-btn-outline-gold:hover {
+      background: rgba(197, 160, 89, 0.12);
+      color: #ffffff !important;
+      transform: translateY(-2px);
+    }
+
+    /* Container Shell */
+    .cau-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      box-sizing: border-box;
+    }
+
+    /* Project Highlights Grid */
+    .cau-highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: -40px auto 72px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cau-highlight-card {
+      background: #111815;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 24px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transition: all 0.25s ease;
+    }
+
+    .cau-highlight-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cau-gold);
+      background: #151e1a;
+    }
+
+    .cau-highlight-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(197, 160, 89, 0.12);
+      border: 1px solid rgba(197, 160, 89, 0.25);
+      color: var(--cau-gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .cau-highlight-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 4px;
+    }
+
+    .cau-highlight-card p {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Section Headers */
+    .cau-section-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 48px;
+    }
+
+    .cau-section-eyebrow {
+      color: var(--cau-gold);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .cau-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      margin: 0 0 14px;
+      letter-spacing: -0.5px;
+    }
+
+    .cau-section-desc {
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Architecture Section */
+    .cau-arch-showcase {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      align-items: center;
+      margin-bottom: 84px;
+      background: #111815;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+
+    .cau-arch-photo {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .cau-arch-photo img {
+      width: 100%;
+      height: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .cau-arch-photo:hover img {
+      transform: scale(1.03);
+    }
+
+    .cau-arch-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(9, 14, 12, 0.85);
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      color: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .cau-arch-details h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 16px;
+      line-height: 1.3;
+    }
+
+    .cau-arch-details p {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0 0 24px;
+    }
+
+    .cau-spec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cau-spec-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+    }
+
+    .cau-spec-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 135, 81, 0.2);
+      border: 1px solid #008751;
+      color: #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* Amenities Grid */
+    .cau-amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 84px;
+    }
+
+    .cau-amenity-card {
+      background: #111815;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 32px 28px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cau-amenity-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--cau-gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cau-amenity-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(197, 160, 89, 0.35);
+      background: #141f1a;
+    }
+
+    .cau-amenity-card:hover::before {
+      opacity: 1;
+    }
+
+    .cau-amenity-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .cau-amenity-card h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 10px;
+    }
+
+    .cau-amenity-card p {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Premium Gallery */
+    .cau-gallery-wrapper {
+      margin-bottom: 84px;
+    }
+
+    .cau-gallery-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 20px;
+    }
+
+    .cau-gallery-item {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+      background: #111815;
+    }
+
+    .cau-gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s;
+    }
+
+    .cau-gallery-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1.05);
+    }
+
+    .cau-gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(9, 14, 12, 0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    .cau-gallery-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 4px;
+    }
+
+    .cau-gallery-sub {
+      font-size: 0.82rem;
+      color: var(--cau-gold-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cau-expand-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(9, 14, 12, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      pointer-events: auto;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cau-expand-btn:hover {
+      background: var(--cau-gold);
+      color: #000000;
+      transform: scale(1.1);
+    }
+
+    /* Floor Plans Section */
+    .cau-plans-section {
+      background: #111815;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 48px 36px;
+      margin-bottom: 84px;
+      box-sizing: border-box;
+    }
+
+    .cau-tabs-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      scrollbar-width: thin;
+    }
+
+    .cau-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cau-tab-btn:hover {
+      color: #ffffff;
+      border-color: rgba(197, 160, 89, 0.4);
+    }
+
+    .cau-tab-btn.active {
+      background: var(--cau-gold);
+      color: #000000;
+      border-color: var(--cau-gold);
+      box-shadow: 0 4px 14px rgba(197, 160, 89, 0.3);
+    }
+
+    .cau-drawing-viewer-box {
+      background: #090e0c;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cau-viewer-controls {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .cau-control-btn {
+      background: rgba(17, 24, 21, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+
+    .cau-control-btn:hover {
+      background: var(--cau-gold);
+      color: #000000;
+    }
+
+    /* Disclaimer Box */
+    .cau-disclaimer-box {
+      background: rgba(197, 160, 89, 0.06);
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      border-left: 4px solid var(--cau-gold);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin: 28px 0 0;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .cau-disclaimer-text {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .cau-disclaimer-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--cau-gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+
+    /* Developer Section & Enquiry Form */
+    .cau-developer-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 96px;
+    }
+
+    .cau-developer-card {
+      background: #111815;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cau-enquiry-card {
+      background: #111815;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      border-radius: 28px;
+      padding: 40px;
+      box-sizing: border-box;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .cau-input-group {
+      margin-bottom: 18px;
+    }
+
+    .cau-input-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .cau-input-field {
+      width: 100%;
+      background: #090e0c;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
+    .cau-input-field:focus {
+      outline: none;
+      border-color: var(--cau-gold);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+    }
+
+    /* Sticky Mobile Enquiry Bar */
+    .cau-sticky-mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(9, 14, 12, 0.95);
+      border-top: 1px solid rgba(197, 160, 89, 0.3);
+      padding: 12px 18px;
+      z-index: 9999;
+      backdrop-filter: blur(12px);
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
+    }
+
+    /* Lightbox Modal */
+    .cau-lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 100000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .cau-lightbox-content {
+      max-width: 1200px;
+      max-height: 90vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cau-lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    }
+
+    .cau-lightbox-caption {
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .cau-lightbox-close {
+      position: absolute;
+      top: -48px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    @media (max-width: 899px) {
+      .cau-hero-title { font-size: 2.6rem; }
+      .cau-arch-showcase { grid-template-columns: 1fr; padding: 24px; }
+      .cau-gallery-grid { grid-template-columns: 1fr; }
+      .cau-developer-section { grid-template-columns: 1fr; }
+      .cau-sticky-mobile-bar { display: flex; }
+      body.cau-project-body { padding-bottom: 74px; }
+    }
+
+    @media (max-width: 480px) {
+      .cau-hero-title { font-size: 2.1rem; }
+      .cau-hero-section { min-height: 80vh; padding: 100px 16px 60px; }
+      .cau-plans-section { padding: 28px 16px; }
+      .cau-developer-card, .cau-enquiry-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body class="cau-project-body">
+
+  <!-- 1. Top Developer & Portal Bar -->
+  <div class="cau-top-strip">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="color: var(--cau-gold);">🏛️</span>
+      <span style="font-weight: 700; color: #ffffff;">CAU PROPERTIES LIMITED</span>
+      <span style="opacity: 0.4;">|</span>
+      <span>Corporate Real Estate Developer &bull; Lagos, Nigeria</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <a href="../index.html">&larr; Back to NaijaHomes Portal</a>
+      <a href="tel:+2348032458891">📞 +234 803 245 8891</a>
+    </div>
+  </div>
+
+  <!-- 2. Global Header Banner -->
+  <header class="hh-global-banner" style="background: rgba(9, 14, 12, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <a href="../index.html" class="hh-brand-logo">
+      <div class="hh-logo-icon" style="background: var(--cau-gold); color: #000000; font-weight: 900;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="hh-brand-title" style="font-weight: 800; letter-spacing: -0.5px; color: #ffffff;">NAIJA<span style="color: var(--cau-gold);">HOMES</span></span>
+      </div>
+    </a>
+
+    <!-- Mobile Hamburger Menu Button -->
+    <button type="button" class="hh-hamburger-btn" id="nhMobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+      <span class="hh-hamburger-bar"></span>
+    </button>
+
+    <!-- Clean Navigation Links -->
+    <nav class="hh-main-nav" aria-label="Main Navigation">
+      <a href="../index.html" class="hh-nav-link">Home</a>
+      <a href="../explore.html?purpose=sale" class="hh-nav-link">Buy</a>
+      <a href="../explore.html?purpose=rent" class="hh-nav-link">Rent</a>
+      <a href="../explore.html?purpose=shortlet" class="hh-nav-link">Short Let</a>
+      <a href="../explore.html?purpose=land" class="hh-nav-link">Land</a>
+      <a href="../map.html" class="hh-nav-link">Google Maps</a>
+      <a href="#plans" class="hh-nav-link active" style="color: var(--cau-gold-light);">Architectural Plans</a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hh-nav-actions" style="gap: 12px;">
+      <a href="#enquiry" class="cau-btn-primary" style="padding: 10px 20px; font-size: 0.82rem;">
+        Register Interest &rarr;
+      </a>
+      <div class="nh-auth-container" id="nhAuthContainer"></div>
+    </div>
+  </header>
+
+  <!-- 3. HERO SECTION -->
+  <section class="cau-hero-section">
+    <div class="cau-hero-bg">
+      <img src="../images/cau-development/front-exterior-render.jpg" alt="CAU Properties Limited - Proposed Residential Development at No. 10 Ayo Jagun Street, Lekki Phase 1, Lagos">
+    </div>
+    <div class="cau-hero-gradient"></div>
+
+    <div class="cau-hero-content">
+      <div class="cau-badge-pill">
+        <span>🇳🇬</span>
+        <span>Proposed Residential Development &bull; No. 10 Ayo Jagun Street, Lekki Phase 1</span>
+      </div>
+
+      <h1 class="cau-hero-title">
+        A New Standard of Modern Living in Lekki Phase 1
+      </h1>
+
+      <p class="cau-hero-subtitle">
+        A thoughtfully designed residential development by CAU Properties Limited, combining contemporary architecture, generous outdoor spaces and lifestyle-focused amenities in one of Lagos’ most sought-after neighbourhoods.
+      </p>
+
+      <div class="cau-cta-group">
+        <a href="#enquiry" class="cau-btn-primary">
+          <span>ENQUIRE NOW</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#architecture" class="cau-btn-secondary">
+          <span>VIEW DEVELOPMENT</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+        </a>
+        <a href="#developer" class="cau-btn-outline-gold">
+          <span>CONTACT CAU PROPERTIES</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PROJECT HIGHLIGHTS (All 8 Key Developer Highlights) -->
+  <main class="cau-container">
+    <section class="cau-highlights-grid" aria-label="Key Project Highlights">
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">📍</div>
+        <div>
+          <h3>Lekki Phase 1</h3>
+          <p>No. 10 Ayo Jagun Street, Eti-Osa LGA, Lagos State</p>
+        </div>
+      </div>
+
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">🏢</div>
+        <div>
+          <h3>5 Floors</h3>
+          <p>Modern multi-level contemporary residential tower</p>
+        </div>
+      </div>
+
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">🚗</div>
+        <div>
+          <h3>27 Parking Spaces</h3>
+          <p>Approved secure on-site parking allocation</p>
+        </div>
+      </div>
+
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">🏊</div>
+        <div>
+          <h3>Swimming Pool</h3>
+          <p>Dedicated private lap pool &amp; resort-grade deck</p>
+        </div>
+      </div>
+
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">🏋️</div>
+        <div>
+          <h3>Private Gym</h3>
+          <p>Dedicated glazed fitness pavilion within the development</p>
+        </div>
+      </div>
+
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">🌅</div>
+        <div>
+          <h3>Balconies &amp; Terraces</h3>
+          <p>Projecting private outdoor spaces &amp; panoramic sky terraces</p>
+        </div>
+      </div>
+
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">🌳</div>
+        <div>
+          <h3>Landscaped Outdoor Areas</h3>
+          <p>85.87% unbuilt area reserving substantial green space (~885.399 m² site)</p>
+        </div>
+      </div>
+
+      <div class="cau-highlight-card">
+        <div class="cau-highlight-icon">🏛️</div>
+        <div>
+          <h3>Contemporary Architecture</h3>
+          <p>Large glazed openings, bronze screening &amp; modern proportions</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ARCHITECTURE SECTION -->
+    <section id="architecture" style="margin-bottom: 84px;">
+      <div class="cau-section-header">
+        <span class="cau-section-eyebrow">Design Excellence &bull; CAU Properties Limited</span>
+        <h2 class="cau-section-title">Contemporary Architecture, Designed for Modern Living</h2>
+        <p class="cau-section-desc">
+          An architectural statement on Ayo Jagun Street. Rather than a dense conventional block, the proposed development balances clean contemporary geometry and expansive glass facades with an extraordinary 85.87% unbuilt landscaped domain.
+        </p>
+      </div>
+
+      <div class="cau-arch-showcase">
+        <div class="cau-arch-photo">
+          <img src="../images/cau-development/front-exterior-render.jpg" alt="Front Exterior View - CAU Properties Lekki Phase 1 Development">
+          <div class="cau-arch-tag">Front Exterior Architectural Render</div>
+        </div>
+
+        <div class="cau-arch-details">
+          <span style="color: var(--cau-gold); font-size: 0.8rem; font-weight: 800; text-transform: uppercase;">Elevated Aesthetics &bull; Ayo Jagun Street</span>
+          <h3>Sculpted Facades &amp; Expansive Glass Fenestration</h3>
+          <p>
+            Conceived as an exclusive upcoming residential project in Lekki Phase 1, CAU Properties Limited introduces an uncompromising vision to No. 10 Ayo Jagun Street. The architectural composition combines deep bronze solar louvers with floor-to-ceiling insulated glass systems, ensuring abundant natural daylight while shielding interiors from tropical solar gain.
+          </p>
+          <p style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.6; margin: 0 0 20px;">
+            The 5-floor residential composition integrates floor-to-ceiling insulated glass systems, deep bronze solar louvers, and private balconies that frame tranquil outdoor views. Rather than maximizing building coverage at the expense of environment, the development sets aside approximately 85.87% of the ~885.399 sq. m site area for lush landscaped grounds, leisure decks, and open-air enjoyment, with 27 dedicated on-site parking spaces designed to protect serene pedestrian garden circulation.
+          </p>
+
+          <ul class="cau-spec-list">
+            <li class="cau-spec-item">
+              <span class="cau-spec-check">✓</span>
+              <span>Projecting cantilevered balconies with frameless structural glass balustrades</span>
+            </li>
+            <li class="cau-spec-item">
+              <span class="cau-spec-check">✓</span>
+              <span>Recessed garden terraces providing natural cross-ventilation</span>
+            </li>
+            <li class="cau-spec-item">
+              <span class="cau-spec-check">✓</span>
+              <span>Bespoke architectural screening fins for privacy and solar shading</span>
+            </li>
+            <li class="cau-spec-item">
+              <span class="cau-spec-check">✓</span>
+              <span>Concealed ambient LED lighting emphasizing clean geometric lines at dusk</span>
+            </li>
+          </ul>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="#gallery" class="cau-btn-secondary" style="padding: 12px 22px; font-size: 0.85rem;">
+              <span>View Architectural Gallery</span> &rarr;
+            </a>
+            <a href="#plans" class="cau-btn-outline-gold" style="padding: 12px 22px; font-size: 0.85rem;">
+              <span>Inspect Floor Plans</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. LIFESTYLE & AMENITIES SECTION -->
+    <section id="amenities" style="margin-bottom: 84px;">
+      <div class="cau-section-header">
+        <span class="cau-section-eyebrow">Curated Living Experience</span>
+        <h2 class="cau-section-title">Lifestyle &amp; Amenities</h2>
+        <p class="cau-section-desc">
+          Every amenity is thoughtfully integrated to elevate daily life, fostering an urban sanctuary of wellness, leisure, and exclusivity in Lekki Phase 1.
+        </p>
+      </div>
+
+      <div class="cau-amenities-grid">
+        <!-- Amenity 1 -->
+        <div class="cau-amenity-card">
+          <div class="cau-amenity-icon">🏊</div>
+          <h3>Swimming Pool</h3>
+          <p>
+            A dedicated pool area designed as part of the residential lifestyle experience, featuring a treated lap pool, sun deck, and shaded poolside cabana loungers.
+          </p>
+        </div>
+
+        <!-- Amenity 2 -->
+        <div class="cau-amenity-card">
+          <div class="cau-amenity-icon">🏋️</div>
+          <h3>Private Gym</h3>
+          <p>
+            A dedicated fitness area within the development, enclosed with panoramic floor-to-ceiling glass overlooking the pool garden, equipped for cardio and strength training.
+          </p>
+        </div>
+
+        <!-- Amenity 3 -->
+        <div class="cau-amenity-card">
+          <div class="cau-amenity-icon">🌅</div>
+          <h3>Balconies &amp; Terraces</h3>
+          <p>
+            Private outdoor spaces integrated into the residential units, offering residents seamless indoor-outdoor relaxation with open views of the Lekki cityscape.
+          </p>
+        </div>
+
+        <!-- Amenity 4 -->
+        <div class="cau-amenity-card">
+          <div class="cau-amenity-icon">🌿</div>
+          <h3>Landscaped Environment</h3>
+          <p>
+            Carefully planned external areas, greenery and pedestrian/garden spaces. The site design reserves approximately 85.87% unbuilt space for lush tropical landscaping.
+          </p>
+        </div>
+
+        <!-- Amenity 5 -->
+        <div class="cau-amenity-card">
+          <div class="cau-amenity-icon">🚗</div>
+          <h3>Secure Parking</h3>
+          <p>
+            The approved architectural proposal provides 27 parking spaces with generous turning radii, controlled automated access gate, and 24/7 security monitoring.
+          </p>
+        </div>
+
+        <!-- Amenity 6 -->
+        <div class="cau-amenity-card">
+          <div class="cau-amenity-icon">🛋️</div>
+          <h3>Contemporary Residential Living</h3>
+          <p>
+            Modern interiors presented around spacious living/dining areas, chef-grade kitchens, en-suite bedrooms, spa-like bathrooms and balconies detailed in the architectural plans.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. ARCHITECTURAL GALLERY -->
+    <section id="gallery" class="cau-gallery-wrapper">
+      <div class="cau-section-header">
+        <span class="cau-section-eyebrow">Architectural Visualizations</span>
+        <h2 class="cau-section-title">Visualizing The Development</h2>
+        <p class="cau-section-desc">
+          Click any render to view in high-resolution full-screen architectural gallery mode.
+        </p>
+      </div>
+
+      <div class="cau-gallery-grid">
+        <!-- Primary Image: Front Exterior View -->
+        <div class="cau-gallery-item" onclick="openLightbox('../images/cau-development/front-exterior-render.jpg', 'Front exterior view – Proposed Residential Development by CAU Properties Limited, No. 10 Ayo Jagun Street, Lekki Phase 1, Lagos');">
+          <img src="../images/cau-development/front-exterior-render.jpg" alt="Front exterior view - No. 10 Ayo Jagun Street, Lekki Phase 1">
+          <button type="button" class="cau-expand-btn" aria-label="Expand image">⛶</button>
+          <div class="cau-gallery-overlay">
+            <h3 class="cau-gallery-title">Front exterior view</h3>
+            <span class="cau-gallery-sub">🔍 Tap to inspect full-resolution render</span>
+          </div>
+        </div>
+
+        <!-- Secondary Image: Rear/Side Architectural View -->
+        <div class="cau-gallery-item" onclick="openLightbox('../images/cau-development/rear-exterior-render.jpg', 'Rear/side architectural view – Private swimming pool, glass gym pavilion, and landscaped outdoor grounds (85.87% unbuilt space)');">
+          <img src="../images/cau-development/rear-exterior-render.jpg" alt="Rear/side architectural view - Swimming pool & Gym pavilion">
+          <button type="button" class="cau-expand-btn" aria-label="Expand image">⛶</button>
+          <div class="cau-gallery-overlay">
+            <h3 class="cau-gallery-title">Rear/side architectural view</h3>
+            <span class="cau-gallery-sub">🏊 Pool deck, gym pavilion &amp; landscaped space</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FLOOR PLANS SECTION ("Explore the Architectural Plans") -->
+    <section id="plans" class="cau-plans-section">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        <div>
+          <span class="cau-section-eyebrow" style="text-align: left;">Approved Design Documentation</span>
+          <h2 class="cau-section-title" style="text-align: left; margin-bottom: 8px;">Explore the Architectural Plans</h2>
+          <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">
+            Site Area: ~885.399 sq. m &bull; 85.87% Unbuilt Space &bull; 27 Parking Spaces &bull; 5 Floors
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="../docs/AYO_JAGUN_ARCHITECTURAL_DRAWING.pdf" download="AYO_JAGUN_ARCHITECTURAL_DRAWING.pdf" class="cau-btn-primary" style="padding: 12px 20px; font-size: 0.85rem;">
+            <span>📥 Download Architectural PDF</span>
+          </a>
+          <button type="button" class="cau-btn-secondary" style="padding: 12px 20px; font-size: 0.85rem;" onclick="openFullscreenDrawing();">
+            <span>⛶ Open Fullscreen Viewer</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Residential Layouts Overview Note -->
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 22px 26px; margin-bottom: 28px;">
+        <p style="color: #cbd5e1; font-size: 0.94rem; line-height: 1.65; margin: 0 0 12px;">
+          The architectural plans showcase residential layouts composed with spacious living rooms, dedicated dining areas, chef-grade kitchens, en-suite bedrooms, contemporary bathrooms, utility stores, and private balconies &amp; terraces designed to maximize natural light and cross-ventilation.
+        </p>
+        <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.84rem; color: #fce7b0; line-height: 1.55; background: rgba(197, 160, 89, 0.08); padding: 12px 18px; border-radius: 10px; border-left: 3px solid var(--cau-gold);">
+          <span style="font-size: 1.1rem; flex-shrink: 0;">ℹ️</span>
+          <span><strong>Private Marketing Allocation:</strong> The architectural drawings illustrate residential layouts featuring living rooms, dining areas, kitchens, bedrooms, bathrooms, stores and balconies. Specific unit mix configurations (such as 2-bed, 3-bed, or 4-bed allocations) and individual unit sizing remain private until developer marketing commences. Prospective buyers and diaspora investors are invited to register below to receive project information and confidential layout presentations directly.</span>
+        </div>
+      </div>
+
+      <!-- Plan Navigation Tabs -->
+      <div class="cau-tabs-nav" id="plansTabList">
+        <button type="button" class="cau-tab-btn active" data-sheet="site">📍 Site Plan</button>
+        <button type="button" class="cau-tab-btn" data-sheet="ground">🚗 Ground Floor</button>
+        <button type="button" class="cau-tab-btn" data-sheet="first">🏢 First Floor</button>
+        <button type="button" class="cau-tab-btn" data-sheet="second">🛋️ Second Floor</button>
+        <button type="button" class="cau-tab-btn" data-sheet="third">🌅 Third Floor</button>
+        <button type="button" class="cau-tab-btn" data-sheet="pent">👑 Pent Floor</button>
+        <button type="button" class="cau-tab-btn" data-sheet="roof">☀️ Roof Plan</button>
+        <button type="button" class="cau-tab-btn" data-sheet="sections">📐 Sections &amp; Elevations</button>
+      </div>
+
+      <!-- Architectural Drawing Viewer Box -->
+      <div class="cau-drawing-viewer-box" id="drawingContainer">
+        <div class="cau-viewer-controls">
+          <button type="button" class="cau-control-btn" onclick="zoomDrawing(1.2)" title="Zoom in">+</button>
+          <button type="button" class="cau-control-btn" onclick="zoomDrawing(0.8)" title="Zoom out">&minus;</button>
+          <button type="button" class="cau-control-btn" onclick="resetZoomDrawing()" title="Reset view">Reset</button>
+          <button type="button" class="cau-control-btn" onclick="openFullscreenDrawing()" title="Full screen">⛶ Fullscreen</button>
+        </div>
+
+        <div id="drawingGraphicWrap" style="width: 100%; max-width: 960px; transition: transform 0.2s ease; transform-origin: center center;">
+          <!-- Interactive SVG Architectural Drawing will be injected here -->
+        </div>
+      </div>
+
+      <!-- Disclaimer Note -->
+      <div class="cau-disclaimer-box">
+        <div style="font-size: 1.5rem; color: var(--cau-gold);">⚖️</div>
+        <div>
+          <div class="cau-disclaimer-title">Official Architectural &amp; Planning Disclaimer</div>
+          <p class="cau-disclaimer-text">
+            “All plans, layouts, dimensions, specifications and proposed amenities are subject to final approval, construction requirements and possible design revisions.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. DEVELOPER PROFILE & EXCLUSIVE ENQUIRY FORM -->
+    <section id="developer" class="cau-developer-section">
+      <!-- Developer Info & Direct Contact Hub -->
+      <div class="cau-developer-card">
+        <div>
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 24px;">
+            <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(197, 160, 89, 0.15); border: 1px solid var(--cau-gold); color: var(--cau-gold-light); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800;">
+              🏛️
+            </div>
+            <div>
+              <span style="color: var(--cau-gold); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;">Corporate Real Estate Developer</span>
+              <h3 style="font-size: 1.5rem; font-weight: 800; color: #ffffff; margin: 2px 0 0;">CAU Properties Limited</h3>
+            </div>
+          </div>
+
+          <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; margin: 0 0 18px;">
+            <strong>CAU Properties Limited</strong> is an institutional Nigerian real estate development firm committed to creating landmark residential and commercial developments characterized by uncompromising structural integrity, contemporary aesthetics, and sustainable community living.
+          </p>
+
+          <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6; margin: 0 0 28px;">
+            This proposed residential development at <strong>No. 10 Ayo Jagun Street, Lekki Phase 1</strong> reflects our philosophy of optimizing urban site efficiency while giving residents generous open space, pristine lifestyle amenities, and enduring capital value.
+          </p>
+
+          <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: #e2e8f0;">
+              <span style="color: var(--cau-gold); font-size: 1.1rem;">📍</span>
+              <span>Project Address: No. 10 Ayo Jagun Street, Lekki Phase 1, Eti-Osa LGA, Lagos</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: #e2e8f0;">
+              <span style="color: var(--cau-gold); font-size: 1.1rem;">📞</span>
+              <span>Developer Desk: +234 803 245 8891 / +234 802 119 4432</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: #e2e8f0;">
+              <span style="color: var(--cau-gold); font-size: 1.1rem;">✉️</span>
+              <span>Direct Enquiries: enquiries@cauproperties.ng</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Contact Buttons Row -->
+        <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 10px;">
+          <a href="https://wa.me/2348032458891?text=Hello%20CAU%20Properties%20Limited%2C%20I%20am%20inquiring%20about%20the%20Proposed%20Residential%20Development%20at%20No.%2010%20Ayo%20Jagun%20Street%2C%20Lekki%20Phase%201." target="_blank" style="background: #25d366; color: #ffffff; padding: 14px 22px; border-radius: 12px; font-weight: 800; font-size: 0.88rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+            <span>💬</span>
+            <span>Chat on WhatsApp</span>
+          </a>
+
+          <div style="display: flex; gap: 10px;">
+            <a href="tel:+2348032458891" class="cau-btn-secondary" style="flex: 1; justify-content: center; padding: 12px 16px; font-size: 0.84rem;">
+              <span>📞 Call Developer</span>
+            </a>
+            <a href="mailto:enquiries@cauproperties.ng?subject=Project%20Information%20Request:%20CAU%20Properties%20Lekki%20Phase%201" class="cau-btn-outline-gold" style="flex: 1; justify-content: center; padding: 12px 16px; font-size: 0.84rem;">
+              <span>✉️ Send Email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Developer Enquiry Form -->
+      <div class="cau-enquiry-card" id="enquiry">
+        <span class="cau-section-eyebrow" style="text-align: left;">Direct Developer Desk</span>
+        <h3 style="font-size: 1.6rem; font-weight: 800; color: #ffffff; margin: 0 0 8px;">Request Project Information</h3>
+        <p style="color: #94a3b8; font-size: 0.85rem; margin: 0 0 24px; line-height: 1.5;">
+          Register directly with CAU Properties Limited to receive verified architectural documentation, upcoming project updates, and priority private notifications for this upcoming Lekki Phase 1 residential development.
+        </p>
+
+        <form id="cauEnquiryForm">
+          <div class="cau-input-group">
+            <label class="cau-input-label" for="cauName">Name *</label>
+            <input type="text" id="cauName" class="cau-input-field" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="cau-input-group">
+            <label class="cau-input-label" for="cauPhone">Phone *</label>
+            <input type="tel" id="cauPhone" class="cau-input-field" placeholder="+234 800 000 0000" required>
+          </div>
+
+          <div class="cau-input-group">
+            <label class="cau-input-label" for="cauEmail">Email *</label>
+            <input type="email" id="cauEmail" class="cau-input-field" placeholder="your.name@example.com" required>
+          </div>
+
+          <div class="cau-input-group">
+            <label class="cau-input-label" for="cauContactMethod">Preferred Contact Method *</label>
+            <select id="cauContactMethod" class="cau-input-field" required style="cursor: pointer;">
+              <option value="WhatsApp" selected>WhatsApp (Direct Message)</option>
+              <option value="Phone Call">Phone Call</option>
+              <option value="Email">Email</option>
+            </select>
+          </div>
+
+          <div class="cau-input-group">
+            <label class="cau-input-label" for="cauMessage">Message</label>
+            <textarea id="cauMessage" class="cau-input-field" rows="4" placeholder="Kindly provide project information and upcoming release updates for No. 10 Ayo Jagun Street, Lekki Phase 1."></textarea>
+          </div>
+
+          <button type="submit" class="cau-btn-primary" style="width: 100%; justify-content: center; box-sizing: border-box; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.04em; padding: 16px 24px;">
+            <span>REQUEST PROJECT INFORMATION</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- 10. LIGHTBOX MODAL -->
+  <div class="cau-lightbox-overlay" id="cauLightbox" onclick="closeLightbox(event)">
+    <div class="cau-lightbox-content">
+      <button type="button" class="cau-lightbox-close" onclick="closeLightbox()">&times;</button>
+      <img id="cauLightboxImg" src="" alt="Architectural Render">
+      <div class="cau-lightbox-caption" id="cauLightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- 11. FULLSCREEN DRAWING MODAL -->
+  <div class="cau-lightbox-overlay" id="cauDrawingModal" onclick="closeDrawingModal(event)">
+    <div class="cau-lightbox-content" style="max-width: 95vw; width: 95vw; background: #090e0c; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 24px; box-sizing: border-box;">
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 16px;">
+        <div>
+          <h3 id="modalDrawingTitle" style="color: #ffffff; margin: 0; font-size: 1.2rem;">Architectural Plan</h3>
+          <span style="color: var(--cau-gold); font-size: 0.78rem;">CAU Properties Limited &bull; No. 10 Ayo Jagun Street, Lekki Phase 1</span>
+        </div>
+        <button type="button" class="cau-lightbox-close" style="position: static; font-size: 1.8rem;" onclick="closeDrawingModal()">&times;</button>
+      </div>
+      <div id="modalDrawingSvgWrap" style="width: 100%; max-height: 75vh; overflow: auto; display: flex; justify-content: center;"></div>
+    </div>
+  </div>
+
+  <!-- 12. STICKY MOBILE ENQUIRY BAR -->
+  <div class="cau-sticky-mobile-bar">
+    <div>
+      <div style="font-size: 0.72rem; color: var(--cau-gold); font-weight: 800; text-transform: uppercase;">Lekki Phase 1</div>
+      <div style="font-size: 0.85rem; font-weight: 800; color: #ffffff;">CAU Properties Ltd</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <a href="https://wa.me/2348032458891?text=Hello%20CAU%20Properties%2C%20I%20am%20inquiring%20about%20the%20Lekki%20Phase%201%20Development." target="_blank" style="background: #25d366; color: #ffffff; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 0.82rem; display: flex; align-items: center; gap: 4px;">
+        <span>💬</span>
+      </a>
+      <a href="#enquiry" class="cau-btn-primary" style="padding: 10px 18px; font-size: 0.82rem;">
+        <span>Enquire Now</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- 13. FOOTER -->
+  <footer style="background: #060a08; border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 56px 24px 36px; color: #94a3b8; font-size: 0.85rem;">
+    <div class="hh-footer-grid cau-container">
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+          <div style="background: var(--cau-gold); color: #000000; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800;">CAU</div>
+          <span style="color: #ffffff; font-weight: 800; font-size: 1.1rem;">CAU PROPERTIES <span style="color: var(--cau-gold);">LTD</span></span>
+        </div>
+        <p style="line-height: 1.6; margin: 0 0 16px; max-width: 320px;">
+          Proposed 5-Floor Residential Development at No. 10 Ayo Jagun Street, Lekki Phase 1, Eti-Osa LGA, Lagos State, Nigeria.
+        </p>
+        <p style="color: #64748b; font-size: 0.8rem;">
+          &copy; 2026 CAU Properties Limited. All Rights Reserved. Hosted on NaijaHomes.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color: #ffffff; font-size: 0.95rem; font-weight: 700; margin: 0 0 14px;">Project Documentation</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+          <li><a href="../docs/AYO_JAGUN_ARCHITECTURAL_DRAWING.pdf" download="AYO_JAGUN_ARCHITECTURAL_DRAWING.pdf" style="color: #94a3b8; text-decoration: none;">Download Architectural Plans (PDF)</a></li>
+          <li><a href="#plans" style="color: #94a3b8; text-decoration: none;">Site Plan &amp; Layout</a></li>
+          <li><a href="#plans" style="color: #94a3b8; text-decoration: none;">Ground Floor (27 Parking)</a></li>
+          <li><a href="#plans" style="color: #94a3b8; text-decoration: none;">Penthouse Floor Plans</a></li>
+          <li><a href="#plans" style="color: #94a3b8; text-decoration: none;">Sections &amp; Elevations</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: #ffffff; font-size: 0.95rem; font-weight: 700; margin: 0 0 14px;">NaijaHomes Network</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+          <li><a href="../index.html" style="color: #94a3b8; text-decoration: none;">NaijaHomes Portal</a></li>
+          <li><a href="../explore.html?purpose=sale&location=Lekki" style="color: #94a3b8; text-decoration: none;">Properties in Lekki Phase 1</a></li>
+          <li><a href="../map.html" style="color: #94a3b8; text-decoration: none;">Lagos Property Google Map</a></li>
+          <li><a href="../signin.html" style="color: #94a3b8; text-decoration: none;">Investor Sign In / Account</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: #ffffff; font-size: 0.95rem; font-weight: 700; margin: 0 0 14px;">Developer Contact</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+          <li><span>📍 No. 10 Ayo Jagun St, Lekki Phase 1, Lagos</span></li>
+          <li><span>📞 +234 803 245 8891</span></li>
+          <li><span>✉️ enquiries@cauproperties.ng</span></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/homehaven.js"></script>
+  <script src="../js/scroll-3d.js"></script>
+
+  <script>
+    // 1. Interactive Architectural SVG Vector Blueprint Engine
+    const DRAWING_SHEETS = {
+      site: {
+        title: "SHEET A-01: SITE PLAN & MASTER GROUND LAYOUT",
+        scale: "SCALE 1:200",
+        desc: "Site Area: ~885.399 sq. m | Built Footprint: 14.13% | Unbuilt Green & Parking Space: 85.87%",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <!-- Perimeter Plot Boundary -->
+            <rect x="40" y="40" width="800" height="440" fill="none" stroke="#c5a059" stroke-width="2.5" stroke-dasharray="12 4"/>
+            <text x="50" y="32" fill="#c5a059" font-size="12" font-weight="bold">SITE BOUNDARY LINE - TOTAL PLOT AREA: 885.399 SQ. M</text>
+            
+            <!-- Road Frontage -->
+            <rect x="40" y="450" width="800" height="30" fill="#141a17"/>
+            <text x="320" y="470" fill="#e2e8f0" font-size="13" font-weight="bold">AYO JAGUN STREET (LEKKI PHASE 1)</text>
+            <line x1="40" y1="450" x2="840" y2="450" stroke="#94a3b8" stroke-width="1.5"/>
+
+            <!-- Main Entrance Gate -->
+            <rect x="360" y="440" width="120" height="10" fill="#008751"/>
+            <text x="375" y="435" fill="#10b981" font-size="10" font-weight="bold">ACCESS GATE</text>
+
+            <!-- 85.87% Unbuilt Landscaped & Circulation Zone -->
+            <rect x="50" y="50" width="780" height="390" fill="rgba(0, 135, 81, 0.04)"/>
+            <text x="70" y="75" fill="#10b981" font-size="12" font-weight="bold">85.87% UNBUILT GREEN &amp; LANDSCAPED BUFFER</text>
+
+            <!-- 27 Parking Spaces Layout -->
+            <!-- Left Parking Row (14 bays) -->
+            <g fill="#121815" stroke="#475569" stroke-width="1">
+              <rect x="60" y="100" width="70" height="25"/><text x="75" y="117" fill="#94a3b8" font-size="9">P-01</text>
+              <rect x="60" y="130" width="70" height="25"/><text x="75" y="147" fill="#94a3b8" font-size="9">P-02</text>
+              <rect x="60" y="160" width="70" height="25"/><text x="75" y="177" fill="#94a3b8" font-size="9">P-03</text>
+              <rect x="60" y="190" width="70" height="25"/><text x="75" y="207" fill="#94a3b8" font-size="9">P-04</text>
+              <rect x="60" y="220" width="70" height="25"/><text x="75" y="237" fill="#94a3b8" font-size="9">P-05</text>
+              <rect x="60" y="250" width="70" height="25"/><text x="75" y="267" fill="#94a3b8" font-size="9">P-06</text>
+              <rect x="60" y="280" width="70" height="25"/><text x="75" y="297" fill="#94a3b8" font-size="9">P-07</text>
+              <rect x="60" y="310" width="70" height="25"/><text x="75" y="327" fill="#94a3b8" font-size="9">P-08</text>
+              <rect x="60" y="340" width="70" height="25"/><text x="75" y="357" fill="#94a3b8" font-size="9">P-09</text>
+              <rect x="60" y="370" width="70" height="25"/><text x="75" y="387" fill="#94a3b8" font-size="9">P-10</text>
+            </g>
+
+            <!-- Right Parking Row (13 bays + gatehouse) -->
+            <g fill="#121815" stroke="#475569" stroke-width="1">
+              <rect x="750" y="100" width="70" height="25"/><text x="765" y="117" fill="#94a3b8" font-size="9">P-11</text>
+              <rect x="750" y="130" width="70" height="25"/><text x="765" y="147" fill="#94a3b8" font-size="9">P-12</text>
+              <rect x="750" y="160" width="70" height="25"/><text x="765" y="177" fill="#94a3b8" font-size="9">P-13</text>
+              <rect x="750" y="190" width="70" height="25"/><text x="765" y="207" fill="#94a3b8" font-size="9">P-14</text>
+              <rect x="750" y="220" width="70" height="25"/><text x="765" y="237" fill="#94a3b8" font-size="9">P-15</text>
+              <rect x="750" y="250" width="70" height="25"/><text x="765" y="267" fill="#94a3b8" font-size="9">P-16</text>
+              <rect x="750" y="280" width="70" height="25"/><text x="765" y="297" fill="#94a3b8" font-size="9">P-17</text>
+              <rect x="750" y="310" width="70" height="25"/><text x="765" y="327" fill="#94a3b8" font-size="9">P-18</text>
+              <rect x="750" y="340" width="70" height="25"/><text x="765" y="357" fill="#94a3b8" font-size="9">P-19</text>
+              <rect x="750" y="370" width="70" height="25"/><text x="765" y="387" fill="#94a3b8" font-size="9">P-20 to 27</text>
+            </g>
+
+            <!-- Swimming Pool & Sun Deck -->
+            <rect x="180" y="80" width="160" height="80" rx="8" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+            <text x="210" y="125" fill="#ffffff" font-size="12" font-weight="bold">SWIMMING POOL</text>
+            <rect x="160" y="70" width="200" height="100" fill="none" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <text x="180" y="185" fill="#d97706" font-size="10">TIMBER SUN DECK</text>
+
+            <!-- Private Gym Pavilion -->
+            <rect x="360" y="80" width="140" height="80" rx="6" fill="#1e293b" stroke="#008751" stroke-width="2"/>
+            <text x="390" y="125" fill="#a7f3d0" font-size="12" font-weight="bold">PRIVATE GYM</text>
+
+            <!-- Main Building Footprint (5 Floors) -->
+            <rect x="220" y="200" width="440" height="210" rx="10" fill="#1a231f" stroke="#c5a059" stroke-width="3"/>
+            <text x="320" y="290" fill="#ffffff" font-size="16" font-weight="bold">PROPOSED 5-FLOOR TOWER</text>
+            <text x="355" y="315" fill="#c5a059" font-size="12">FOOTPRINT: ~125.1 SQ. M</text>
+            <text x="330" y="340" fill="#94a3b8" font-size="11">CAU PROPERTIES LIMITED</text>
+
+            <!-- Title Block -->
+            <rect x="560" y="360" width="270" height="110" fill="#0b110e" stroke="#c5a059" stroke-width="1.5"/>
+            <text x="575" y="380" fill="#c5a059" font-size="10" font-weight="bold">CAU PROPERTIES LIMITED</text>
+            <text x="575" y="398" fill="#ffffff" font-size="9">PROPOSED RESIDENTIAL DEVELOPMENT</text>
+            <text x="575" y="414" fill="#94a3b8" font-size="8">NO. 10 AYO JAGUN ST, LEKKI PHASE 1, LAGOS</text>
+            <text x="575" y="432" fill="#10b981" font-size="8">SHEET: A-01 | SITE PLAN | SCALE 1:200</text>
+            <text x="575" y="448" fill="#e2e8f0" font-size="8">27 PARKING SPACES | 85.87% UNBUILT SPACE</text>
+          </svg>
+        `
+      },
+      ground: {
+        title: "SHEET A-02: GROUND FLOOR PLAN & PARKING SPACES",
+        scale: "SCALE 1:100",
+        desc: "27 Approved Parking Bays, Gated Security Post, Double Reception Lobby & Vertical Access Core",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <rect x="60" y="60" width="760" height="400" fill="#111815" stroke="#c5a059" stroke-width="2"/>
+            
+            <!-- Reception Foyer -->
+            <rect x="340" y="320" width="200" height="120" fill="#1b2520" stroke="#008751" stroke-width="1.5"/>
+            <text x="365" y="375" fill="#ffffff" font-size="13" font-weight="bold">MAIN RECEPTION FOYER</text>
+            <text x="400" y="395" fill="#a7f3d0" font-size="10">CONCIERGE DESK</text>
+
+            <!-- Lift Core & Stairs -->
+            <rect x="400" y="210" width="80" height="80" fill="#0f172a" stroke="#cbd5e1" stroke-width="2"/>
+            <text x="415" y="245" fill="#f8fafc" font-size="11" font-weight="bold">LIFT</text>
+            <text x="410" y="265" fill="#38bdf8" font-size="9">PASSENGER</text>
+
+            <!-- Staircase -->
+            <rect x="490" y="210" width="80" height="80" fill="#18221d" stroke="#cbd5e1" stroke-width="1.5"/>
+            <line x1="490" y1="230" x2="570" y2="230" stroke="#475569"/>
+            <line x1="490" y1="250" x2="570" y2="250" stroke="#475569"/>
+            <line x1="490" y1="270" x2="570" y2="270" stroke="#475569"/>
+            <text x="505" y="225" fill="#94a3b8" font-size="9">FIRE ESCAPE</text>
+
+            <!-- Parking bays outline (1-27) -->
+            <g fill="none" stroke="#475569" stroke-width="1">
+              <rect x="80" y="80" width="60" height="30"/><text x="95" y="100" fill="#94a3b8" font-size="9">BAY 01</text>
+              <rect x="80" y="120" width="60" height="30"/><text x="95" y="140" fill="#94a3b8" font-size="9">BAY 02</text>
+              <rect x="80" y="160" width="60" height="30"/><text x="95" y="180" fill="#94a3b8" font-size="9">BAY 03</text>
+              <rect x="80" y="200" width="60" height="30"/><text x="95" y="220" fill="#94a3b8" font-size="9">BAY 04</text>
+              <rect x="80" y="240" width="60" height="30"/><text x="95" y="260" fill="#94a3b8" font-size="9">BAY 05</text>
+              <rect x="80" y="280" width="60" height="30"/><text x="95" y="300" fill="#94a3b8" font-size="9">BAY 06</text>
+              <rect x="80" y="320" width="60" height="30"/><text x="95" y="340" fill="#94a3b8" font-size="9">BAY 07</text>
+              <rect x="80" y="360" width="60" height="30"/><text x="95" y="380" fill="#94a3b8" font-size="9">BAY 08</text>
+            </g>
+
+            <rect x="200" y="80" width="220" height="90" rx="8" fill="#141f1a" stroke="#008751" stroke-width="1.5"/>
+            <text x="230" y="130" fill="#a7f3d0" font-size="12" font-weight="bold">FITNESS GYM PAVILION</text>
+
+            <text x="440" y="480" fill="#c5a059" font-size="12" font-weight="bold" text-anchor="middle">GROUND LEVEL ACCESS &amp; 27 PARKING SPACES ALLOCATION</text>
+          </svg>
+        `
+      },
+      first: {
+        title: "SHEET A-03: FIRST FLOOR RESIDENTIAL PLAN",
+        scale: "SCALE 1:100",
+        desc: "Contemporary Multi-Unit Layout, Glazed Living Suites, Open Kitchens & Projecting Balconies",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <rect x="100" y="80" width="680" height="360" fill="#111815" stroke="#c5a059" stroke-width="2"/>
+            
+            <!-- Living Area Unit A -->
+            <rect x="120" y="100" width="260" height="180" fill="#16221c" stroke="#475569"/>
+            <text x="170" y="180" fill="#ffffff" font-size="13" font-weight="bold">LIVING &amp; DINING (SUITE A)</text>
+            <text x="180" y="205" fill="#94a3b8" font-size="10">SPACIOUS OPEN-CONCEPT</text>
+
+            <!-- Projecting Balcony A -->
+            <rect x="50" y="120" width="50" height="140" fill="rgba(197, 160, 89, 0.15)" stroke="#c5a059" stroke-width="2"/>
+            <text x="60" y="195" fill="#c5a059" font-size="10" transform="rotate(-90 60 195)">BALCONY A</text>
+
+            <!-- Living Area Unit B -->
+            <rect x="500" y="100" width="260" height="180" fill="#16221c" stroke="#475569"/>
+            <text x="550" y="180" fill="#ffffff" font-size="13" font-weight="bold">LIVING &amp; DINING (SUITE B)</text>
+
+            <!-- Projecting Balcony B -->
+            <rect x="780" y="120" width="50" height="140" fill="rgba(197, 160, 89, 0.15)" stroke="#c5a059" stroke-width="2"/>
+            <text x="815" y="195" fill="#c5a059" font-size="10" transform="rotate(90 815 195)">BALCONY B</text>
+
+            <!-- Central Core -->
+            <rect x="400" y="140" width="80" height="140" fill="#0b110e" stroke="#38bdf8"/>
+            <text x="415" y="215" fill="#38bdf8" font-size="10">LOBBY / LIFT</text>
+
+            <!-- Bedrooms Zone -->
+            <rect x="120" y="300" width="310" height="120" fill="#141c18" stroke="#334155"/>
+            <text x="210" y="365" fill="#e2e8f0" font-size="11">EN-SUITE BEDROOM SUITES</text>
+
+            <rect x="450" y="300" width="310" height="120" fill="#141c18" stroke="#334155"/>
+            <text x="540" y="365" fill="#e2e8f0" font-size="11">EN-SUITE BEDROOM SUITES</text>
+
+            <text x="440" y="475" fill="#c5a059" font-size="12" font-weight="bold" text-anchor="middle">FIRST LEVEL: EXPANSIVE GLAZED RESIDENCES &amp; RECESSED TERRACES</text>
+          </svg>
+        `
+      },
+      second: {
+        title: "SHEET A-04: SECOND FLOOR RESIDENTIAL PLAN",
+        scale: "SCALE 1:100",
+        desc: "Typical Floor Layout, Panoramic Balconies, Private Terraces & Fitted Kitchens",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <rect x="100" y="80" width="680" height="360" fill="#111815" stroke="#c5a059" stroke-width="2"/>
+            <text x="440" y="260" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">SECOND FLOOR: TYPICAL RESIDENTIAL RESIDENCES</text>
+            <text x="440" y="290" fill="#94a3b8" font-size="11" text-anchor="middle">PROJECTING BALCONIES &bull; HIGH GLAZED OPENINGS &bull; EN-SUITE ROOMS</text>
+          </svg>
+        `
+      },
+      third: {
+        title: "SHEET A-05: THIRD FLOOR RESIDENTIAL PLAN",
+        scale: "SCALE 1:100",
+        desc: "Upper Level Residences with Bronze Architectural Shading & Cantilevered Corners",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <rect x="100" y="80" width="680" height="360" fill="#111815" stroke="#c5a059" stroke-width="2"/>
+            <text x="440" y="260" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">THIRD FLOOR: EXECUTIVE RESIDENTIAL LEVEL</text>
+            <text x="440" y="290" fill="#94a3b8" font-size="11" text-anchor="middle">ARCHITECTURAL SCREENING FINS &bull; DEEP CORNER TERRACES</text>
+          </svg>
+        `
+      },
+      pent: {
+        title: "SHEET A-06: PENT FLOOR RESIDENTIAL PLAN",
+        scale: "SCALE 1:100",
+        desc: "Exclusive Penthouse Level with Private Panoramic Sky Terraces Overlooking Lekki",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <rect x="130" y="100" width="620" height="320" fill="#16221c" stroke="#c5a059" stroke-width="2.5"/>
+            <!-- Wrap-around sky terrace -->
+            <rect x="100" y="80" width="680" height="360" fill="none" stroke="#e6ca85" stroke-width="2" stroke-dasharray="8 4"/>
+            <text x="440" y="240" fill="#e6ca85" font-size="16" font-weight="bold" text-anchor="middle">TOP LEVEL: ULTRA-LUXURY PENTHOUSE RESIDENCES</text>
+            <text x="440" y="270" fill="#ffffff" font-size="12" text-anchor="middle">PRIVATE SKY TERRACES &bull; PANORAMIC 360° LEKKI PHASE 1 HORIZON</text>
+          </svg>
+        `
+      },
+      roof: {
+        title: "SHEET A-07: ROOF PLAN & DRAINAGE LAYOUT",
+        scale: "SCALE 1:100",
+        desc: "Reinforced Concrete Roof Deck, Rainwater Downpipes & Solar Installation Platform",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <rect x="120" y="90" width="640" height="340" fill="#141c18" stroke="#64748b" stroke-width="2"/>
+            <text x="440" y="250" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">ROOF TERRACE &amp; SOLAR HARVESTING PLATFORM</text>
+            <text x="440" y="280" fill="#94a3b8" font-size="11" text-anchor="middle">CENTRAL CONDENSER DECK &bull; ELEVATOR OVERRUN &bull; PARAPET UPSTAND</text>
+          </svg>
+        `
+      },
+      elevations: {
+        title: "SHEET A-08: SECTIONS & ARCHITECTURAL ELEVATIONS",
+        scale: "SCALE 1:100",
+        desc: "5 Distinct Architectural Levels, Vertical Core Circulation & Glazed Elevations",
+        svg: `
+          <svg viewBox="0 0 880 520" style="width: 100%; height: auto; font-family: monospace;">
+            <rect width="880" height="520" fill="#080d0a" stroke="#1f2d25" stroke-width="2"/>
+            <!-- 5 Floors Elevation Stacking -->
+            <g stroke="#c5a059" stroke-width="1.5">
+              <rect x="160" y="80" width="560" height="60" fill="#151e1a"/><text x="180" y="115" fill="#f8fafc" font-size="11">FLOOR 5: PENTHOUSE LEVEL (SKY TERRACE)</text>
+              <rect x="160" y="145" width="560" height="60" fill="#121815"/><text x="180" y="180" fill="#f8fafc" font-size="11">FLOOR 4: THIRD LEVEL RESIDENCES (BRONZE LOUVER SHADING)</text>
+              <rect x="160" y="210" width="560" height="60" fill="#151e1a"/><text x="180" y="245" fill="#f8fafc" font-size="11">FLOOR 3: SECOND LEVEL RESIDENCES (GLAZED FACADES)</text>
+              <rect x="160" y="275" width="560" height="60" fill="#121815"/><text x="180" y="310" fill="#f8fafc" font-size="11">FLOOR 2: FIRST LEVEL RESIDENCES (PROJECTING BALCONIES)</text>
+              <rect x="160" y="340" width="560" height="70" fill="#151e1a"/><text x="180" y="380" fill="#10b981" font-size="11">FLOOR 1: GROUND LEVEL (RECEPTION, GYM &amp; 27 PARKING SPACES)</text>
+            </g>
+            <line x1="80" y1="410" x2="800" y2="410" stroke="#94a3b8" stroke-width="2"/>
+            <text x="440" y="440" fill="#e2e8f0" font-size="12" text-anchor="middle">NATURAL GROUND LEVEL (NGL) - NO. 10 AYO JAGUN STREET</text>
+          </svg>
+        `
+      }
+    };
+    DRAWING_SHEETS.sections = DRAWING_SHEETS.elevations;
+
+    let currentSheetKey = "site";
+    let drawingZoom = 1;
+
+    function renderDrawing(key) {
+      currentSheetKey = key;
+      const data = DRAWING_SHEETS[key];
+      if (!data) return;
+
+      const wrap = document.getElementById("drawingGraphicWrap");
+      if (wrap) {
+        wrap.innerHTML = data.svg;
+        wrap.style.transform = `scale(${drawingZoom})`;
+      }
+
+      const modalWrap = document.getElementById("modalDrawingSvgWrap");
+      if (modalWrap) {
+        modalWrap.innerHTML = data.svg;
+      }
+      const modalTitle = document.getElementById("modalDrawingTitle");
+      if (modalTitle) {
+        modalTitle.textContent = data.title;
+      }
+    }
+
+    function zoomDrawing(factor) {
+      drawingZoom = Math.min(Math.max(drawingZoom * factor, 0.5), 2.5);
+      const wrap = document.getElementById("drawingGraphicWrap");
+      if (wrap) wrap.style.transform = `scale(${drawingZoom})`;
+    }
+
+    function resetZoomDrawing() {
+      drawingZoom = 1;
+      const wrap = document.getElementById("drawingGraphicWrap");
+      if (wrap) wrap.style.transform = "scale(1)";
+    }
+
+    function openFullscreenDrawing() {
+      const modal = document.getElementById("cauDrawingModal");
+      if (modal) {
+        renderDrawing(currentSheetKey);
+        modal.style.display = "flex";
+      }
+    }
+
+    function closeDrawingModal(e) {
+      if (!e || e.target === document.getElementById("cauDrawingModal") || e.target.classList.contains("cau-lightbox-close")) {
+        document.getElementById("cauDrawingModal").style.display = "none";
+      }
+    }
+
+    // 2. Lightbox Engine for Exterior Architectural Renders
+    function openLightbox(imgSrc, captionText) {
+      const lightbox = document.getElementById("cauLightbox");
+      const img = document.getElementById("cauLightboxImg");
+      const cap = document.getElementById("cauLightboxCaption");
+      if (lightbox && img) {
+        img.src = imgSrc;
+        if (cap) cap.textContent = captionText || "";
+        lightbox.style.display = "flex";
+      }
+    }
+
+    function closeLightbox(e) {
+      if (!e || e.target === document.getElementById("cauLightbox") || e.target.classList.contains("cau-lightbox-close")) {
+        document.getElementById("cauLightbox").style.display = "none";
+      }
+    }
+
+    // Keyboard ESC to close modals
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document.getElementById("cauLightbox").style.display = "none";
+        document.getElementById("cauDrawingModal").style.display = "none";
+      }
+    });
+
+    // 3. Enquiry Form Handler
+    document.addEventListener("DOMContentLoaded", () => {
+      renderDrawing("site");
+
+      // Tab switcher
+      const tabBtns = document.querySelectorAll("#plansTabList .cau-tab-btn");
+      tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const sheetKey = btn.getAttribute("data-sheet");
+          renderDrawing(sheetKey);
+        });
+      });
+
+      // Enquiry form submission (Request Project Information)
+      const form = document.getElementById("cauEnquiryForm");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const name = document.getElementById("cauName").value;
+          const phone = document.getElementById("cauPhone").value;
+          const email = document.getElementById("cauEmail").value;
+          const preferredContact = document.getElementById("cauContactMethod") ? document.getElementById("cauContactMethod").value : "WhatsApp";
+          const msg = document.getElementById("cauMessage").value;
+
+          try {
+            const enquiries = JSON.parse(localStorage.getItem("cau_enquiries") || "[]");
+            enquiries.unshift({
+              id: `cau-enq-${Date.now()}`,
+              project: "CAU Properties Limited – Proposed Residential Development, Lekki Phase 1",
+              name,
+              phone,
+              email,
+              preferredContactMethod: preferredContact,
+              message: msg,
+              date: new Date().toISOString()
+            });
+            localStorage.setItem("cau_enquiries", JSON.stringify(enquiries));
+          } catch (err) {}
+
+          alert(`Thank you ${name}! Your request for project information for CAU Properties Limited (Lekki Phase 1) has been received. Our development desk will reach out via ${preferredContact} shortly.`);
+          form.reset();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
